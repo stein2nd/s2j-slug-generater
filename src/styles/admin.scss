@@ -1,0 +1,201 @@
+@use "variables" as *;
+
+.s2j-settings-card {
+    max-width: 800px;
+    margin-top: $spacing-lg;
+    
+    .components-card__header {
+        background-color: $background-color;
+        border-bottom: 1px solid $border-color;
+        
+        h2 {
+            margin: 0;
+            color: $primary-color;
+            font-size: $font-size-large;
+        }
+    }
+    
+    .components-card__body {
+        padding: $spacing-xl;
+    }
+    
+    // Form controls
+    .components-base-control {
+        margin-bottom: $spacing-lg;
+        
+        .components-base-control__label {
+            font-weight: 600;
+            color: $text-color;
+            margin-bottom: $spacing-sm;
+            display: block;
+            font-size: $font-size-base;
+        }
+        
+        .components-base-control__help {
+            color: #666;
+            font-size: $font-size-small;
+            margin-top: $spacing-xs;
+            font-style: italic;
+        }
+    }
+    
+    // Select control
+    .components-select-control__input {
+        width: 100%;
+        padding: $spacing-sm;
+        border: 1px solid $border-color;
+        border-radius: $border-radius;
+        font-size: $font-size-base;
+        font-family: $font-family;
+        background-color: white;
+        
+        &:focus {
+            border-color: $primary-color;
+            box-shadow: 0 0 0 1px $primary-color;
+            outline: none;
+        }
+    }
+    
+    // Text control
+    .components-text-control__input {
+        width: 100%;
+        padding: $spacing-sm;
+        border: 1px solid $border-color;
+        border-radius: $border-radius;
+        font-size: $font-size-base;
+        font-family: $font-family;
+        
+        &:focus {
+            border-color: $primary-color;
+            box-shadow: 0 0 0 1px $primary-color;
+            outline: none;
+        }
+        
+        &[type="password"] {
+            font-family: monospace;
+        }
+    }
+    
+    // Range control
+    .components-range-control {
+        .components-range-control__slider {
+            width: 100%;
+            margin: $spacing-sm 0;
+        }
+        
+        .components-range-control__value {
+            font-weight: bold;
+            color: $primary-color;
+            font-size: $font-size-base;
+        }
+    }
+    
+    // Description text
+    .description {
+        color: #666;
+        font-size: $font-size-small;
+        margin-top: $spacing-xs;
+        line-height: $line-height-base;
+        
+        a {
+            color: $primary-color;
+            text-decoration: none;
+            
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+    
+    // Threshold display
+    .s2j-threshold-display {
+        background-color: $background-color;
+        padding: $spacing-md;
+        border-radius: $border-radius;
+        border: 1px solid $border-color;
+        margin-bottom: $spacing-lg;
+        text-align: center;
+        
+        strong {
+            color: $primary-color;
+        }
+    }
+    
+    // Submit section
+    .s2j-submit-section {
+        margin-top: $spacing-xl;
+        padding-top: $spacing-lg;
+        border-top: 1px solid $border-color;
+        text-align: center;
+        
+        .s2j-save-button {
+            min-width: 200px;
+            height: 44px;
+            font-size: $font-size-large;
+            
+            .components-spinner {
+                margin-right: $spacing-sm;
+            }
+        }
+    }
+    
+    // Notice styles
+    .components-notice {
+        margin-bottom: $spacing-lg;
+        
+        &.is-success {
+            border-left-color: $success-color;
+        }
+        
+        &.is-error {
+            border-left-color: $error-color;
+        }
+    }
+    
+    // Responsive design
+    @media (max-width: $breakpoint-md) {
+        .components-card__body {
+            padding: $spacing-lg;
+        }
+        
+        .s2j-submit-section {
+            .s2j-save-button {
+                width: 100%;
+                min-width: auto;
+            }
+        }
+    }
+    
+    @media (max-width: $breakpoint-sm) {
+        .components-card__body {
+            padding: $spacing-md;
+        }
+        
+        .s2j-threshold-display {
+            padding: $spacing-sm;
+        }
+    }
+}
+
+// Global admin styles
+.wrap {
+    .s2j-settings-card {
+        margin-top: $spacing-lg;
+    }
+    
+    h1 {
+        color: $primary-color;
+        margin-bottom: $spacing-lg;
+    }
+}
+
+// WordPress admin compatibility
+.wp-admin {
+    .s2j-settings-card {
+        .components-card {
+            border: 1px solid $border-color;
+            border-radius: $border-radius;
+            box-shadow: $box-shadow;
+        }
+    }
+}

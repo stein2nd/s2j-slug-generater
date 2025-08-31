@@ -1,0 +1,43 @@
+// S2J Slug Generator SCSS Variables
+
+// Colors
+$primary-color: #0073aa;
+$secondary-color: #005a87;
+$success-color: #46b450;
+$warning-color: #ffb900;
+$error-color: #dc3232;
+$text-color: #444;
+$border-color: #ddd;
+$background-color: #f9f9f9;
+
+// Typography
+$font-family: -apple-system, blinkmacsystemfont, "Segoe UI", roboto, oxygen-sans, ubuntu, cantarell, "Helvetica Neue", sans-serif;
+$font-size-base: 14px;
+$font-size-small: 12px;
+$font-size-large: 16px;
+$line-height-base: 1.4;
+
+// Spacing
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 16px;
+$spacing-lg: 24px;
+$spacing-xl: 32px;
+
+// Border radius
+$border-radius: 3px;
+$border-radius-large: 6px;
+
+// Shadows
+$box-shadow: 0 1px 3px rgb(0 0 0 / 10%);
+$box-shadow-hover: 0 2px 6px rgb(0 0 0 / 15%);
+
+// Transitions
+$transition-duration: 0.2s;
+$transition-timing: ease-in-out;
+
+// Breakpoints
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;

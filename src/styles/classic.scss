@@ -1,0 +1,168 @@
+@use "variables" as *;
+
+#s2j-slug-generater-classic-metabox {
+    padding: $spacing-md;
+    background-color: white;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    margin-top: $spacing-md;
+    
+    p {
+        margin: $spacing-md 0;
+        
+        &:first-child {
+            margin-top: 0;
+        }
+        
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+    
+    strong {
+        color: $primary-color;
+        font-size: $font-size-base;
+    }
+    
+    label {
+        font-weight: 600;
+        color: $text-color;
+        display: block;
+        margin-bottom: $spacing-xs;
+    }
+    
+    input[type="text"] {
+        width: 100%;
+        padding: $spacing-sm;
+        border: 1px solid $border-color;
+        border-radius: $border-radius;
+        font-size: $font-size-base;
+        font-family: $font-family;
+        
+        &:focus {
+            border-color: $primary-color;
+            box-shadow: 0 0 0 1px $primary-color;
+            outline: none;
+        }
+    }
+    
+    .button {
+        padding: $spacing-sm $spacing-md;
+        border: 1px solid $border-color;
+        border-radius: $border-radius;
+        background-color: white;
+        color: $text-color;
+        font-size: $font-size-base;
+        font-family: $font-family;
+        cursor: pointer;
+        transition: all $transition-duration $transition-timing;
+        
+        &:hover {
+            background-color: $background-color;
+            border-color: $primary-color;
+        }
+        
+        &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            
+            &:hover {
+                background-color: white;
+                border-color: $border-color;
+            }
+        }
+        
+        &.button-primary {
+            background-color: $primary-color;
+            border-color: $primary-color;
+            color: white;
+            
+            &:hover {
+                background-color: $secondary-color;
+                border-color: $secondary-color;
+            }
+            
+            &:disabled {
+                background-color: $primary-color;
+                border-color: $primary-color;
+                opacity: 0.6;
+                
+                &:hover {
+                    background-color: $primary-color;
+                    border-color: $primary-color;
+                }
+            }
+        }
+    }
+    
+    // Message styles
+    .s2j-message {
+        padding: $spacing-sm $spacing-md;
+        margin: $spacing-sm 0;
+        border-radius: $border-radius;
+        border-left: 4px solid;
+        font-size: $font-size-base;
+        
+        &.s2j-message-success {
+            background-color: #f0f8f0;
+            border-left-color: $success-color;
+            color: #2e7d32;
+        }
+        
+        &.s2j-message-error {
+            background-color: #fef7f7;
+            border-left-color: $error-color;
+            color: #c62828;
+        }
+        
+        &.s2j-message-warning {
+            background-color: #fff8e1;
+            border-left-color: $warning-color;
+            color: #ef6c00;
+        }
+    }
+    
+    // Similarity display
+    #s2j-similarity-value {
+        font-weight: bold;
+        color: $primary-color;
+        font-size: $font-size-large;
+        margin-left: $spacing-sm;
+    }
+    
+    // Button spacing
+    #s2j-generate-candidates {
+        margin-right: $spacing-sm;
+    }
+    
+    // Responsive design
+    @media (max-width: $breakpoint-md) {
+        padding: $spacing-sm;
+        
+        input[type="text"] {
+            font-size: $font-size-base;
+        }
+        
+        .button {
+            width: 100%;
+            margin-bottom: $spacing-sm;
+            
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+
+// Post edit screen specific styles
+.post-php, .post-new-php {
+    #s2j-slug-generater-classic-metabox {
+        margin: $spacing-md 0;
+        
+        // Ensure proper spacing in post edit screen
+        .inside {
+            margin: 0;
+            padding: 0;
+        }
+    }
+}
