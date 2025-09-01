@@ -1,4 +1,4 @@
-# S2J Slug Generator
+# S2J Slug Generater
 
 A WordPress plugin that generates optimal slug candidates using translation service APIs. Supports both Gutenberg block editor and Classic editor.
 
@@ -21,7 +21,7 @@ A WordPress plugin that generates optimal slug candidates using translation serv
 1. Download the plugin files
 2. Upload the plugin folder to `/wp-content/plugins/` directory
 3. Activate the plugin through the 'Plugins' menu in WordPress
-4. Go to 'Settings' > 'S2J Slug Generator' to configure your API keys
+4. Go to 'Settings' > 'S2J Slug Generater' to configure your API keys
 
 ## Configuration
 
@@ -48,7 +48,7 @@ A WordPress plugin that generates optimal slug candidates using translation serv
 
 1. Create or edit a post
 2. Enter your post title
-3. Look for the "S2J Slug Generator" block below the title
+3. Look for the "S2J Slug Generater" block below the title
 4. Click "Generate Candidates" to create slug suggestions
 5. Review the similarity score and select your preferred candidate
 6. Click "Apply Slug" to set the slug
@@ -57,7 +57,7 @@ A WordPress plugin that generates optimal slug candidates using translation serv
 
 1. Create or edit a post
 2. Enter your post title
-3. Find the "S2J Slug Generator" metabox below the content area
+3. Find the "S2J Slug Generater" metabox below the content area
 4. Click "Generate Candidates" to create slug suggestions
 5. Review the similarity score and select your preferred candidate
 6. Click "Slugify" to apply the slug
@@ -76,7 +76,7 @@ A WordPress plugin that generates optimal slug candidates using translation serv
 
 ```bash
 # Install dependencies
-npm install
+npm install --force
 
 # Development build
 npm run build:dev
@@ -139,8 +139,3 @@ For support and feature requests, please visit the plugin's GitHub repository.
 - Gutenberg and Classic editor integration
 - Similarity threshold system
 - Responsive admin interface
-
-
-
-
-
