@@ -13,7 +13,7 @@
 
 ## 2. プラグイン概要
 
-* 名称: S2J Slug Generator
+* 名称: S2J Slug Generater
 * プラグイン・スラッグ: s2j-slug-generater
 * テキスト・ドメイン: s2j-slug-generater
 * ライセンス: GPL v2 以降
