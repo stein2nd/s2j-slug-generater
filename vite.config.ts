@@ -86,6 +86,13 @@ export default defineConfig({
           if (id.startsWith('@wordpress/')) {
             const parts = id.split('/');
             const module = parts[parts.length - 1];
+            // 特別なマッピング
+            if (id === '@wordpress/data') return 'wp.data';
+            if (id === '@wordpress/element') return 'wp.element';
+            if (id === '@wordpress/components') return 'wp.components';
+            if (id === '@wordpress/i18n') return 'wp.i18n';
+            if (id === '@wordpress/editor') return 'wp.editor';
+            if (id === '@wordpress/core-data') return 'wp.coreData';
             return `wp.${module}`;
           }
           // React関連

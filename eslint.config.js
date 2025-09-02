@@ -26,7 +26,8 @@ export default [
         jQuery: 'readonly',
         $: 'readonly',
         HTMLFormElement: 'readonly',
-        HTMLInputElement: 'readonly'
+        HTMLInputElement: 'readonly',
+        HTMLIFrameElement: 'readonly'
       },
     },
     plugins: {

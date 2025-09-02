@@ -11,6 +11,7 @@ import {
 import { __ } from '@wordpress/i18n';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { store as editorStore } from '@wordpress/editor';
+import { store as coreStore } from '@wordpress/core-data';
 import '@/styles/gutenberg.scss';
 
 interface SlugGeneraterProps {
@@ -28,7 +29,50 @@ const SlugGenerater: React.FC<SlugGeneraterProps> = () => {
 
     // Get post title from editor
     const postTitle = useSelect((select) => {
-        return select(editorStore).getEditedPostAttribute('title') || '';
+        // まず、WordPressのデータストアから取得を試行
+        const title = select(editorStore).getEditedPostAttribute('title') || '';
+        
+        // タイトルが空の場合は、投稿IDから直接取得を試行
+        if (!title.trim()) {
+            const postId = select(editorStore).getCurrentPostId();
+            if (postId) {
+                // WordPressのget_the_title()に相当する処理
+                const post = select(coreStore).getEntityRecord('postType', 'post', postId) as any;
+                if (post && post.title && post.title.rendered) {
+                    return post.title.rendered;
+                }
+            }
+        }
+        
+        // それでも取得できない場合は、iframe内の要素から取得を試行
+        if (!title.trim()) {
+            // より具体的なiframeセレクターを使用
+            const iframe = document.querySelector('#editor > div > div.editor-editor-interface.edit-post-layout.is-mode-visual.has-metaboxes.interface-interface-skeleton.has-footer > div.interface-interface-skeleton__editor > div.interface-interface-skeleton__body > div.interface-navigable-region.interface-interface-skeleton__content > div.editor-visual-editor.edit-post-visual-editor.is-iframed > div > div:nth-child(1) > div.block-editor-iframe__container > div.block-editor-iframe__scale-container > iframe') as HTMLIFrameElement;
+            
+            if (iframe && iframe.contentDocument) {
+                const titleElement = iframe.contentDocument.querySelector('body > div.editor-visual-editor__post-title-wrapper.edit-post-visual-editor__post-title-wrapper.has-global-padding > h1');
+                if (titleElement) {
+                    return titleElement.textContent || '';
+                }
+            }
+            
+            // フォールバック: より一般的なiframeセレクター
+            const fallbackIframe = document.querySelector('.editor-canvas__iframe, .block-editor-iframe__container iframe') as HTMLIFrameElement;
+            if (fallbackIframe && fallbackIframe.contentDocument) {
+                const titleElement = fallbackIframe.contentDocument.querySelector('body > div.editor-visual-editor__post-title-wrapper.edit-post-visual-editor__post-title-wrapper.has-global-padding > h1');
+                if (titleElement) {
+                    return titleElement.textContent || '';
+                }
+            }
+            
+            // iframe内で取得できない場合は、通常のDOM要素から取得を試行
+            const titleElement = document.querySelector('.wp-block-post-title.editor-post-title h1');
+            if (titleElement) {
+                return titleElement.textContent || '';
+            }
+        }
+        
+        return title;
     }, []);
 
     // Get post slug from editor
@@ -41,7 +85,44 @@ const SlugGenerater: React.FC<SlugGeneraterProps> = () => {
 
     // Generate slug candidates
     const generateCandidates = async () => {
-        if (!postTitle.trim()) {
+        // 複数の方法でタイトルを取得
+        let currentTitle = postTitle;
+        
+        if (!currentTitle.trim()) {
+            // より具体的なiframeセレクターを使用
+            const iframe = document.querySelector('#editor > div > div.editor-editor-interface.edit-post-layout.is-mode-visual.has-metaboxes.interface-interface-skeleton.has-footer > div.interface-interface-skeleton__editor > div.interface-interface-skeleton__body > div.interface-navigable-region.interface-interface-skeleton__content > div.editor-visual-editor.edit-post-visual-editor.is-iframed > div > div:nth-child(1) > div.block-editor-iframe__container > div.block-editor-iframe__scale-container > iframe') as HTMLIFrameElement;
+            
+            if (iframe && iframe.contentDocument) {
+                const titleElement = iframe.contentDocument.querySelector('body > div.editor-visual-editor__post-title-wrapper.edit-post-visual-editor__post-title-wrapper.has-global-padding > h1');
+                if (titleElement) {
+                    currentTitle = titleElement.textContent || '';
+                }
+            }
+            
+            // フォールバック: より一般的なiframeセレクター
+            if (!currentTitle.trim()) {
+                const fallbackIframe = document.querySelector('.editor-canvas__iframe, .block-editor-iframe__container iframe') as HTMLIFrameElement;
+                if (fallbackIframe && fallbackIframe.contentDocument) {
+                    const titleElement = fallbackIframe.contentDocument.querySelector('body > div.editor-visual-editor__post-title-wrapper.edit-post-visual-editor__post-title-wrapper.has-global-padding > h1');
+                    if (titleElement) {
+                        currentTitle = titleElement.textContent || '';
+                    }
+                }
+            }
+            
+            // iframe内で取得できない場合は、通常のDOM要素から取得を試行
+            if (!currentTitle.trim()) {
+                const titleElement = document.querySelector('.wp-block-post-title.editor-post-title h1') || 
+                                    document.querySelector('.editor-post-title__input') ||
+                                    document.querySelector('h1[data-type="core/post-title"]');
+                
+                if (titleElement) {
+                    currentTitle = titleElement.textContent || (titleElement as HTMLInputElement).value || '';
+                }
+            }
+        }
+        
+        if (!currentTitle.trim()) {
             setError(__('Please enter a post title first.', 's2j-slug-generater'));
             return;
         }
@@ -59,7 +140,7 @@ const SlugGenerater: React.FC<SlugGeneraterProps> = () => {
                     'X-WP-Nonce': nonce,
                 },
                 body: JSON.stringify({
-                    title: postTitle,
+                    title: currentTitle,
                     nonce: nonce
                 })
             });
