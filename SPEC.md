@@ -144,12 +144,10 @@ s2j-slug-generater/
   * API キー入力欄
     * 選択した「翻訳 API」に対応した、「無料枠 API キーの取得ページ」への案内リンクを添えます。
   * 翻訳元の言語選択ドロップダウン
-    * `wp_dropdown_languages` を利用します。
-    * 条件配列
-      * `languages` には、`get_available_languages()` をセットします。
-      * `translations` には、`wp_get_available_translations()` をセットします (`require_once ABSPATH . 'wp-admin/includes/translation-install.php'` を事前に実施)。
-      * `selected` には、`get_option(翻訳元, get_locale())` をセットします。
-      * `show_available_translations` には、`current_user_can('install_languages') && \wp_can_install_language_pack()` をセットします。
+    * 選択された翻訳サービスに応じて、jQuery の DOM 操作により、動的に選択肢が切り替わります。
+    * 選択肢
+      * 言語コードは、各翻訳サービスの API 仕様に準拠した形式です。
+      * デフォルト言語は、日本語 (ja) です。
   * 類似度の閾値設定スライダー
     * min: 0、max: 100、step: 10
 * 保存は `update_option` / `get_option` を利用します。
