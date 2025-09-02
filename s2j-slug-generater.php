@@ -93,7 +93,7 @@ class S2J_Slug_Generater {
         if ('settings_page_s2j-slug-generater' === $hook) {
             wp_enqueue_script(
                 's2j-slug-generater-admin',
-                S2J_SLUG_GENERATER_PLUGIN_URL . 'dist/js/admin.iife.js',
+                S2J_SLUG_GENERATER_PLUGIN_URL . 'dist/js/s2j-slug-generater-admin.js',
                 array('react', 'react-dom'),
                 S2J_SLUG_GENERATER_VERSION,
                 true
@@ -101,7 +101,7 @@ class S2J_Slug_Generater {
             
             wp_enqueue_style(
                 's2j-slug-generater-admin',
-                S2J_SLUG_GENERATER_PLUGIN_URL . 'dist/css/admin.css',
+                S2J_SLUG_GENERATER_PLUGIN_URL . 'dist/css/s2j-slug-generater-admin.css',
                 array(),
                 S2J_SLUG_GENERATER_VERSION
             );
@@ -114,7 +114,7 @@ class S2J_Slug_Generater {
     public function enqueue_gutenberg_scripts() {
         wp_enqueue_script(
             's2j-slug-generater-gutenberg',
-            S2J_SLUG_GENERATER_PLUGIN_URL . 'dist/js/gutenberg.iife.js',
+            S2J_SLUG_GENERATER_PLUGIN_URL . 'dist/js/s2j-slug-generater-gutenberg.js',
             array('wp-blocks', 'wp-element', 'wp-editor', 'wp-components', 'wp-i18n'),
             S2J_SLUG_GENERATER_VERSION,
             true
@@ -122,7 +122,7 @@ class S2J_Slug_Generater {
         
         wp_enqueue_style(
             's2j-slug-generater-gutenberg',
-            S2J_SLUG_GENERATER_PLUGIN_URL . 'dist/css/gutenberg.css',
+            S2J_SLUG_GENERATER_PLUGIN_URL . 'dist/css/s2j-slug-generater-gutenberg.css',
             array(),
             S2J_SLUG_GENERATER_VERSION
         );
@@ -137,7 +137,7 @@ class S2J_Slug_Generater {
         if (in_array($pagenow, array('post.php', 'post-new.php'))) {
             wp_enqueue_script(
                 's2j-slug-generater-classic',
-                S2J_SLUG_GENERATER_PLUGIN_URL . 'dist/js/classic.iife.js',
+                S2J_SLUG_GENERATER_PLUGIN_URL . 'dist/js/s2j-slug-generater-classic.js',
                 array('jquery'),
                 S2J_SLUG_GENERATER_VERSION,
                 true
@@ -145,7 +145,7 @@ class S2J_Slug_Generater {
             
             wp_enqueue_style(
                 's2j-slug-generater-classic',
-                S2J_SLUG_GENERATER_PLUGIN_URL . 'dist/css/classic.css',
+                S2J_SLUG_GENERATER_PLUGIN_URL . 'dist/css/s2j-slug-generater-classic.css',
                 array(),
                 S2J_SLUG_GENERATER_VERSION
             );
