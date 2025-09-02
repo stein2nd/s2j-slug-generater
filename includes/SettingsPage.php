@@ -124,21 +124,51 @@ class S2J_Slug_Generater_Settings_Page {
      * Render source language field
      */
     public function render_source_language_field() {
-        $current_language = get_option('s2j_slug_generater_source_language', get_locale());
+        $current_language = get_option('s2j_slug_generater_source_language', 'ja');
         
-        // Load translation functions if not already loaded
-        if (!function_exists('wp_dropdown_languages')) {
-            require_once ABSPATH . 'wp-admin/includes/translation-install.php';
+        // DeepL対応言語のリスト
+        $deepl_languages = array(
+            'ar' => 'アラビア語',
+            'it' => 'イタリア語',
+            'id' => 'インドネシア語',
+            'uk' => 'ウクライナ語',
+            'et' => 'エストニア語',
+            'nl' => 'オランダ語',
+            'el' => 'ギリシャ語',
+            'sv' => 'スウェーデン語',
+            'es' => 'スペイン語',
+            'sk' => 'スロバキア語',
+            'sl' => 'スロベニア語',
+            'cs' => 'チェコ語',
+            'da' => 'デンマーク語',
+            'de' => 'ドイツ語',
+            'tr' => 'トルコ語',
+            'nb' => 'ノルウェー語(ブークモール)',
+            'hu' => 'ハンガリー語',
+            'fi' => 'フィンランド語',
+            'fr' => 'フランス語',
+            'bg' => 'ブルガリア語',
+            'pl' => 'ポーランド語',
+            'pt' => 'ポルトガル語',
+            'pt-BR' => 'ポルトガル語(ブラジル)',
+            'lv' => 'ラトビア語',
+            'lt' => 'リトアニア語',
+            'ro' => 'ルーマニア語',
+            'ru' => 'ロシア語',
+            'en-US' => '英語(アメリカ)',
+            'en-GB' => '英語(イギリス)',
+            'ko' => '韓国語',
+            'zh' => '中国語(簡体字)',
+            'zh-TW' => '中国語(繁体字)',
+            'ja' => '日本語'
+        );
+        
+        echo '<select name="s2j_slug_generater_source_language" id="s2j_slug_generater_source_language">';
+        foreach ($deepl_languages as $code => $name) {
+            $selected = selected($current_language, $code, false);
+            echo '<option value="' . esc_attr($code) . '"' . $selected . '>' . esc_html($name) . '</option>';
         }
-        
-        wp_dropdown_languages(array(
-            'languages' => get_available_languages(),
-            'translations' => wp_get_available_translations(),
-            'selected' => $current_language,
-            'show_available_translations' => current_user_can('install_languages') && wp_can_install_language_pack(),
-            'name' => 's2j_slug_generater_source_language',
-            'id' => 's2j_slug_generater_source_language'
-        ));
+        echo '</select>';
     }
     
     /**
