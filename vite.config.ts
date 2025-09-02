@@ -70,13 +70,30 @@ export default defineConfig({
       name: buildConfig.name,
     },
     rollupOptions: {
-      external: ['react', 'react-dom', 'jquery'],
+      external: (id) => {
+        // WordPress Gutenberg関連のモジュールを外部化
+        if (id.startsWith('@wordpress/')) return true;
+        // React関連を外部化
+        if (id === 'react' || id === 'react-dom') return true;
+        // jQueryを外部化
+        if (id === 'jquery') return true;
+        return false;
+      },
       input: buildConfig.entry,
       output: {
-        globals: {
-          react: 'React',
-          'react-dom': 'ReactDOM',
-          jquery: 'jQuery',
+        globals: (id) => {
+          // WordPress Gutenbergのグローバル変数名をマッピング
+          if (id.startsWith('@wordpress/')) {
+            const parts = id.split('/');
+            const module = parts[parts.length - 1];
+            return `wp.${module}`;
+          }
+          // React関連
+          if (id === 'react') return 'React';
+          if (id === 'react-dom') return 'ReactDOM';
+          // jQuery
+          if (id === 'jquery') return 'jQuery';
+          return id;
         },
         assetFileNames: (assetInfo) => {
           if (assetInfo.name?.endsWith('.css')) {

@@ -112,10 +112,15 @@ class S2J_Slug_Generater {
      * Enqueue Gutenberg scripts and styles
      */
     public function enqueue_gutenberg_scripts() {
+        // Gutenbergエディターが利用可能な場合のみスクリプトを読み込み
+        if (!function_exists('register_block_type')) {
+            return;
+        }
+        
         wp_enqueue_script(
             's2j-slug-generater-gutenberg',
             S2J_SLUG_GENERATER_PLUGIN_URL . 'dist/js/s2j-slug-generater-gutenberg.js',
-            array('wp-blocks', 'wp-element', 'wp-editor', 'wp-components', 'wp-i18n'),
+            array('wp-blocks', 'wp-element', 'wp-block-editor', 'wp-components', 'wp-i18n', 'wp-data'),
             S2J_SLUG_GENERATER_VERSION,
             true
         );
@@ -123,9 +128,16 @@ class S2J_Slug_Generater {
         wp_enqueue_style(
             's2j-slug-generater-gutenberg',
             S2J_SLUG_GENERATER_PLUGIN_URL . 'dist/css/s2j-slug-generater-gutenberg.css',
-            array(),
+            array('wp-components'),
             S2J_SLUG_GENERATER_VERSION
         );
+        
+        // スクリプトにデータを渡す
+        wp_localize_script('s2j-slug-generater-gutenberg', 's2jSlugGeneraterData', array(
+            'apiUrl' => rest_url('s2j-slug-generater/v1/'),
+            'nonce' => wp_create_nonce('wp_rest'),
+            'version' => S2J_SLUG_GENERATER_VERSION
+        ));
     }
     
     /**
