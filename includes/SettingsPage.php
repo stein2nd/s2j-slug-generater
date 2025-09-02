@@ -163,12 +163,184 @@ class S2J_Slug_Generater_Settings_Page {
             'ja' => '日本語'
         );
         
+        // Google翻訳対応言語のリスト（主要な言語のみ）
+        $google_languages = array(
+            'ab' => 'アブハズ語',
+            'ace' => 'アチェ語',
+            'af' => 'アフリカーンス語',
+            'ak' => 'トウィ語（アカン語）',
+            'am' => 'アムハラ語',
+            'ar' => 'アラビア語',
+            'as' => 'アッサム語',
+            'ay' => 'アイマラ語',
+            'az' => 'アゼルバイジャン語',
+            'ba' => 'バシキール語',
+            'be' => 'ベラルーシ語',
+            'bg' => 'ブルガリア語',
+            'bn' => 'ベンガル語',
+            'bs' => 'ボスニア語',
+            'ca' => 'カタロニア語',
+            'ceb' => 'セブアノ語',
+            'co' => 'コルシカ語',
+            'cs' => 'チェコ語',
+            'cy' => 'ウェールズ語',
+            'da' => 'デンマーク語',
+            'de' => 'ドイツ語',
+            'dv' => 'ディベヒ語',
+            'dz' => 'ゾンカ語',
+            'ee' => 'エウェ語',
+            'el' => 'ギリシャ語',
+            'eo' => 'エスペラント語',
+            'es' => 'スペイン語',
+            'et' => 'エストニア語',
+            'eu' => 'バスク語',
+            'fa' => 'ペルシャ語',
+            'fi' => 'フィンランド語',
+            'fj' => 'フィジー語',
+            'fr' => 'フランス語',
+            'fr-CA' => 'フランス語（カナダ）',
+            'fy' => 'フリジア語',
+            'ga' => 'アイルランド語',
+            'gd' => 'スコットランド・ゲール語',
+            'gl' => 'ガリシア語',
+            'gn' => 'グアラニ語',
+            'gu' => 'グジャラート語',
+            'ha' => 'ハウサ語',
+            'haw' => 'ハワイ語',
+            'he' => 'ヘブライ語',
+            'hi' => 'ヒンディー語',
+            'hr' => 'クロアチア語',
+            'ht' => 'クレオール語（ハイチ）',
+            'hu' => 'ハンガリー語',
+            'hy' => 'アルメニア語',
+            'id' => 'インドネシア語',
+            'ig' => 'イボ語',
+            'is' => 'アイスランド語',
+            'it' => 'イタリア語',
+            'jv' => 'ジャワ語',
+            'ka' => 'ジョージア語',
+            'kk' => 'カザフ語',
+            'km' => 'クメール語',
+            'kn' => 'カンナダ語',
+            'ko' => '韓国語',
+            'ku' => 'クルド語（クルマンジー語）',
+            'ky' => 'キルギス語',
+            'la' => 'ラテン語',
+            'lb' => 'ルクセンブルク語',
+            'ln' => 'リンガラ語',
+            'lo' => 'ラオ語',
+            'lt' => 'リトアニア語',
+            'lv' => 'ラトビア語',
+            'mg' => 'マラガシ語',
+            'mi' => 'マオリ語',
+            'mk' => 'マケドニア語',
+            'ml' => 'マラヤーラム語',
+            'mn' => 'モンゴル語',
+            'mr' => 'マラーティー語',
+            'ms' => 'マレー語',
+            'mt' => 'マルタ語',
+            'my' => 'ミャンマー語（ビルマ語）',
+            'ne' => 'ネパール語',
+            'nl' => 'オランダ語',
+            'no' => 'ノルウェー語',
+            'ny' => 'チェワ語（ニャンジャ語）',
+            'oc' => 'オック語',
+            'om' => 'オロモ語',
+            'or' => 'オリヤ語',
+            'pa' => 'パンジャブ語',
+            'pl' => 'ポーランド語',
+            'ps' => 'パシュト語',
+            'pt' => 'ポルトガル語',
+            'pt-BR' => 'ポルトガル語（ブラジル）',
+            'qu' => 'ケチュア語',
+            'ro' => 'ルーマニア語',
+            'ru' => 'ロシア語',
+            'sa' => 'サンスクリット語',
+            'sd' => 'シンド語',
+            'si' => 'シンハラ語',
+            'sk' => 'スロバキア語',
+            'sl' => 'スロベニア語',
+            'sm' => 'サモア語',
+            'sn' => 'ショナ語',
+            'so' => 'ソマリ語',
+            'sq' => 'アルバニア語',
+            'sr' => 'セルビア語',
+            'st' => 'ソト語',
+            'su' => 'スンダ語',
+            'sv' => 'スウェーデン語',
+            'sw' => 'スワヒリ語',
+            'ta' => 'タミル語',
+            'te' => 'テルグ語',
+            'tg' => 'タジク語',
+            'th' => 'タイ語',
+            'ti' => 'ティグリニャ語',
+            'tk' => 'トルクメン語',
+            'tl' => 'タガログ語',
+            'tr' => 'トルコ語',
+            'tt' => 'タタール語',
+            'ug' => 'ウイグル語',
+            'uk' => 'ウクライナ語',
+            'ur' => 'ウルドゥー語',
+            'uz' => 'ウズベク語',
+            'vi' => 'ベトナム語',
+            'xh' => 'コーサ語',
+            'yi' => 'イディッシュ語',
+            'yo' => 'ヨルバ語',
+            'yue' => '広東語',
+            'zh' => '中国語（簡体字）',
+            'zh-TW' => '中国語（繁体字）',
+            'zu' => 'ズールー語',
+            'en' => '英語',
+            'ja' => '日本語'
+        );
+        
+        // 言語データをJavaScriptに渡す
+        echo '<script type="text/javascript">';
+        echo 'var deeplLanguages = ' . json_encode($deepl_languages) . ';';
+        echo 'var googleLanguages = ' . json_encode($google_languages) . ';';
+        echo '</script>';
+        
         echo '<select name="s2j_slug_generater_source_language" id="s2j_slug_generater_source_language">';
+        // 初期表示はDeepL言語（デフォルト）
         foreach ($deepl_languages as $code => $name) {
             $selected = selected($current_language, $code, false);
             echo '<option value="' . esc_attr($code) . '"' . $selected . '>' . esc_html($name) . '</option>';
         }
         echo '</select>';
+        
+        // JavaScriptで言語切り替え機能を実装
+        echo '<script type="text/javascript">
+        jQuery(document).ready(function($) {
+            var translationService = $("#s2j_slug_generater_translation_service");
+            var sourceLanguage = $("#s2j_slug_generater_source_language");
+            
+            function updateSourceLanguages() {
+                var selectedService = translationService.val();
+                var currentValue = sourceLanguage.val();
+                var languages = (selectedService === "google") ? googleLanguages : deeplLanguages;
+                
+                // 選択肢をクリア
+                sourceLanguage.empty();
+                
+                // 新しい選択肢を追加
+                $.each(languages, function(code, name) {
+                    var selected = (code === currentValue) ? " selected" : "";
+                    sourceLanguage.append(\'<option value="\' + code + \'"\' + selected + \'>\' + name + \'</option>\');
+                });
+                
+                // 現在の値が新しい言語リストにない場合は、最初の言語を選択
+                if (!languages[currentValue]) {
+                    sourceLanguage.val(Object.keys(languages)[0]);
+                }
+            }
+            
+            // 初期化
+            updateSourceLanguages();
+            
+            // 翻訳サービスの変更時に言語リストを更新
+            translationService.on("change", updateSourceLanguages);
+        });
+        </script>';
     }
     
     /**
