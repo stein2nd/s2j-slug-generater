@@ -58,6 +58,11 @@ const buildConfig = getBuildConfig(buildTarget);
 
 export default defineConfig({
   logLevel: (process.env.VITE_LOG_LEVEL as 'info' | 'warn' | 'error' | 'silent') || 'warn',
+  define: {
+    'process.env': {},
+    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+    'process.env.VITE_LOG_LEVEL': JSON.stringify(process.env.VITE_LOG_LEVEL || 'warn'),
+  },
   build: {
     lib: {
       entry: buildConfig.entry,
