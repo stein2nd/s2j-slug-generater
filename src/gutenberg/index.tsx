@@ -11,8 +11,8 @@ import {
 import { __ } from '@wordpress/i18n';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { store as editorStore } from '@wordpress/editor';
-import { store as coreStore } from '@wordpress/core-data';
 import '@/styles/gutenberg.scss';
+import { coreStore } from '@wordpress/core-data';
 
 interface SlugGeneraterProps {
     attributes?: Record<string, unknown>;
@@ -72,7 +72,7 @@ const SlugGenerater: React.FC<SlugGeneraterProps> = () => {
             }
         }
         
-        return title;
+        return select(editorStore).getEditedPostAttribute('title') || ''
     }, []);
 
     // Get post slug from editor
