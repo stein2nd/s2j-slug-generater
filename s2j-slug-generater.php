@@ -6,6 +6,7 @@
  * Version: 1.0.0
  * Author: stein2nd
  * License: GPL v2 or later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: s2j-slug-generater
  * Domain Path: /languages
  *
@@ -112,7 +113,7 @@ class S2J_Slug_Generater {
      * Enqueue Gutenberg scripts and styles
      */
     public function enqueue_gutenberg_scripts() {
-        // Gutenbergエディターが利用可能な場合のみスクリプトを読み込み
+        // Gutenberg エディターが利用可能な場合のみスクリプトを読み込み
         if (!function_exists('register_block_type')) {
             return;
         }
