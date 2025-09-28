@@ -177,7 +177,7 @@ s2j-slug-generater/
 * Gutenberg ブロック、MetaBox から呼ばれます。
 
 1. ボタン「候補生成」クリック時
-    1. `get_the_title()` または `the_title_attribute()` タイトル入力を取得します。
+    1. `get_the_title()` または `the_title_attribute()` を利用してタイトル入力を取得します。
     2. 翻訳 API で英語に翻訳します。
       * 翻訳結果は、テキストボックス「スラッグ候補」にセットします。
     3. 「1.2」で翻訳したものを、翻訳 API で、設定値「翻訳元言語」へと、逆翻訳します。
