@@ -1,0 +1,23 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "s2j-slug-generater/slug-generater",
+    "version": "1.0.0",
+    "title": "S2J Slug Generater",
+    "category": "widgets",
+    "icon": "admin-links",
+    "description": "Generate and manage post slugs with AI-powered suggestions.",
+    "keywords": ["slug", "seo", "url", "permalink"],
+    "textdomain": "s2j-slug-generater",
+    "editorScript": "file:../../dist/js/s2j-slug-generater-gutenberg.js",
+    "editorStyle": "file:../../dist/css/s2j-slug-generater-gutenberg.css",
+    "style": "file:../../dist/css/s2j-slug-generater-gutenberg.css",
+    "supports": {
+        "html": false,
+        "inserter": true,
+        "multiple": false
+    },
+    "attributes": {},
+    "providesContext": {},
+    "usesContext": ["postId", "postType"]
+}
