@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { 
     Button, 
     TextControl, 
@@ -24,23 +24,22 @@ interface FormData {
     similarity_threshold: number;
 }
 
+const DEFAULT_FORM_DATA: FormData = {
+    translation_service: 'deepl',
+    api_key: '',
+    source_language: 'ja',
+    similarity_threshold: 80
+};
+
 const AdminSettings: React.FC<AdminSettingsProps> = ({ settings }) => {
     const [isSaving, setIsSaving] = useState(false);
     const [notice, setNotice] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
 
-    const [formData, setFormData] = useState<FormData>({
-        translation_service: 'deepl',
-        api_key: '',
-        source_language: 'ja',
-        similarity_threshold: 80
-    });
-
-    useEffect(() => {
-        if (settings) {
-            setFormData(settings);
-        }
-    }, [settings]);
+    const [formData, setFormData] = useState<FormData>(() => ({
+        ...DEFAULT_FORM_DATA,
+        ...settings
+    }));
 
     const handleInputChange = (key: string, value: string | number) => {
         setFormData(prev => ({
