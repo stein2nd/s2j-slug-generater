@@ -9,24 +9,23 @@
 
 以下は、本プラグイン固有の仕様をまとめたものです。
 
-本ドキュメントは、`SPEC.md` を基に、以下の変更を加えたものです：
+本ドキュメントは、`SPEC.md` をもとに、以下の変更を加えたものです。
 
 1. **類似度判定の仕様変更**: レーベンシュタイン距離から、[S2J Similarity Service](https://github.com/stein2nd/s2j-similarity-service) を利用したコサイン類似度判定に変更
 2. **依存関係の更新**: npm モジュールのバージョンを「S2J Alliance Manager」と統一
 
-
-### docs/SPEC.md と docs/SPEC_mod.md の主な差分 (かんたん要約)
+### docs/SPEC.md と docs/SPEC_mod.md の主な差分 (簡単要約)
 
 - **類似度ロジックの変更**  
-  - `SPEC.md`: レーベンシュタイン距離で 0〜100 のスコアを計算。  
+  - `SPEC.md`: レーベンシュタイン距離で0〜100のスコアを計算。  
   - `SPEC_mod.md`: [S2J Similarity Service](https://github.com/stein2nd/s2j-similarity-service) を使った「コサイン類似度 (0.0〜1.0)」に変更し、パーセント表示に変換して利用。
 
 - **設定画面の項目追加・変更**  
-  - 新規追加: 「OpenAI API キー」「OpenAI モデル名」「ロケール」の 3 項目。  
-  - 類似度閾値スライダー: `0〜100` → `0.0〜1.0` (表示は 0〜100%) に仕様変更。
+  - 項目を新規追加 (「OpenAI API キー」「OpenAI モデル名」「ロケール」)。  
+  - 類似度閾値スライダー: `0〜100` → `0.0〜1.0` (表示は0〜100%) に仕様変更。
 
 - **依存関係と構成の拡張**  
-  - フォルダ構成に `composer.json` を追加し、PHP 依存として `stein2nd/s2j-similarity-service` を導入する指定。  
+  - フォルダー構成に `composer.json` を追加し、PHP 依存として `stein2nd/s2j-similarity-service` を導入する指定。  
   - `package.json` の `dependencies` / `devDependencies` を「S2J Alliance Manager」と統一するための具体的なバージョン一覧を追記。
 
 - **実装ガイドの追記**  
@@ -48,19 +47,19 @@
 * 名称: S2J Slug Generater
 * プラグイン・スラッグ: s2j-slug-generater
 * テキスト・ドメイン: s2j-slug-generater
-* ライセンス: GPL v2 以降
+* ライセンス: GPL v2以降
 * 目的: 投稿タイトルをもとに、翻訳サービス提供の API を利用して翻訳し、最適なスラッグ候補を自動生成します。
 * 特徴:
-  * Gutenberg ブロックエディタに対応します (Post Title 直下に Slot として追加)。
-  * MetaBox により、Classic エディタに対応します。
+  * Gutenberg ブロックエディターに対応します (Post Title 直下に Slot として追加)。
+  * MetaBox により、Classic エディターに対応します。
     * Gutenberg ブロック同様、Post Title 直下に MetaBox を追加します。
     * Gutenberg ブロックでの処理内容を基本的に再現します。
-  * 管理画面で API キーや翻訳言語設定を保存します。
-  * 類似度チェック機能により、候補のフィルタリングが可能です（[S2J Similarity Service](https://github.com/stein2nd/s2j-similarity-service) を使用）。
+  * 管理画面で API キーや翻訳言語の設定を保存します。
+  * 類似度チェック機能により、候補のフィルタリングが可能です ([S2J Similarity Service](https://github.com/stein2nd/s2j-similarity-service) を使用)。
 
 ## 3. プロジェクト構成
 
-### 3.1 フォルダ構成
+### 3.1. フォルダー構成
 
 ```
 s2j-slug-generater/
@@ -72,7 +71,7 @@ s2j-slug-generater/
 ├─ `readme.md`
 ├─ `s2j-slug-generater.php` # プラグイン本体
 ├─ `uninstall.php` # プラグイン削除時の処理
-├─ `composer.json` # PHP依存関係（S2J Similarity Service を含む）
+├─ `composer.json` # PHP依存関係 (S2J Similarity Service を含む)
 ├─ includes/ # PHP クラス群 (REST、Settings、Admin UI)
 │　├─ `SettingsPage.php` (設定画面)
 │　├─ `RestController.php`
@@ -100,14 +99,14 @@ s2j-slug-generater/
 └─ languages/ # 翻訳ファイル (.pot、.po、.mo)
 ```
 
-### 3.2 主要ファイル
+### 3.2. 主要ファイル
 
 * `s2j-slug-generater.php` : プラグイン起点、クラスロード・初期化
 * `includes/SettingsPage.php` : 管理画面の設定フォーム
 * `includes/RestController.php` : REST API エンドポイント定義
 * `includes/SlugGenerater.php` : 翻訳サービス提供の API 呼び出し・候補生成ロジック
 * `src/gutenberg/index.tsx` : Gutenberg ブロックの UI ロジック
-* `src/classic/index.ts` : Classic エディタ対応スクリプト
+* `src/classic/index.ts` : Classic エディター対応スクリプト
 
 ---
 
@@ -115,16 +114,16 @@ s2j-slug-generater/
 
 * Vite + TypeScript + SCSS
   * `vite.config.ts` を用いて IIFE 形式でバンドルする
-  * JavaScript は WordPress 同梱の jQuery を利用可能とする （外部 import 不要） (`jQuery(function($) { ... })`)
-  * CSS も IIFE 出力し、エディタ用・フロント用を区別すること
+  * JavaScript は WordPress 同梱の jQuery を利用可能とする (外部 import 不要) (`jQuery(function($) { ... })`)
+  * CSS も IIFE 出力し、エディター用・フロント用を区別すること
 * 出力は `./dist`
 
-### 4.1 `package.json` の `scripts`
+### 4.1. `package.json` の `scripts`
 
-* `npm run build:dev` → 開発用ビルド（minify 無効）
-* `npm run build:production` → 本番用ビルド（minify 有効）
+* `npm run build:dev` → 開発用ビルド (minify 無効)
+* `npm run build:production` → 本番用ビルド (minify 有効)
 
-### 4.2 `package.json` の依存関係
+### 4.2. `package.json` の依存関係
 
 以下の npm モジュールのバージョンを「S2J Alliance Manager」と統一します。
 
@@ -165,7 +164,7 @@ s2j-slug-generater/
 }
 ```
 
-### 4.3 PHP 依存関係
+### 4.3. PHP 依存関係
 
 * [S2J Similarity Service](https://github.com/stein2nd/s2j-similarity-service) を Composer 経由で導入します。
 * `composer.json` に追加する必要があります。
@@ -187,44 +186,44 @@ s2j-slug-generater/
 
 ## 6. 固有仕様
 
-### 6.1 翻訳フローと、翻訳サービス提供の API の関係
+### 6.1. 翻訳フローと、翻訳サービス提供の API の関係
 
-* GoF 『デザインパターン』「Template Method」パターンに準拠した形で、翻訳フローを構築します。
-* GoF 『デザインパターン』「Abstract Factory」パターンに於ける「Factory」として、各翻訳サービス API を利用します。
+* GoF の『デザインパターン』「Template Method」パターンに準拠した形で、翻訳フローを構築します。
+* GoF の『デザインパターン』「Abstract Factory」パターンに於ける「Factory」として、各翻訳サービス API を利用します。
   * 具体 Factory では、下記項目を規定します。
     * 提示リンク
       * 「プラン選択ページ」へのリンク
       * 「無料枠 API キーの取得ページ」へのリンク
       * これらは `sprintf(__('Go to <a target="_blank" href="%1$s">the API plan selection page</a> and <a target="_blank" href="%2$s">obtain a free API key</a>.'), xxxxx, yyyyy)` の形で、管理画面で提示します。
     * 利用エンドポイント (無料枠のもの)
-    * 設定可能項目:
+    * 設定可能な項目:
       * API キー
-      * 翻訳元言語（例: ja）
-      * 類似度閾値（例: 0.8、コサイン類似度として 0.0〜1.0 で設定）
+      * 翻訳元言語 (例: ja)
+      * 類似度閾値 (例: 0.8、コサイン類似度として0.0〜1.0で設定)
 
-#### 6.1.1 DeepL API
+#### 6.1.1. DeepL API
 
 * 提示リンク
   * 「プラン選択ページ」へのリンク: `https://www.deepl.com/pro-api#api-pricing`
   * 「無料枠 API キーの取得ページ」へのリンク: `https://www.deepl.com/ja/pro#developer`
 * 利用エンドポイント: `https://api-free.deepl.com/v2/translate`
-* 設定可能項目:
+* 設定可能な項目:
   * API キー
-  * 翻訳元言語（例: ja）
-  * 類似度閾値（例: 0.8）
+  * 翻訳元言語 (例: ja)
+  * 類似度閾値 (例: 0.8)
 
-#### 6.1.2 Google 翻訳 API
+#### 6.1.2. Google 翻訳 API
 
 * 提示リンク
   * 「プラン選択ページ」へのリンク: `https://cloud.google.com/translate/pricing?hl=ja`
   * 「無料枠 API キーの取得ページ」へのリンク: `https://cloud.google.com/translate/docs/setup?hl=ja`
 * 利用エンドポイント: `https://translation.googleapis.com/language/translate/v2`
-* 設定可能項目:
+* 設定可能な項目:
   * API キー
-  * 翻訳元言語（例: ja）
-  * 類似度閾値（例: 0.8）
+  * 翻訳元言語 (例: ja)
+  * 類似度閾値 (例: 0.8)
 
-### 6.2 管理画面
+### 6.2. 管理画面
 
 * 設定ページに以下を用意します:
   * 翻訳 API 選択ドロップダウン
@@ -235,44 +234,44 @@ s2j-slug-generater/
     * 選択肢
       * 言語コードは、各翻訳サービスの API 仕様に準拠した形式です。
       * デフォルト言語は、日本語 (ja) です。
-  * **OpenAI API キー入力欄**（新規追加）
+  * **OpenAI API キー入力欄** (新規追加)
     * S2J Similarity Service で使用する OpenAI API キーを設定します。
     * 案内リンク: `https://platform.openai.com/api-keys`
-  * **OpenAI モデル名入力欄**（新規追加）
+  * **OpenAI モデル名入力欄** (新規追加)
     * S2J Similarity Service で使用する埋め込みモデル名を設定します。
     * デフォルト値: `text-embedding-3-small`
     * 選択肢の例: `text-embedding-3-small`, `text-embedding-3-large`, `text-embedding-ada-002`
-  * **ロケール設定**（新規追加）
+  * **ロケール設定** (新規追加)
     * S2J Similarity Service で使用するロケールを設定します。
     * デフォルト値: `ja_JP`
     * 選択肢の例: `ja_JP`, `en_US`, `fr_FR` など
   * 類似度の閾値設定スライダー
     * min: 0.0、max: 1.0、step: 0.1
     * デフォルト値: 0.8
-    * 表示形式: パーセント表示（0.8 → 80%）
+    * 表示形式: パーセント表示 (0.8→80%)
 * 保存は `update_option` / `get_option` を利用します。
 
-### 6.3 Gutenberg ブロック対応
+### 6.3. Gutenberg ブロック対応
 
 * Post Title 直下に Slot として追加します。
 * 下記 HTML 要素を内包します。
   * ボタン「候補生成」
   * テキストボックス「スラッグ候補」
   * ラベル「類似度」
-    * 右横に「 %」を添えます。
+    * 右横に ` %` を添えます。
   * ボタン「スラッグ化」
 
-### 6.4 Classic エディタ対応
+### 6.4. Classic エディター対応
 
 * Gutenberg ブロック同様、Post Title 直下に Slot として追加します。
 * 下記 HTML 要素を内包します。
   * ボタン「候補生成」
   * テキストボックス「スラッグ候補」
   * ラベル「類似度」
-    * 右横に「 %」を添えます。
+    * 右横に ` %` を添えます。
   * ボタン「スラッグ化」
 
-### 6.5 スラッグ候補の生成ロジック
+### 6.5. スラッグ候補の生成ロジック
 
 * Gutenberg ブロック、MetaBox から呼ばれます。
 
@@ -282,27 +281,27 @@ s2j-slug-generater/
       * 翻訳結果は、テキストボックス「スラッグ候補」にセットします。
     3. 「1.2」で翻訳したものを、翻訳 API で、設定値「翻訳元言語」へと、逆翻訳します。
       * この翻訳結果は、テキストボックスにセットする必要はありません。
-    4. **類似度判定（変更）**: 元のタイトル（基準テキスト）と「1.3」で逆翻訳したテキスト（検証テキスト）を、[S2J Similarity Service](https://github.com/stein2nd/s2j-similarity-service) を使用して比較します。
+    4. **類似度判定 (変更) **: 元のタイトル (基準テキスト) と「1.3」で逆翻訳したテキスト (検証テキスト) を、[S2J Similarity Service](https://github.com/stein2nd/s2j-similarity-service) を使用して比較します。
       * `SimilarityService(new OpenAIEmbeddingStrategy())` の `compare()` メソッドを呼び出します。
       * パラメータ:
         * `apiKey`: 設定値「OpenAI API キー」
-        * `model`: 設定値「OpenAI モデル名」（デフォルト: `text-embedding-3-small`）
+        * `model`: 設定値「OpenAI モデル名」(デフォルト: `text-embedding-3-small`)
         * `baseText`: 元のタイトル
         * `targetText`: 逆翻訳したテキスト
-        * `language`: 設定値「翻訳元言語」（例: `ja`）
-        * `locale`: 設定値「ロケール」（デフォルト: `ja_JP`）
-      * 戻り値 `$result['similarity']` でコサイン類似度（0.0〜1.0）を取得します。
-      * コサイン類似度をパーセント（0.0〜100.0）に変換します（例: 0.85 → 85.0）。
+        * `language`: 設定値「翻訳元言語」(例: `ja`)
+        * `locale`: 設定値「ロケール」(デフォルト: `ja_JP`)
+      * 戻り値 `$result['similarity']` でコサイン類似度 (0.0〜1.0) を取得します。
+      * コサイン類似度をパーセント (0.0〜100.0) に変換します (例: 0.85→85.0)。
       * 比較結果をラベル「類似度」にセットします。
-      * ラベルにセットする際は、`n.99` の形に整形します（小数部第２位まで表示）。
+      * ラベルにセットする際は、`n.99` の形に整形します (小数部第2位まで表示)。
       * 設定値「類似度閾値」と比較し、閾値未満の場合は候補をフィルタリングします。
 2. ボタン「スラッグ化」クリック時
     1. テキストボックス「スラッグ候補」の文字列を、記号・スペースを正規化してスラッグ形式に変換します。
     2. スラッグ欄に設定します。
 
-### 6.6 実装修正のポイント
+### 6.6. 実装修正のポイント
 
-#### 6.6.1 PHP 実装（`includes/SlugGenerater.php`）
+#### 6.6.1. PHP 実装 (`includes/SlugGenerater.php`)
 
 1. **Composer の autoload を追加**
    ```php
@@ -342,54 +341,53 @@ s2j-slug-generater/
 
 3. **`generate_candidates()` メソッドの修正**
    * `calculate_similarity()` の呼び出しを `calculate_similarity_with_service()` に変更
-   * 類似度閾値の比較ロジックを修正（0.0〜1.0 の値と比較するように）
+   * 類似度閾値の比較ロジックを修正 (0.0〜1.0の値と比較するように)
 
-#### 6.6.2 設定画面（`includes/SettingsPage.php`）
+#### 6.6.2. 設定画面 (`includes/SettingsPage.php`)
 
-1. **新規設定項目の追加**
+1. **設定項目の新規追加**
    * OpenAI API キー入力欄
    * OpenAI モデル名選択ドロップダウン
    * ロケール選択ドロップダウン
 
 2. **類似度閾値スライダーの修正**
-   * min: 0.0、max: 1.0、step: 0.1 に変更
-   * 表示をパーセント形式に変換（0.8 → 80%）
+   * min: 0.0、max: 1.0、step: 0.1に変更
+   * 表示をパーセント形式に変換 (0.8→80%)
 
-#### 6.6.3 フロントエンド実装
+#### 6.6.3. フロントエンド実装
 
 1. **類似度表示の修正**
-   * コサイン類似度（0.0〜1.0）をパーセント（0.0〜100.0）に変換して表示
+   * コサイン類似度 (0.0〜1.0) をパーセント (0.0〜100.0) に変換して表示
 
-2. **設定画面（`src/admin/index.tsx`）**
+2. **設定画面 (`src/admin/index.tsx`)**
    * OpenAI API キー入力欄を追加
    * OpenAI モデル名選択ドロップダウンを追加
    * ロケール選択ドロップダウンを追加
-   * 類似度閾値スライダーの範囲を 0.0〜1.0 に変更
+   * 類似度閾値スライダーの範囲を0.0〜1.0に変更
 
 ## 7. REST API 仕様
 
-### 7.1 エンドポイント
+### 7.1. エンドポイント
 
 * `POST /wp-json/s2j-slug-generater/v1/generate`
   * 入力: `{ title: "記事タイトル", nonce: "nonce文字列" }`
   * 出力: `{ success: true, data: { candidates: [ "slug-1", "slug-2" ], similarity: 85.5, translated_title: "translated title" } }`
-  * 類似度はパーセント形式（0.0〜100.0）で返却されます。
+  * 類似度はパーセント形式 (0.0〜100.0) で返却されます。
 
-### 7.2 セキュリティ
+### 7.2. セキュリティ
 
 * nonce チェック必須
 * `current_user_can( 'edit_posts' )` 権限がある場合のみ利用可
 
 ## 8. 今後の拡張
 
-* 他の翻訳 API（Azure Translator）への対応
+* 他の翻訳 API (Azure Translator) への対応
 * スラッグ候補のランキング付け
 * CLI コマンド (wp-cli) 連携
-* 他の埋め込み戦略（OpenAI 以外）への対応
+* 他の埋め込み戦略 (OpenAI 以外) への対応
 
 ---
 
 ## 変更履歴
 
 * **v1.0.0 (Modified)**: 類似度判定を S2J Similarity Service を使用する形に変更、npm モジュールのバージョン統一
-
