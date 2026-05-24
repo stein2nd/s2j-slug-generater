@@ -12,9 +12,9 @@ A WordPress plugin that generates optimal slug candidates using translation serv
 
 ## Requirements
 
-- WordPress 5.0 or higher
-- PHP 7.4 or higher
-- Node.js 16 or higher (for development)
+- WordPress v5.0+
+- PHP v7.4+
+- Node.js v16+ (for development)
 
 ## Installation
 
@@ -125,7 +125,7 @@ The plugin supports multiple languages through WordPress's built-in internationa
 
 ## License
 
-GPL v2 or later
+GPL v2+
 
 ## Support
 
