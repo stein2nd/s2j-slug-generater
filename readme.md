@@ -1,5 +1,9 @@
 # S2J Slug Generater
 
+[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
+[![PHP](https://img.shields.io/badge/PHP-8.0-blue.svg)](https://www.php.net/)
+[![WordPress](https://img.shields.io/badge/WordPress-6.9+-blue.svg)](https://wordpress.org/)
+
 A WordPress plugin that generates optimal slug candidates using translation service APIs. Supports both Gutenberg block editor and Classic editor.
 
 ## Features
@@ -125,13 +129,22 @@ The plugin supports multiple languages through WordPress's built-in internationa
 
 ## License
 
-GPL v2+
+GPL v3+
 
 ## Support
 
 For support and feature requests, please visit the plugin's GitHub repository.
 
 ## Changelog
+
+### 2.0.0
+- License updated from GPL v2+ to GPL v3+ (breaking change)
+- Improved Gutenberg script loading and Vite externalization for WordPress modules
+- Gutenberg editor: retrieve slug source from `post_title`
+- Switched S2J Docs Linter from Git submodule to npm package (`@s2j/docs-linter`)
+- Updated npm dependencies (WordPress packages, ESLint, TypeScript, Vite, etc.)
+- Added GitHub Actions workflow for documentation linting
+- Documentation updates (`SPEC.md`, `SPEC_mod.md`)
 
 ### 1.0.0
 - Initial release

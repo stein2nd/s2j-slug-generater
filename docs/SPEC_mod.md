@@ -47,7 +47,7 @@
 * 名称: S2J Slug Generater
 * プラグイン・スラッグ: s2j-slug-generater
 * テキスト・ドメイン: s2j-slug-generater
-* ライセンス: GPL v2以降
+* ライセンス: GPL v3以降
 * 目的: 投稿タイトルをもとに、翻訳サービス提供の API を利用して翻訳し、最適なスラッグ候補を自動生成します。
 * 特徴:
   * Gutenberg ブロックエディターに対応します (Post Title 直下に Slot として追加)。
