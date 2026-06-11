@@ -2,7 +2,17 @@
 
 ## unreleased
 
-## 2.0.0
+## 2.0.1 - 2026-06-11
+
+### Fixed
+
+* GitHub Actions の `npm ci` が React v19と `@wordpress/*` の peer dependency 競合で失敗する問題を、`.npmrc` に `legacy-peer-deps=true` を設定して修正
+
+### Changed
+
+* ドキュメント lint ワークフローのトリガー paths に `.npmrc` を追加
+
+## 2.0.0 - 2026-06-11
 
 ### Breaking Changes
 

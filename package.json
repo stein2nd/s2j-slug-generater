@@ -1,6 +1,6 @@
 {
   "name": "s2j-slug-generater",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "WordPress plugin for generating slugs using translation APIs",
   "type": "module",
   "author": "Koutarou ISHIKAWA",

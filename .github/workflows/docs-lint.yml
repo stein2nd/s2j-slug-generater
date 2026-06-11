@@ -7,12 +7,14 @@ on:
       - "**/*.md"
       - ".textlintrc*"
       - "package.json"
+      - ".npmrc"
   pull_request:
     paths:
       - "docs/**/*.md"
       - "**/*.md"
       - ".textlintrc*"
       - "package.json"
+      - ".npmrc"
 
 jobs:
   lint-docs:
