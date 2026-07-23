@@ -2,6 +2,17 @@
 
 ## unreleased
 
+## 2.0.2 - 2026-07-23
+
+### Fixed
+
+* npm 12 以降で `@s2j/docs-linter` の推移 Git 依存 (`textlint-rule-preset-wp-docs-ja`) により `npm install` が `EALLOWGIT` で失敗する問題を、`.npmrc` に `allow-git=all` を設定して修正
+
+### Changed
+
+* npm 依存モジュールの更新 (React、WordPress パッケージ、ESLint、TypeScript 7、Vite 8.1、`@s2j/docs-linter` 等)
+* `README.md` に Vite バージョンバッジを追加
+
 ## 2.0.1 - 2026-06-11
 
 ### Fixed
