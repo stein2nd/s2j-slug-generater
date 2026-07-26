@@ -39,7 +39,10 @@
     "build:production:classic": "FLUSH_DIST=false VITE_LOG_LEVEL=error vite build --mode production",
     "type-check": "tsc --noEmit",
     "dev": "vite build --mode development --watch",
-    "makepot": "wp i18n make-pot . languages/s2j-slug-generater.pot --domain=s2j-slug-generater"
+    "makepot": "wp i18n make-pot . languages/s2j-slug-generater.pot --domain=s2j-slug-generater",
+    "version:sync": "node scripts/sync-version.mjs",
+    "version:check": "node scripts/sync-version.mjs --check",
+    "postversion": "npm run version:sync && git add s2j-slug-generater.php src/gutenberg/block.json"
   },
   "dependencies": {
     "react": "^19.2.8",

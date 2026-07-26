@@ -1,0 +1,27 @@
+name: Version sync
+
+on:
+  push:
+    paths:
+      - package.json
+      - package-lock.json
+      - s2j-slug-generater.php
+      - src/gutenberg/block.json
+      - scripts/sync-version.mjs
+  pull_request:
+    paths:
+      - package.json
+      - package-lock.json
+      - s2j-slug-generater.php
+      - src/gutenberg/block.json
+      - scripts/sync-version.mjs
+
+jobs:
+  check-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify version fields match package.json
+        run: node scripts/sync-version.mjs --check
