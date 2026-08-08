@@ -2,6 +2,14 @@
 
 ## unreleased
 
+## 2.0.3 - 2026-08-08
+
+### Changed
+
+* npm 依存モジュールの更新 (`@wordpress/components` v38を含む WordPress パッケージ、Vite v8.2、`@s2j/docs-linter` 等)
+* npm v12の install scripts 制限に対応するため、`package.json` に `@s2j/docs-linter` の `allowScripts` を追加
+* `README.md` の Vite バージョンバッジを v8.2に更新
+
 ## 2.0.2 - 2026-07-23
 
 ### Fixed
