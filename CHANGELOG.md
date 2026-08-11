@@ -2,6 +2,19 @@
 
 ## unreleased
 
+## 2.0.4 - 2026-08-11
+
+### Changed
+
+* npm 依存モジュールの更新 (`ncu` / `ncu -u`)
+* TypeScript v7.0 (`tsc`) と `@typescript/typescript6` (`typescript-eslint` 向け) の side-by-side 構成を導入
+* TypeScript v7対応のため `tsconfig.json` から `baseUrl` を削除し、`paths` を相対パス化
+* SCSS モジュール用に `src/vite-env.d.ts` を追加
+* Gutenberg の `@wordpress/core-data` インポートを `store as coreStore` に変更
+* 本体に型定義があるため `@types/wordpress__blocks` / `@types/wordpress__wordcount` を削除
+* ESLint v10と `eslint-plugin-react` の互換のため、React バージョンを設定で明示
+* Vite 設定の `__dirname` を `import.meta.dirname` に置き換え、無効な `inlineDynamicImports` を削除
+
 ## 2.0.3 - 2026-08-08
 
 ### Changed

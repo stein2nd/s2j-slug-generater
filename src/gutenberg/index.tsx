@@ -12,7 +12,7 @@ import { __ } from '@wordpress/i18n';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { store as editorStore } from '@wordpress/editor';
 import '@/styles/gutenberg.scss';
-import { coreStore } from '@wordpress/core-data';
+import { store as coreStore } from '@wordpress/core-data';
 
 interface SlugGeneraterProps {
     attributes?: Record<string, unknown>;

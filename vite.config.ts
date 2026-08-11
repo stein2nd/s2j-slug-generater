@@ -29,27 +29,27 @@ const getBuildConfig = (target: string) => {
     switch (target) {
         case 'admin':
             return {
-                entry: resolve(__dirname, 'src/admin/index.tsx'),
+                entry: resolve(import.meta.dirname, 'src/admin/index.tsx'),
                 name: 'S2JSlugGeneraterAdmin',
-                scss: resolve(__dirname, 'src/styles/admin.scss')
+                scss: resolve(import.meta.dirname, 'src/styles/admin.scss')
             };
         case 'gutenberg':
             return {
-                entry: resolve(__dirname, 'src/gutenberg/index.tsx'),
+                entry: resolve(import.meta.dirname, 'src/gutenberg/index.tsx'),
                 name: 'S2JSlugGeneraterGutenberg',
-                scss: resolve(__dirname, 'src/styles/gutenberg.scss')
+                scss: resolve(import.meta.dirname, 'src/styles/gutenberg.scss')
             };
         case 'classic':
             return {
-                entry: resolve(__dirname, 'src/classic/index.ts'),
+                entry: resolve(import.meta.dirname, 'src/classic/index.ts'),
                 name: 'S2JSlugGeneraterClassic',
-                scss: resolve(__dirname, 'src/styles/classic.scss')
+                scss: resolve(import.meta.dirname, 'src/styles/classic.scss')
             };
         default:
             return {
-                entry: resolve(__dirname, 'src/gutenberg/index.tsx'),
+                entry: resolve(import.meta.dirname, 'src/gutenberg/index.tsx'),
                 name: 'S2JSlugGeneraterGutenberg',
-                scss: resolve(__dirname, 'src/styles/gutenberg.scss')
+                scss: resolve(import.meta.dirname, 'src/styles/gutenberg.scss')
             };
     }
 };
@@ -110,7 +110,6 @@ export default defineConfig({
         },
         chunkFileNames: 'js/[name].js',
         entryFileNames: `js/s2j-slug-generater-${buildTarget}.js`,
-        inlineDynamicImports: false,
       },
       onwarn(warning, warn) {
         // 特定の警告を抑制
@@ -141,13 +140,13 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        // additionalData: `@import "${resolve(__dirname, 'src/styles/variables.scss')}";`
+        // additionalData: `@import "${resolve(import.meta.dirname, 'src/styles/variables.scss')}";`
       },
     },
   },
   resolve: {
     alias: {
-      '@': resolve(__dirname, 'src'),
+      '@': resolve(import.meta.dirname, 'src'),
     },
   },
 });

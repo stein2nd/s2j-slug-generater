@@ -1,6 +1,6 @@
 {
   "name": "s2j-slug-generater",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "WordPress plugin for generating slugs using translation APIs",
   "type": "module",
   "author": "Koutarou ISHIKAWA",
@@ -55,10 +55,9 @@
     "@types/node": "^26.2.0",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
-    "@types/wordpress__blocks": "^15.17.0",
-    "@types/wordpress__wordcount": "^4.32.0",
-    "@typescript-eslint/eslint-plugin": "^8.66.0",
-    "@typescript-eslint/parser": "^8.66.0",
+    "@typescript-eslint/eslint-plugin": "^8.67.0",
+    "@typescript-eslint/parser": "^8.67.0",
+    "@typescript/native": "npm:typescript@^7.0.2",
     "@wordpress/block-editor": "^16.1.0",
     "@wordpress/blocks": "^15.25.0",
     "@wordpress/components": "^38.0.0",
@@ -77,10 +76,10 @@
     "sass": "^1.102.0",
     "stylelint": "^17.14.1",
     "stylelint-config-standard-scss": "^17.0.0",
-    "typescript": "^7.0.2",
+    "typescript": "npm:@typescript/typescript6@^6.0.2",
     "vite": "^8.2.1"
   },
   "allowScripts": {
-    "@s2j/docs-linter@1.0.22": true
+    "@s2j/docs-linter": true
   }
 }
