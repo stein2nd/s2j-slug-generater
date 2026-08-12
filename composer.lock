@@ -1,0 +1,70 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "477047bbd180dc54eccca763fb429bb3",
+    "packages": [
+        {
+            "name": "s2j/similarity-service",
+            "version": "2.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stein2nd/s2j-similarity-service.git",
+                "reference": "5a4ec62676c0d95338d82cd9b374310db9b6da35"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stein2nd/s2j-similarity-service/zipball/5a4ec62676c0d95338d82cd9b374310db9b6da35",
+                "reference": "5a4ec62676c0d95338d82cd9b374310db9b6da35",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.0"
+            },
+            "require-dev": {
+                "automattic/wordbless": "^0.6",
+                "johnpbloch/wordpress": "^6.9",
+                "justinrainbow/json-schema": "^6",
+                "phpstan/phpstan": "^2.1",
+                "phpunit/phpunit": "^13.1",
+                "squizlabs/php_codesniffer": "^4.0",
+                "symfony/yaml": "^6.4"
+            },
+            "type": "library",
+            "extra": {
+                "wordpress-install-dir": "wordpress"
+            },
+            "autoload": {
+                "psr-4": {
+                    "S2J\\Similarity\\": "src/",
+                    "S2J\\SimilarityService\\": "src/",
+                    "S2J\\Similarity\\Adapters\\": "adapters/",
+                    "S2J\\Similarity\\Adapters\\Http\\WordPress\\": "adapters/http/wordpress/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "description": "A pure PHP library for semantic similarity detection.",
+            "support": {
+                "issues": "https://github.com/stein2nd/s2j-similarity-service/issues",
+                "source": "https://github.com/stein2nd/s2j-similarity-service/tree/v2.0.4"
+            },
+            "time": "2026-08-12T11:00:27+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {},
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "php": ">=8.0"
+    },
+    "platform-dev": {},
+    "plugin-api-version": "2.9.0"
+}

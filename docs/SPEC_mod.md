@@ -5,7 +5,7 @@
 本ドキュメントでは、WordPress プラグイン「s2j-slug-generater」の専用仕様を定義します。
 本プラグインの設計は、以下の共通 SPEC に準拠します。
 
-- [WP_PLUGIN_SPEC.md (共通仕様)](https://github.com/stein2nd/wp-plugin-spec/blob/main/WP_PLUGIN_SPEC.md)
+* [WP_PLUGIN_SPEC.md (共通仕様)](https://github.com/stein2nd/wp-plugin-spec/blob/main/WP_PLUGIN_SPEC.md)
 
 以下は、本プラグイン固有の仕様をまとめたものです。
 
@@ -16,29 +16,29 @@
 
 ### docs/SPEC.md と docs/SPEC_mod.md の主な差分 (簡単要約)
 
-- **類似度ロジックの変更**  
-  - `SPEC.md`: レーベンシュタイン距離で0〜100のスコアを計算。  
-  - `SPEC_mod.md`: [S2J Similarity Service](https://github.com/stein2nd/s2j-similarity-service) を使った「コサイン類似度 (0.0〜1.0)」に変更し、パーセント表示に変換して利用。
+* **類似度ロジックの変更**  
+  * `SPEC.md`: レーベンシュタイン距離で0〜100のスコアを計算。  
+  * `SPEC_mod.md`: [S2J Similarity Service](https://github.com/stein2nd/s2j-similarity-service) を使った「コサイン類似度 (0.0〜1.0)」に変更し、パーセント表示に変換して利用。
 
-- **設定画面の項目追加・変更**  
-  - 項目を新規追加 (「OpenAI API キー」「OpenAI モデル名」「ロケール」)。  
-  - 類似度閾値スライダー: `0〜100` → `0.0〜1.0` (表示は0〜100%) に仕様変更。
+* **設定画面の項目追加・変更**  
+  * 項目を新規追加 (「OpenAI API キー」「OpenAI モデル名」「ロケール」)。  
+  * 類似度閾値スライダー: `0〜100` → `0.0〜1.0` (表示は0〜100%) に仕様変更。
 
-- **依存関係と構成の拡張**  
-  - フォルダー構成に `composer.json` を追加し、PHP 依存として `stein2nd/s2j-similarity-service` を導入する指定。  
-  - `package.json` の `dependencies` / `devDependencies` を「S2J Alliance Manager」と統一するための具体的なバージョン一覧を追記。
+* **依存関係と構成の拡張**  
+  * フォルダー構成に `composer.json` を追加し、PHP 依存として `stein2nd/s2j-similarity-service` を導入する指定。
+  * `package.json` の `dependencies` / `devDependencies` を「S2J Alliance Manager」と統一するための具体的なバージョン一覧を追記。
 
-- **実装ガイドの追記**  
-  - PHP 側 (`includes/SlugGenerater.php`) で Composer autoload 追加、類似度計算メソッドの差し替えなどの実装修正ポイントを詳しく記載。  
-  - 設定画面 / フロントエンド (`SettingsPage.php`, `src/admin/index.tsx` など) の具体的な修正ポイントを追加。
+* **実装ガイドの追記**  
+  * PHP 側 (`includes/SlugGenerater.php`) で Composer autoload 追加、類似度計算メソッドの差し替えなどの実装修正ポイントを詳しく記載。  
+  * 設定画面 / フロントエンド (`SettingsPage.php`, `src/admin/index.tsx` など) の具体的な修正ポイントを追加。
 
-- **REST API 仕様の拡張**  
-  - `SPEC.md`: 入力 `title`、出力は `candidates` の配列のみ。  
-  - `SPEC_mod.md`: 入力に `nonce` を明示、出力を `success` / `data` ラッパー形式に変更し、`similarity` (パーセント) と `translated_title` を追加。
+* **REST API 仕様の拡張**  
+  * `SPEC.md`: 入力 `title`、出力は `candidates` の配列のみ。  
+  * `SPEC_mod.md`: 入力に `nonce` を明示、出力を `success` / `data` ラッパー形式に変更し、`similarity` (パーセント) と `translated_title` を追加。
 
-- **メタ情報の追加**  
-  - `SPEC_mod.md` 冒頭で「どこをどう変更した SPEC なのか」を明示。  
-  - 末尾に変更履歴 (`v1.0.0 (Modified)`) を追加。
+* **メタ情報の追加**  
+  * `SPEC_mod.md` 冒頭で「どこをどう変更した SPEC なのか」を明示。  
+  * 末尾に変更履歴 (`v1.0.0 (Modified)`) を追加。
 
 ---
 

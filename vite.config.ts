@@ -73,14 +73,23 @@ export default defineConfig({
       external: (id) => {
         // WordPress Gutenberg関連のモジュールを外部化
         if (id.startsWith('@wordpress/')) return true;
-        // React関連を外部化
-        if (id === 'react' || id === 'react-dom') return true;
+        // React は WP 同梱 (wp.element) を使う。jsx-runtime を同梱すると要素型が食い違いクラッシュする
+        if (
+          id === 'react' ||
+          id === 'react-dom' ||
+          id === 'react/jsx-runtime' ||
+          id === 'react/jsx-dev-runtime'
+        ) {
+          return true;
+        }
         // jQueryを外部化
         if (id === 'jquery') return true;
         return false;
       },
       input: buildConfig.entry,
       output: {
+        // WP は react/jsx-runtime グローバルを持たないため、wp.element から互換オブジェクトを用意する
+        banner: `window.S2JReactJSXRuntime=window.S2JReactJSXRuntime||{jsx:wp.element.createElement,jsxs:wp.element.createElement,Fragment:wp.element.Fragment};`,
         globals: (id) => {
           // WordPress Gutenbergのグローバル変数名をマッピング
           if (id.startsWith('@wordpress/')) {
@@ -92,12 +101,17 @@ export default defineConfig({
             if (id === '@wordpress/components') return 'wp.components';
             if (id === '@wordpress/i18n') return 'wp.i18n';
             if (id === '@wordpress/editor') return 'wp.editor';
+            if (id === '@wordpress/edit-post') return 'wp.editPost';
+            if (id === '@wordpress/plugins') return 'wp.plugins';
+            if (id === '@wordpress/api-fetch') return 'wp.apiFetch';
             if (id === '@wordpress/core-data') return 'wp.coreData';
             return `wp.${module}`;
           }
-          // React関連
-          if (id === 'react') return 'React';
-          if (id === 'react-dom') return 'ReactDOM';
+          // React関連 → WordPress 同梱 React
+          if (id === 'react' || id === 'react-dom') return 'wp.element';
+          if (id === 'react/jsx-runtime' || id === 'react/jsx-dev-runtime') {
+            return 'S2JReactJSXRuntime';
+          }
           // jQuery
           if (id === 'jquery') return 'jQuery';
           return id;

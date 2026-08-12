@@ -2,6 +2,41 @@
 
 ## unreleased
 
+## 2.0.5 - 2026-08-12
+
+### Added
+
+* Composer 依存として [`s2j/similarity-service`](https://packagist.org/packages/s2j/similarity-service) (`^2.0`) を導入 (`composer.json` / `composer.lock`)
+* プラグイン本体で `vendor/autoload.php` を読み込む処理を追加
+* 仕様再設計ドキュメント群 `docs_mod/` を追加 (FOP + Clean Coding 土台、CA は借用原則のみ)
+* 実装追加
+    * FOP 構成のサーバー実装: Domain 純関数、PluginConfig Adapter、翻訳プロバイダ・レジストリ、Similarity Adapter、`generate_candidate` オーケストレータ
+    * 管理画面に類似度用 AI API キー / モデル / ロケール設定を追加
+    * REST 成功レスポンスに `accepted` を追加
+    * Gutenberg を `PluginDocumentSettingPanel` に配置、Classic を Title 直下 (`edit_form_after_title`) に配置
+
+### Changed
+
+* 設計方針を「FOP + Clean Coding」に整理し、類似度用の設定名を `similarityAiApiKey` / `similarityAiModel` など汎用名称へ統一 (`docs_mod`)
+* `.gitignore` に `vendor/` を追加 (Git 管理外。リリース成果物には同梱する方針)
+* 実装変更
+    * 類似度をレーベンシュタインから `s2j/similarity-service` のコサイン類似度へ切替
+    * REST 認可を `X-WP-Nonce` (`wp_rest`) に一本化 (ボディ `nonce` 廃止)
+    * 候補を英訳テキスト1件 (`candidates: [translated]`) に簡素化。スラッグ化はクライアント `normalizeToSlug`
+    * 類似度閾値を ratio (0.0–1.0) で保持。既存 percent 値は起動時に自動変換
+    * `accepted: false` のときスラッグ化ボタンを無効化
+    * 生成ロジックとエディター・マウントを分割
+
+### Fixed
+
+* Gutenberg パネル描画クラッシュを修正 (Vite が React の `jsx-runtime` を同梱し `wp.element` と要素型が衝突していた)
+* DeepL 連携の安定化
+    * JSON + `Authorization` + cURL 直たたきに変更
+    * API Plan 設定 (auto / free / pro)。auto は `api.deepl.com` 優先、失敗時に api-free にリトライ
+    * `:fx` 接尾辞だけでの Free 判定を廃止 (Individual 等で `:fx` でも Pro ホストのキーがあるため)
+    * Translate 権限なしキー向けに `/v2/usage` 診断メッセージを追加
+    * API キー入力を text 欄に変更 (パスワードマネージャーによる誤送信対策)
+
 ## 2.0.4 - 2026-08-11
 
 ### Changed

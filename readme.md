@@ -9,17 +9,17 @@ A WordPress plugin that generates optimal slug candidates using translation serv
 
 ## Features
 
-- **Translation API Integration**: Uses DeepL API or Google Translate API to generate English slugs from Japanese (or other language) titles
-- **Similarity Check**: Implements Levenshtein distance algorithm to ensure translation quality
-- **Dual Editor Support**: Works seamlessly with both Gutenberg block editor and Classic editor
-- **Configurable Settings**: Customizable API keys, source languages, and similarity thresholds
-- **Modern UI**: Clean, responsive interface built with React and WordPress components
+* **Translation API Integration**: Uses DeepL API or Google Translate API to generate English slugs from Japanese (or other language) titles
+* **Similarity Check**: Implements Levenshtein distance algorithm to ensure translation quality
+* **Dual Editor Support**: Works seamlessly with both Gutenberg block editor and Classic editor
+* **Configurable Settings**: Customizable API keys, source languages, and similarity thresholds
+* **Modern UI**: Clean, responsive interface built with React and WordPress components
 
 ## Requirements
 
-- WordPress v5.0+
-- PHP v7.4+
-- Node.js v16+ (for development)
+* WordPress v5.0+
+* PHP v7.4+
+* Node.js v16+ (for development)
 
 ## Installation
 
@@ -33,19 +33,19 @@ A WordPress plugin that generates optimal slug candidates using translation serv
 ### API Setup
 
 1. **DeepL API**:
-   - Visit [DeepL Pro API Pricing](https://www.deepl.com/pro-api#api-pricing)
-   - Get your API key from [DeepL Developer](https://www.deepl.com/ja/pro#developer)
+   * Visit [DeepL Pro API Pricing](https://www.deepl.com/pro-api#api-pricing)
+   * Get your API key from [DeepL Developer](https://www.deepl.com/ja/pro#developer)
 
 2. **Google Translate API**:
-   - Visit [Google Cloud Translate Pricing](https://cloud.google.com/translate/pricing?hl=ja)
-   - Follow the [setup guide](https://cloud.google.com/translate/docs/setup?hl=ja)
+   * Visit [Google Cloud Translate Pricing](https://cloud.google.com/translate/pricing?hl=ja)
+   * Follow the [setup guide](https://cloud.google.com/translate/docs/setup?hl=ja)
 
 ### Plugin Settings
 
-- **Translation Service**: Choose between DeepL and Google Translate
-- **API Key**: Enter your chosen service's API key
-- **Source Language**: Select the language of your post titles
-- **Similarity Threshold**: Set minimum similarity percentage (0-100%)
+* **Translation Service**: Choose between DeepL and Google Translate
+* **API Key**: Enter your chosen service's API key
+* **Source Language**: Select the language of your post titles
+* **Similarity Threshold**: Set minimum similarity percentage (0-100%)
 
 ## Usage
 
@@ -112,17 +112,17 @@ s2j-slug-generater/
 
 ### Architecture
 
-- **Template Method Pattern**: Used for translation flow
-- **Abstract Factory Pattern**: Used for translation service selection
-- **REST API**: Handles slug generation requests
-- **React Components**: Modern UI for Gutenberg and admin
-- **jQuery**: Classic editor compatibility
+* **Template Method Pattern**: Used for translation flow
+* **Abstract Factory Pattern**: Used for translation service selection
+* **REST API**: Handles slug generation requests
+* **React Components**: Modern UI for Gutenberg and admin
+* **jQuery**: Classic editor compatibility
 
 ## API Endpoints
 
-- `POST /wp-json/s2j-slug-generater/v1/generate`
-  - Generates slug candidates from a title
-  - Requires authentication and nonce verification
+* `POST /wp-json/s2j-slug-generater/v1/generate`
+  * Generates slug candidates from a title
+  * Requires authentication and nonce verification
 
 ## Internationalization
 
@@ -139,17 +139,17 @@ For support and feature requests, please visit the plugin's GitHub repository.
 ## Changelog
 
 ### 2.0.0
-- License updated from GPL v2+ to GPL v3+ (breaking change)
-- Improved Gutenberg script loading and Vite externalization for WordPress modules
-- Gutenberg editor: retrieve slug source from `post_title`
-- Switched S2J Docs Linter from Git submodule to npm package (`@s2j/docs-linter`)
-- Updated npm dependencies (WordPress packages, ESLint, TypeScript, Vite, etc.)
-- Added GitHub Actions workflow for documentation linting
-- Documentation updates (`SPEC.md`, `SPEC_mod.md`)
+* License updated from GPL v2+ to GPL v3+ (breaking change)
+* Improved Gutenberg script loading and Vite externalization for WordPress modules
+* Gutenberg editor: retrieve slug source from `post_title`
+* Switched S2J Docs Linter from Git submodule to npm package (`@s2j/docs-linter`)
+* Updated npm dependencies (WordPress packages, ESLint, TypeScript, Vite, etc.)
+* Added GitHub Actions workflow for documentation linting
+* Documentation updates (`SPEC.md`, `SPEC_mod.md`)
 
 ### 1.0.0
-- Initial release
-- DeepL and Google Translate API support
-- Gutenberg and Classic editor integration
-- Similarity threshold system
-- Responsive admin interface
+* Initial release
+* DeepL and Google Translate API support
+* Gutenberg and Classic editor integration
+* Similarity threshold system
+* Responsive admin interface

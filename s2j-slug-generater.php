@@ -3,7 +3,7 @@
  * Plugin Name: S2J Slug Generater
  * Plugin URI: https://github.com/stein2nd/s2j-slug-generater
  * Description: Generate optimal slug candidates using translation service APIs. Supports both Gutenberg block editor and Classic editor.
- * Version: 2.0.4
+ * Version: 2.0.5
  * Author: stein2nd
  * License: GPL v3 or later
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -13,158 +13,95 @@
  * @package S2J_Slug_Generater
  */
 
-// Prevent direct access
 if (!defined('ABSPATH')) {
     exit;
 }
 
-// Define plugin constants
-define('S2J_SLUG_GENERATER_VERSION', '2.0.4');
+define('S2J_SLUG_GENERATER_VERSION', '2.0.5');
 define('S2J_SLUG_GENERATER_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('S2J_SLUG_GENERATER_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('S2J_SLUG_GENERATER_PLUGIN_BASENAME', plugin_basename(__FILE__));
 
+$s2j_slug_generater_autoload = S2J_SLUG_GENERATER_PLUGIN_DIR . 'vendor/autoload.php';
+if (file_exists($s2j_slug_generater_autoload)) {
+    require_once $s2j_slug_generater_autoload;
+}
+
 /**
- * Main plugin class
+ * Load plugin PHP modules (FOP outer frame + pure domain).
  */
-class S2J_Slug_Generater {
-    
-    /**
-     * Constructor
-     */
-    public function __construct() {
-        add_action('init', array($this, 'init'));
-        add_action('plugins_loaded', array($this, 'load_textdomain'));
+function s2j_slug_generater_load_dependencies() {
+    $dir = S2J_SLUG_GENERATER_PLUGIN_DIR . 'includes/';
+
+    require_once $dir . 'Domain/pure.php';
+    require_once $dir . 'Config/PluginConfig.php';
+    require_once $dir . 'Providers/registry.php';
+    require_once $dir . 'Similarity/compare.php';
+    require_once $dir . 'Pipeline/generate_candidate.php';
+    require_once $dir . 'RestController.php';
+    require_once $dir . 'Admin/SettingsPage.php';
+    require_once $dir . 'Editor/GutenbergMount.php';
+    require_once $dir . 'Editor/ClassicMount.php';
+}
+
+/**
+ * Bootstrap plugin components.
+ */
+function s2j_slug_generater_bootstrap() {
+    s2j_slug_generater_load_dependencies();
+    S2J_Slug_Generater_Plugin_Config::maybe_migrate_threshold();
+
+    new S2J_Slug_Generater_Settings_Page();
+    new S2J_Slug_Generater_Rest_Controller();
+    new S2J_Slug_Generater_Gutenberg_Mount();
+    new S2J_Slug_Generater_Classic_Mount();
+}
+
+/**
+ * Load text domain.
+ */
+function s2j_slug_generater_load_textdomain() {
+    load_plugin_textdomain(
+        's2j-slug-generater',
+        false,
+        dirname(S2J_SLUG_GENERATER_PLUGIN_BASENAME) . '/languages'
+    );
+}
+
+/**
+ * Enqueue admin settings assets (optional React shell; PHP Settings API is primary).
+ *
+ * @param string $hook Hook suffix.
+ */
+function s2j_slug_generater_enqueue_admin_scripts($hook) {
+    if ('settings_page_s2j-slug-generater' !== $hook) {
+        return;
     }
-    
-    /**
-     * Initialize plugin
-     */
-    public function init() {
-        // Load required files
-        $this->load_dependencies();
-        
-        // Initialize components
-        $this->init_components();
-        
-        // Enqueue scripts and styles
-        add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_scripts'));
-        add_action('enqueue_block_editor_assets', array($this, 'enqueue_gutenberg_scripts'));
-        add_action('admin_footer', array($this, 'enqueue_classic_scripts'));
-    }
-    
-    /**
-     * Load plugin dependencies
-     */
-    private function load_dependencies() {
-        require_once S2J_SLUG_GENERATER_PLUGIN_DIR . 'includes/SettingsPage.php';
-        require_once S2J_SLUG_GENERATER_PLUGIN_DIR . 'includes/RestController.php';
-        require_once S2J_SLUG_GENERATER_PLUGIN_DIR . 'includes/SlugGenerater.php';
-    }
-    
-    /**
-     * Initialize plugin components
-     */
-    private function init_components() {
-        // Initialize settings page
-        new S2J_Slug_Generater_Settings_Page();
-        
-        // Initialize REST controller
-        new S2J_Slug_Generater_Rest_Controller();
-        
-        // Initialize slug generater
-        new S2J_Slug_Generater_Generater();
-    }
-    
-    /**
-     * Load text domain for internationalization
-     */
-    public function load_textdomain() {
-        load_plugin_textdomain(
-            's2j-slug-generater',
-            false,
-            dirname(S2J_SLUG_GENERATER_PLUGIN_BASENAME) . '/languages'
+
+    $admin_js = S2J_SLUG_GENERATER_PLUGIN_DIR . 'dist/js/s2j-slug-generater-admin.js';
+    $admin_css = S2J_SLUG_GENERATER_PLUGIN_DIR . 'dist/css/s2j-slug-generater-admin.css';
+
+    if (file_exists($admin_css)) {
+        wp_enqueue_style(
+            's2j-slug-generater-admin',
+            S2J_SLUG_GENERATER_PLUGIN_URL . 'dist/css/s2j-slug-generater-admin.css',
+            array(),
+            S2J_SLUG_GENERATER_VERSION
         );
     }
-    
-    /**
-     * Enqueue admin scripts and styles
-     */
-    public function enqueue_admin_scripts($hook) {
-        if ('settings_page_s2j-slug-generater' === $hook) {
-            wp_enqueue_script(
-                's2j-slug-generater-admin',
-                S2J_SLUG_GENERATER_PLUGIN_URL . 'dist/js/s2j-slug-generater-admin.js',
-                array('react', 'react-dom'),
-                S2J_SLUG_GENERATER_VERSION,
-                true
-            );
-            
-            wp_enqueue_style(
-                's2j-slug-generater-admin',
-                S2J_SLUG_GENERATER_PLUGIN_URL . 'dist/css/s2j-slug-generater-admin.css',
-                array(),
-                S2J_SLUG_GENERATER_VERSION
-            );
-        }
-    }
-    
-    /**
-     * Enqueue Gutenberg scripts and styles
-     */
-    public function enqueue_gutenberg_scripts() {
-        // Gutenberg エディターが利用可能な場合のみスクリプトを読み込み
-        if (!function_exists('register_block_type')) {
-            return;
-        }
-        
+
+    // PHP Settings API owns the form; admin JS is reserved for progressive enhancement.
+    if (file_exists($admin_js)) {
         wp_enqueue_script(
-            's2j-slug-generater-gutenberg',
-            S2J_SLUG_GENERATER_PLUGIN_URL . 'dist/js/s2j-slug-generater-gutenberg.js',
-            array('wp-blocks', 'wp-element', 'wp-block-editor', 'wp-components', 'wp-i18n', 'wp-data'),
+            's2j-slug-generater-admin',
+            S2J_SLUG_GENERATER_PLUGIN_URL . 'dist/js/s2j-slug-generater-admin.js',
+            array('jquery'),
             S2J_SLUG_GENERATER_VERSION,
             true
         );
-        
-        wp_enqueue_style(
-            's2j-slug-generater-gutenberg',
-            S2J_SLUG_GENERATER_PLUGIN_URL . 'dist/css/s2j-slug-generater-gutenberg.css',
-            array('wp-components'),
-            S2J_SLUG_GENERATER_VERSION
-        );
-        
-        // スクリプトにデータを渡す
-        wp_localize_script('s2j-slug-generater-gutenberg', 's2jSlugGeneraterData', array(
-            'apiUrl' => rest_url('s2j-slug-generater/v1/'),
-            'nonce' => wp_create_nonce('wp_rest'),
-            'version' => S2J_SLUG_GENERATER_VERSION
-        ));
-    }
-    
-    /**
-     * Enqueue Classic editor scripts and styles
-     */
-    public function enqueue_classic_scripts() {
-        global $pagenow;
-        
-        if (in_array($pagenow, array('post.php', 'post-new.php'))) {
-            wp_enqueue_script(
-                's2j-slug-generater-classic',
-                S2J_SLUG_GENERATER_PLUGIN_URL . 'dist/js/s2j-slug-generater-classic.js',
-                array('jquery'),
-                S2J_SLUG_GENERATER_VERSION,
-                true
-            );
-            
-            wp_enqueue_style(
-                's2j-slug-generater-classic',
-                S2J_SLUG_GENERATER_PLUGIN_URL . 'dist/css/s2j-slug-generater-classic.css',
-                array(),
-                S2J_SLUG_GENERATER_VERSION
-            );
-        }
     }
 }
 
-// Initialize plugin
-new S2J_Slug_Generater();
+add_action('plugins_loaded', 's2j_slug_generater_load_textdomain');
+add_action('init', 's2j_slug_generater_bootstrap');
+add_action('admin_enqueue_scripts', 's2j_slug_generater_enqueue_admin_scripts');

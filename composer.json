@@ -1,0 +1,10 @@
+{
+    "name": "s2j/s2j-slug-generater",
+    "description": "WordPress plugin for generating slugs using translation APIs",
+    "type": "wordpress-plugin",
+    "license": "GPL-3.0-or-later",
+    "require": {
+        "php": ">=8.0",
+        "s2j/similarity-service": "^2.0"
+    }
+}
