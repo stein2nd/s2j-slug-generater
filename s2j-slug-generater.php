@@ -1,23 +1,33 @@
 <?php
 /**
+ * S2J Slug Generater
+ *
+ * @package S2J_Slug_Generater
+ * @author Koutarou ISHIKAWA
+ * @copyright 2025 Koutarou ISHIKAWA
+ * @license GPL v3 or later
+
  * Plugin Name: S2J Slug Generater
  * Plugin URI: https://github.com/stein2nd/s2j-slug-generater
  * Description: Generate optimal slug candidates using translation service APIs. Supports both Gutenberg block editor and Classic editor.
- * Version: 2.0.5
- * Author: stein2nd
+ * Version: 2.0.6
+ * Author: Koutarou ISHIKAWA
+ * Author URI: https://stein2nd.wordpress.com
  * License: GPL v3 or later
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain: s2j-slug-generater
  * Domain Path: /languages
- *
- * @package S2J_Slug_Generater
+ * Requires at least: 6.3
+ * Tested up to: 6.8
+ * Requires PHP: 8.2
+ * Network: false
  */
 
 if (!defined('ABSPATH')) {
     exit;
 }
 
-define('S2J_SLUG_GENERATER_VERSION', '2.0.5');
+define('S2J_SLUG_GENERATER_VERSION', '2.0.6');
 define('S2J_SLUG_GENERATER_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('S2J_SLUG_GENERATER_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('S2J_SLUG_GENERATER_PLUGIN_BASENAME', plugin_basename(__FILE__));
@@ -36,7 +46,7 @@ function s2j_slug_generater_load_dependencies() {
     require_once $dir . 'Domain/pure.php';
     require_once $dir . 'Config/PluginConfig.php';
     require_once $dir . 'Providers/registry.php';
-    require_once $dir . 'Similarity/compare.php';
+    require_once $dir . 'Similarity/registry.php';
     require_once $dir . 'Pipeline/generate_candidate.php';
     require_once $dir . 'RestController.php';
     require_once $dir . 'Admin/SettingsPage.php';

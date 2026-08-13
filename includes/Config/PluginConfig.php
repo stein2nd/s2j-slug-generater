@@ -17,6 +17,7 @@ class S2J_Slug_Generater_Plugin_Config {
     const OPTION_TRANSLATION_API_KEY = 's2j_slug_generater_api_key';
     const OPTION_SOURCE_LANGUAGE = 's2j_slug_generater_source_language';
     const OPTION_SIMILARITY_THRESHOLD = 's2j_slug_generater_similarity_threshold';
+    const OPTION_SIMILARITY_AI_PROVIDER_ID = 's2j_slug_generater_similarity_ai_service';
     const OPTION_SIMILARITY_AI_API_KEY = 's2j_slug_generater_similarity_ai_api_key';
     const OPTION_SIMILARITY_AI_MODEL = 's2j_slug_generater_similarity_ai_model';
     const OPTION_LOCALE = 's2j_slug_generater_locale';
@@ -26,6 +27,7 @@ class S2J_Slug_Generater_Plugin_Config {
     const DEFAULT_PROVIDER_ID = 'deepl';
     const DEFAULT_SOURCE_LANGUAGE = 'ja';
     const DEFAULT_SIMILARITY_THRESHOLD = 0.8;
+    const DEFAULT_SIMILARITY_AI_PROVIDER_ID = 'openai';
     const DEFAULT_SIMILARITY_AI_MODEL = 'text-embedding-3-small';
     const DEFAULT_LOCALE = 'ja_JP';
     const DEFAULT_DEEPL_API_PLAN = 'auto';
@@ -65,6 +67,7 @@ class S2J_Slug_Generater_Plugin_Config {
      *   providerId: string,
      *   translationApiKey: string,
      *   sourceLanguage: string,
+     *   similarityAiProviderId: string,
      *   similarityAiApiKey: string,
      *   similarityAiModel: string,
      *   locale: string,
@@ -87,12 +90,20 @@ class S2J_Slug_Generater_Plugin_Config {
             $plan = self::DEFAULT_DEEPL_API_PLAN;
         }
 
+        $similarity_provider_id = self::normalize_similarity_ai_provider_id(
+            (string) get_option(self::OPTION_SIMILARITY_AI_PROVIDER_ID, self::DEFAULT_SIMILARITY_AI_PROVIDER_ID)
+        );
+
         return array(
             'providerId' => (string) get_option(self::OPTION_PROVIDER_ID, self::DEFAULT_PROVIDER_ID),
             'translationApiKey' => trim((string) get_option(self::OPTION_TRANSLATION_API_KEY, '')),
             'sourceLanguage' => (string) get_option(self::OPTION_SOURCE_LANGUAGE, self::DEFAULT_SOURCE_LANGUAGE),
+            'similarityAiProviderId' => $similarity_provider_id,
             'similarityAiApiKey' => trim((string) get_option(self::OPTION_SIMILARITY_AI_API_KEY, '')),
-            'similarityAiModel' => (string) get_option(self::OPTION_SIMILARITY_AI_MODEL, self::DEFAULT_SIMILARITY_AI_MODEL),
+            'similarityAiModel' => self::normalize_similarity_ai_model(
+                (string) get_option(self::OPTION_SIMILARITY_AI_MODEL, self::DEFAULT_SIMILARITY_AI_MODEL),
+                $similarity_provider_id
+            ),
             'locale' => (string) get_option(self::OPTION_LOCALE, self::DEFAULT_LOCALE),
             'similarityThreshold' => $threshold,
             'deeplApiPlan' => $plan,
@@ -114,11 +125,23 @@ class S2J_Slug_Generater_Plugin_Config {
         if (isset($config['sourceLanguage'])) {
             update_option(self::OPTION_SOURCE_LANGUAGE, sanitize_text_field($config['sourceLanguage']));
         }
+        if (isset($config['similarityAiProviderId'])) {
+            update_option(
+                self::OPTION_SIMILARITY_AI_PROVIDER_ID,
+                self::normalize_similarity_ai_provider_id($config['similarityAiProviderId'])
+            );
+        }
         if (isset($config['similarityAiApiKey'])) {
             update_option(self::OPTION_SIMILARITY_AI_API_KEY, sanitize_text_field($config['similarityAiApiKey']));
         }
         if (isset($config['similarityAiModel'])) {
-            update_option(self::OPTION_SIMILARITY_AI_MODEL, sanitize_text_field($config['similarityAiModel']));
+            $provider_id = isset($config['similarityAiProviderId'])
+                ? $config['similarityAiProviderId']
+                : self::DEFAULT_SIMILARITY_AI_PROVIDER_ID;
+            update_option(
+                self::OPTION_SIMILARITY_AI_MODEL,
+                self::normalize_similarity_ai_model($config['similarityAiModel'], $provider_id)
+            );
         }
         if (isset($config['locale'])) {
             update_option(self::OPTION_LOCALE, sanitize_text_field($config['locale']));
@@ -149,12 +172,61 @@ class S2J_Slug_Generater_Plugin_Config {
             self::OPTION_TRANSLATION_API_KEY,
             self::OPTION_SOURCE_LANGUAGE,
             self::OPTION_SIMILARITY_THRESHOLD,
+            self::OPTION_SIMILARITY_AI_PROVIDER_ID,
             self::OPTION_SIMILARITY_AI_API_KEY,
             self::OPTION_SIMILARITY_AI_MODEL,
             self::OPTION_LOCALE,
             self::OPTION_DEEPL_API_PLAN,
             self::OPTION_THRESHOLD_MIGRATED,
         );
+    }
+
+    /**
+     * Unknown ids fall back to the built-in default.
+     *
+     * @param string $id Raw provider id.
+     * @return string
+     */
+    public static function normalize_similarity_ai_provider_id($id) {
+        $id = sanitize_text_field((string) $id);
+        if (!function_exists('s2j_sg_lookup_similarity_ai_provider')) {
+            return $id !== '' ? $id : self::DEFAULT_SIMILARITY_AI_PROVIDER_ID;
+        }
+
+        $lookup = s2j_sg_lookup_similarity_ai_provider($id);
+        if (!$lookup['ok']) {
+            return self::DEFAULT_SIMILARITY_AI_PROVIDER_ID;
+        }
+
+        return $id;
+    }
+
+    /**
+     * Keep the model only when it belongs to the selected provider.
+     *
+     * @param string $model       Raw model id.
+     * @param string $provider_id Similarity AI provider id.
+     * @return string
+     */
+    public static function normalize_similarity_ai_model($model, $provider_id) {
+        $model = sanitize_text_field((string) $model);
+        $provider_id = self::normalize_similarity_ai_provider_id($provider_id);
+
+        if (!function_exists('s2j_sg_lookup_similarity_ai_provider')) {
+            return $model !== '' ? $model : self::DEFAULT_SIMILARITY_AI_MODEL;
+        }
+
+        $lookup = s2j_sg_lookup_similarity_ai_provider($provider_id);
+        if (!$lookup['ok'] || empty($lookup['value']['models'])) {
+            return $model !== '' ? $model : self::DEFAULT_SIMILARITY_AI_MODEL;
+        }
+
+        $models = $lookup['value']['models'];
+        if (in_array($model, $models, true)) {
+            return $model;
+        }
+
+        return (string) $models[0];
     }
 
     /**

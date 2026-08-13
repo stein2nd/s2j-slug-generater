@@ -1,0 +1,338 @@
+# Copyright (C) 2026 Koutarou ISHIKAWA
+# This file is distributed under the GPL v3 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: S2J Slug Generater 2.0.5\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/s2j-slug-generater\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-08-13T12:16:27+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: s2j-slug-generater\n"
+
+#. Plugin Name of the plugin
+#: s2j-slug-generater.php
+#: includes/Admin/SettingsPage.php:31
+#: includes/Editor/ClassicMount.php:59
+#: dist/js/s2j-slug-generater-gutenberg.js:1
+msgid "S2J Slug Generater"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: s2j-slug-generater.php
+msgid "https://github.com/stein2nd/s2j-slug-generater"
+msgstr ""
+
+#. Description of the plugin
+#: s2j-slug-generater.php
+msgid "Generate optimal slug candidates using translation service APIs. Supports both Gutenberg block editor and Classic editor."
+msgstr ""
+
+#. Author of the plugin
+#: s2j-slug-generater.php
+msgid "Koutarou ISHIKAWA"
+msgstr ""
+
+#. Author URI of the plugin
+#: s2j-slug-generater.php
+msgid "https://stein2nd.wordpress.com"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:30
+msgid "S2J Slug Generater Settings"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:92
+msgid "Translation Service Settings"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:99
+msgid "Translation Service"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:106
+msgid "Translation API Key"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:113
+msgid "DeepL API Plan"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:120
+msgid "Source Language"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:128
+msgid "Similarity Settings"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:135
+msgid "Similarity AI Service"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:142
+msgid "Similarity AI API Key"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:149
+msgid "Similarity AI Model"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:156
+msgid "Locale"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:163
+msgid "Similarity Threshold"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:237
+msgid "Configure the translation service used for slug candidate generation."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:244
+msgid "Configure embedding-based similarity checks. The similarity AI API key is separate from the translation API key."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:257
+msgid "DeepL API"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:257
+msgid "Google Translate API"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:274
+msgid "Paste the key from DeepL → Account → API Keys. DeepL Individual (translator app) is not the same product as DeepL API Translate."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:284
+msgid "Auto (prefer api.deepl.com, retry api-free on failure)"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:285
+msgid "DeepL API Pro host (api.deepl.com)"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:286
+msgid "DeepL API Free host (api-free.deepl.com)"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:294
+msgid "Your key must allow the Translate API. A DeepL Individual translator subscription alone is not enough if the key lacks Translate scope."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:333
+msgid "OpenAI API"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:393
+msgid "Stored for future use. Similarity currently uses the library API (texts + model)."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:406
+msgid "Minimum cosine similarity required to accept a candidate (0–100%)."
+msgstr ""
+
+#: includes/Domain/pure.php:24
+#: includes/Editor/ClassicMount.php:106
+#: dist/js/s2j-slug-generater-gutenberg.js:1
+msgid "Please enter a post title first."
+msgstr ""
+
+#: includes/Editor/ClassicMount.php:60
+#: includes/Editor/ClassicMount.php:108
+#: dist/js/s2j-slug-generater-gutenberg.js:1
+msgid "Generate Candidates"
+msgstr ""
+
+#: includes/Editor/ClassicMount.php:61
+#: dist/js/s2j-slug-generater-gutenberg.js:1
+msgid "Slug Candidate:"
+msgstr ""
+
+#: includes/Editor/ClassicMount.php:63
+#: dist/js/s2j-slug-generater-gutenberg.js:1
+msgid "Similarity:"
+msgstr ""
+
+#: includes/Editor/ClassicMount.php:64
+#: dist/js/s2j-slug-generater-gutenberg.js:1
+msgid "Slugify"
+msgstr ""
+
+#: includes/Editor/ClassicMount.php:107
+#: dist/js/s2j-slug-generater-gutenberg.js:1
+msgid "Generating..."
+msgstr ""
+
+#: includes/Editor/ClassicMount.php:109
+#: dist/js/s2j-slug-generater-gutenberg.js:1
+msgid "Slug candidate generated successfully."
+msgstr ""
+
+#: includes/Editor/ClassicMount.php:110
+#: dist/js/s2j-slug-generater-gutenberg.js:1
+msgid "Failed to generate slug candidate."
+msgstr ""
+
+#: includes/Editor/ClassicMount.php:111
+#: dist/js/s2j-slug-generater-gutenberg.js:1
+msgid "An error occurred while generating the slug candidate."
+msgstr ""
+
+#: includes/Editor/ClassicMount.php:112
+#: dist/js/s2j-slug-generater-gutenberg.js:1
+msgid "Please generate a candidate first."
+msgstr ""
+
+#: includes/Editor/ClassicMount.php:113
+#: dist/js/s2j-slug-generater-gutenberg.js:1
+msgid "Slug applied successfully."
+msgstr ""
+
+#: includes/Editor/ClassicMount.php:114
+#: dist/js/s2j-slug-generater-gutenberg.js:1
+msgid "Similarity is below the threshold. Slugify is disabled."
+msgstr ""
+
+#: includes/Pipeline/generate_candidate.php:47
+#: includes/Providers/deepl.php:395
+#: includes/Providers/google.php:71
+msgid "Translation API key is not configured. Open Settings → S2J Slug Generater and enter your translation API key."
+msgstr ""
+
+#: includes/Providers/deepl.php:168
+msgid "DeepL accepted this API key on api.deepl.com, but Translate is forbidden. DeepL Individual (translator) is separate from DeepL API Translate. Open https://www.deepl.com/your-account/keys and create/use an API key that includes the Translate scope (or a DeepL API plan with Translate)."
+msgstr ""
+
+#: includes/Providers/deepl.php:179
+msgid "DeepL reports this key must use api.deepl.com (not api-free). Set DeepL API Plan to “Pro”, then ensure the key has Translate permission."
+msgstr ""
+
+#: includes/Providers/deepl.php:186
+msgid "DeepL accepted this API key on api-free.deepl.com, but Translate is forbidden. Check that the key includes the Translate scope."
+msgstr ""
+
+#. translators: %s: host
+#: includes/Providers/deepl.php:195
+#, php-format
+msgid "DeepL rejected Translate on %s."
+msgstr ""
+
+#: includes/Providers/deepl.php:257
+msgid "Translation request failed: cURL is not available."
+msgstr ""
+
+#: includes/Providers/deepl.php:268
+msgid "Translation request failed: could not encode JSON payload."
+msgstr ""
+
+#: includes/Providers/deepl.php:279
+msgid "Translation request failed: could not initialize cURL."
+msgstr ""
+
+#. translators: %s: error message
+#: includes/Providers/deepl.php:311
+#: includes/Providers/google.php:100
+#, php-format
+msgid "Translation request failed: %s"
+msgstr ""
+
+#. translators: 1: HTTP status, 2: optional API message
+#: includes/Providers/deepl.php:368
+#, php-format
+msgid "Translation failed: unexpected DeepL response (HTTP %1$d).%2$s"
+msgstr ""
+
+#: includes/Providers/google.php:116
+msgid "Translation failed: invalid API key."
+msgstr ""
+
+#: includes/Providers/google.php:126
+msgid "Translation failed: Invalid response from Google Translate API."
+msgstr ""
+
+#: includes/Providers/registry.php:47
+msgid "Unsupported translation service."
+msgstr ""
+
+#. translators: 1: plan URL, 2: free key URL
+#: includes/Providers/registry.php:67
+#, php-format
+msgid "Go to <a target=\"_blank\" href=\"%1$s\">the API plan selection page</a> and <a target=\"_blank\" href=\"%2$s\">obtain a free API key</a>."
+msgstr ""
+
+#: includes/RestController.php:59
+msgid "Security check failed."
+msgstr ""
+
+#: includes/RestController.php:67
+msgid "You do not have permission to perform this action."
+msgstr ""
+
+#: includes/Similarity/openai.php:51
+msgid "Similarity AI API key is not configured. Open Settings → S2J Slug Generater and enter your embedding API key. This key is separate from the translation API key."
+msgstr ""
+
+#: includes/Similarity/openai.php:64
+msgid "Similarity service is not available. Run Composer install."
+msgstr ""
+
+#. translators: %s: error message
+#: includes/Similarity/openai.php:94
+#, php-format
+msgid "Similarity comparison failed: %s"
+msgstr ""
+
+#: includes/Similarity/registry.php:45
+msgid "Unsupported similarity AI service."
+msgstr ""
+
+#. translators: 1: signup URL, 2: billing URL, 3: API keys URL
+#: includes/Similarity/registry.php:65
+#, php-format
+msgid "Create an account on <a target=\"_blank\" href=\"%1$s\">the signup page</a>, add credits on <a target=\"_blank\" href=\"%2$s\">the billing page</a>, then <a target=\"_blank\" href=\"%3$s\">obtain an API key</a>. This key is separate from the translation API key."
+msgstr ""
+
+#: dist/js/s2j-slug-generater-gutenberg.js:1
+msgid "Current Slug:"
+msgstr ""
+
+#: dist/js/s2j-slug-generater-gutenberg.js:1
+msgid "PluginDocumentSettingPanel is unavailable in this WordPress version."
+msgstr ""
+
+#: src/gutenberg/block.json
+msgctxt "block title"
+msgid "S2J Slug Generater"
+msgstr ""
+
+#: src/gutenberg/block.json
+msgctxt "block description"
+msgid "Generate and manage post slugs with AI-powered suggestions."
+msgstr ""
+
+#: src/gutenberg/block.json
+msgctxt "block keyword"
+msgid "slug"
+msgstr ""
+
+#: src/gutenberg/block.json
+msgctxt "block keyword"
+msgid "seo"
+msgstr ""
+
+#: src/gutenberg/block.json
+msgctxt "block keyword"
+msgid "url"
+msgstr ""
+
+#: src/gutenberg/block.json
+msgctxt "block keyword"
+msgid "permalink"
+msgstr ""

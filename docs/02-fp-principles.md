@@ -42,19 +42,19 @@
 
 ## Clean Architecture から借用する原則
 
-次だけを借用します。レイヤ名の儀式は作りません。
+Clean Architecture から次だけを借用します。レイヤ名の儀式は、作りません。
 
 * 依存の向きは、外 → 内
 * 内側 (ビジネスロジック) は、フレームワークを知らない
 * 外側 (Adapter / Facade) は、詳細で置換可能
 
-## 旧パターン → FOP 写像
+## 旧 SPEC (デザインパターン) → FOP 写像
 
 | 旧 SPEC | FOP での置き方 |
 | --- | --- |
 | Template Method | 外側オーケストレータが順序を決める。各ステップは純関数 or 注入された Adapter |
-| Abstract Factory | `TranslationProvider` レジストリ (データ + `translate`)。Factory クラス階層は置かない |
-| Strategy (類似度) | `compareSimilarity` を注入。必要なら薄い Similarity Adapter |
+| Abstract Factory | `TranslationProvider` / `SimilarityAiProvider` レジストリ (データ + 関数)。Factory クラス階層は置かない |
+| Strategy (類似度) | 記述子の `compare` を注入。必要なら薄い Similarity Adapter |
 | 手続き的 UI 手順 | イベント → (純な状態写像 or effect) → 表示更新 |
 | 神クラス | 純関数群 + 薄い Facade / Orchestrator + Adapter |
 
@@ -94,5 +94,3 @@ flowchart TB
 | `withX` | 依存や設定を部分適用した関数を返す |
 | `*Adapter` / `*Facade` (使うなら) | 外枠の境界。名前で I/O 担当と分かるようにする |
 | `Result<T, E>` | 成功 `T` または失敗 `E` |
-
-次: [03-domain-model.md](./03-domain-model.md)

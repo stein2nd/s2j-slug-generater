@@ -14,6 +14,7 @@ $option_keys = array(
     's2j_slug_generater_api_key',
     's2j_slug_generater_source_language',
     's2j_slug_generater_similarity_threshold',
+    's2j_slug_generater_similarity_ai_service',
     's2j_slug_generater_similarity_ai_api_key',
     's2j_slug_generater_similarity_ai_model',
     's2j_slug_generater_locale',

@@ -2,6 +2,23 @@
 
 ## unreleased
 
+## 2.0.6 - 2026-08-13
+
+### Added
+
+* 類似度 AI プロバイダ・レジストリ (`openai`) を追加。管理画面の案内リンクとモデル一覧を記述子から組み立てる
+
+### Changed
+
+* 採用仕様を実装 v2.0.5に同期し、`docs_mod/` から `docs/` に昇格。旧仕様 (`SPEC.md`、`SPEC_mod.md`) は `docs/archive/` に移動
+* プラグインヘッダーを整備 (Author / Author URI、Requires at least v6.3、Tested up to v6.8、Requires PHP v8.2、等)
+* 類似度設定を翻訳プロバイダと同じ記述子レジストリにそろえる仕様を `docs/` に追加 (案内 URL、モデル一覧、`compare`。組込みは `openai`)
+* 類似度キー案内の OpenAI URL 直書きをやめ、翻訳プロバイダと同じ `formatSimilarityApiKeyHelp` にそろえた
+
+### Fixed
+
+* 翻訳ファイル名を WordPress 規約 (`s2j-slug-generater-ja.mo`) にそろえ、Gutenberg に `wp_set_script_translations` と handle 名の Jed JSON を追加
+
 ## 2.0.5 - 2026-08-12
 
 ### Added

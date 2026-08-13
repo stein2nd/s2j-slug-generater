@@ -26,7 +26,12 @@ function s2j_sg_generate_candidate($title, array $config, array $deps = array())
 
     $compare = isset($deps['compareSimilarity']) && is_callable($deps['compareSimilarity'])
         ? $deps['compareSimilarity']
-        : 's2j_sg_compare_similarity';
+        : function ($req) use ($config) {
+            $provider_id = isset($config['similarityAiProviderId']) && $config['similarityAiProviderId'] !== ''
+                ? $config['similarityAiProviderId']
+                : S2J_Slug_Generater_Plugin_Config::DEFAULT_SIMILARITY_AI_PROVIDER_ID;
+            return s2j_sg_compare_with_similarity_provider($req, $provider_id);
+        };
 
     $validated = s2j_sg_validate_title($title);
     if (!$validated['ok']) {

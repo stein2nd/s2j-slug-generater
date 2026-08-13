@@ -1,6 +1,6 @@
 <?php
 /**
- * Similarity Adapter (s2j/similarity-service).
+ * OpenAI similarity AI provider descriptor + Adapter.
  *
  * @package S2J_Slug_Generater
  */
@@ -13,7 +13,27 @@ use S2J\Similarity\Application\SimilarityService;
 use S2J\Similarity\Infrastructure\Embedding\OpenAIEmbeddingStrategy;
 
 /**
- * Compare similarity via embedding cosine similarity.
+ * OpenAI similarity AI provider descriptor.
+ *
+ * @return array
+ */
+function s2j_sg_similarity_ai_provider_openai() {
+    return array(
+        'id' => 'openai',
+        'signupUrl' => 'https://platform.openai.com/signup',
+        'billingUrl' => 'https://platform.openai.com/settings/organization/billing',
+        'keysUrl' => 'https://platform.openai.com/api-keys',
+        'models' => array(
+            'text-embedding-3-small',
+            'text-embedding-3-large',
+            'text-embedding-ada-002',
+        ),
+        'compare' => 's2j_sg_similarity_compare_openai',
+    );
+}
+
+/**
+ * OpenAI embedding cosine similarity Adapter.
  *
  * Library API: SimilarityService::similarity($a, $b, $model).
  * language / locale are accepted on the request for config parity but not passed.
@@ -21,7 +41,7 @@ use S2J\Similarity\Infrastructure\Embedding\OpenAIEmbeddingStrategy;
  * @param array $req SimilarityRequest-like array.
  * @return array{ok:true,value:float}|array{ok:false,error:array{code:string,message:string}}
  */
-function s2j_sg_compare_similarity(array $req) {
+function s2j_sg_similarity_compare_openai(array $req) {
     $api_key = isset($req['apiKey']) ? (string) $req['apiKey'] : '';
     if ($api_key === '') {
         return array(
@@ -46,9 +66,10 @@ function s2j_sg_compare_similarity(array $req) {
         );
     }
 
+    $provider = s2j_sg_similarity_ai_provider_openai();
     $model = isset($req['model']) && $req['model'] !== ''
         ? (string) $req['model']
-        : 'text-embedding-3-small';
+        : $provider['models'][0];
 
     try {
         $strategy = new OpenAIEmbeddingStrategy($api_key, $model);

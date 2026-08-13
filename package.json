@@ -1,6 +1,6 @@
 {
   "name": "s2j-slug-generater",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "WordPress plugin for generating slugs using translation APIs",
   "type": "module",
   "author": "Koutarou ISHIKAWA",
@@ -40,6 +40,7 @@
     "type-check": "tsc --noEmit",
     "dev": "vite build --mode development --watch",
     "makepot": "wp i18n make-pot . languages/s2j-slug-generater.pot --domain=s2j-slug-generater",
+    "makejson": "wp i18n make-json languages/s2j-slug-generater-ja.po --no-purge && node scripts/copy-gutenberg-jed.mjs",
     "version:sync": "node scripts/sync-version.mjs",
     "version:check": "node scripts/sync-version.mjs --check",
     "postversion": "npm run version:sync && git add s2j-slug-generater.php src/gutenberg/block.json"

@@ -53,6 +53,12 @@ class S2J_Slug_Generater_Gutenberg_Mount {
             S2J_SLUG_GENERATER_VERSION
         );
 
+        wp_set_script_translations(
+            's2j-slug-generater-gutenberg',
+            's2j-slug-generater',
+            S2J_SLUG_GENERATER_PLUGIN_DIR . 'languages'
+        );
+
         wp_localize_script(
             's2j-slug-generater-gutenberg',
             's2jSlugGeneraterData',

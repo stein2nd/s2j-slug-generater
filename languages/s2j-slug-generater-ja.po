@@ -1,0 +1,402 @@
+# Copyright (C) 2026 Koutarou ISHIKAWA
+# This file is distributed under the GPL v3 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: S2J Slug Generater 2.0.5\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/s2j-slug-"
+"generater\n"
+"POT-Creation-Date: 2026-08-13T12:16:27+00:00\n"
+"PO-Revision-Date: 2026-08-13 22:28+0900\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.9\n"
+"X-Domain: s2j-slug-generater\n"
+
+#. Plugin Name of the plugin
+#: s2j-slug-generater.php includes/Admin/SettingsPage.php:31
+#: includes/Editor/ClassicMount.php:59
+#: dist/js/s2j-slug-generater-gutenberg.js:1
+msgid "S2J Slug Generater"
+msgstr "S2J Slug Generater"
+
+#. Plugin URI of the plugin
+#: s2j-slug-generater.php
+msgid "https://github.com/stein2nd/s2j-slug-generater"
+msgstr "https://github.com/stein2nd/s2j-slug-generater"
+
+#. Description of the plugin
+#: s2j-slug-generater.php
+msgid ""
+"Generate optimal slug candidates using translation service APIs. Supports "
+"both Gutenberg block editor and Classic editor."
+msgstr ""
+"翻訳サービスの API を使用して、最適なスラッグ候補を生成します。Gutenberg ブ"
+"ロックエディターとクラシックエディターの両方をサポートしています。"
+
+#. Author of the plugin
+#: s2j-slug-generater.php
+msgid "Koutarou ISHIKAWA"
+msgstr "Koutarou ISHIKAWA"
+
+#. Author URI of the plugin
+#: s2j-slug-generater.php
+msgid "https://stein2nd.wordpress.com"
+msgstr "https://stein2nd.wordpress.com"
+
+#: includes/Admin/SettingsPage.php:30
+msgid "S2J Slug Generater Settings"
+msgstr "S2J Slug Generater 設定"
+
+#: includes/Admin/SettingsPage.php:92
+msgid "Translation Service Settings"
+msgstr "翻訳サービスの設定"
+
+#: includes/Admin/SettingsPage.php:99
+msgid "Translation Service"
+msgstr "翻訳サービス"
+
+#: includes/Admin/SettingsPage.php:106
+msgid "Translation API Key"
+msgstr "翻訳 API キー"
+
+#: includes/Admin/SettingsPage.php:113
+msgid "DeepL API Plan"
+msgstr "DeepL API プラン"
+
+#: includes/Admin/SettingsPage.php:120
+msgid "Source Language"
+msgstr "翻訳元言語"
+
+#: includes/Admin/SettingsPage.php:128
+msgid "Similarity Settings"
+msgstr "類似度の設定"
+
+#: includes/Admin/SettingsPage.php:135
+msgid "Similarity AI Service"
+msgstr "類似度 AI サービス"
+
+#: includes/Admin/SettingsPage.php:142
+msgid "Similarity AI API Key"
+msgstr "類似度 AI API キー"
+
+#: includes/Admin/SettingsPage.php:149
+msgid "Similarity AI Model"
+msgstr "類似度 AI モデル"
+
+#: includes/Admin/SettingsPage.php:156
+msgid "Locale"
+msgstr "ロケール"
+
+#: includes/Admin/SettingsPage.php:163
+msgid "Similarity Threshold"
+msgstr "類似度の閾値"
+
+#: includes/Admin/SettingsPage.php:237
+msgid "Configure the translation service used for slug candidate generation."
+msgstr "スラッグ候補の生成に使用する、翻訳サービスを設定します。"
+
+#: includes/Admin/SettingsPage.php:244
+msgid ""
+"Configure embedding-based similarity checks. The similarity AI API key is "
+"separate from the translation API key."
+msgstr ""
+"埋め込みベースの類似度チェックを設定します。類似度 AI API キーは、翻訳 API "
+"キーとは別物です。"
+
+#: includes/Admin/SettingsPage.php:257
+msgid "DeepL API"
+msgstr "DeepL API"
+
+#: includes/Admin/SettingsPage.php:257
+msgid "Google Translate API"
+msgstr "Google 翻訳 API"
+
+#: includes/Admin/SettingsPage.php:274
+msgid ""
+"Paste the key from DeepL → Account → API Keys. DeepL Individual (translator "
+"app) is not the same product as DeepL API Translate."
+msgstr ""
+"DeepL の「アカウント」→「API キー」からキーを貼り付けてください。DeepL "
+"Individual (翻訳アプリ) は、DeepL API Translate とは別の製品です。"
+
+#: includes/Admin/SettingsPage.php:284
+msgid "Auto (prefer api.deepl.com, retry api-free on failure)"
+msgstr "自動 (api.deepl.com を優先し、失敗した場合は api-free で再試行)"
+
+#: includes/Admin/SettingsPage.php:285
+msgid "DeepL API Pro host (api.deepl.com)"
+msgstr "DeepL API Pro ホスト (api.deepl.com)"
+
+#: includes/Admin/SettingsPage.php:286
+msgid "DeepL API Free host (api-free.deepl.com)"
+msgstr "DeepL API Free ホスト (api-free.deepl.com)"
+
+#: includes/Admin/SettingsPage.php:294
+msgid ""
+"Your key must allow the Translate API. A DeepL Individual translator "
+"subscription alone is not enough if the key lacks Translate scope."
+msgstr ""
+"キーには「Translate API」へのアクセス権限が必要です。キーに「Translate」ス"
+"コープが含まれていない場合、DeepLの個人向け翻訳サービスへの登録だけでは不十分"
+"です。"
+
+#: includes/Admin/SettingsPage.php:333
+msgid "OpenAI API"
+msgstr "OpenAI API"
+
+#: includes/Admin/SettingsPage.php:393
+msgid ""
+"Stored for future use. Similarity currently uses the library API (texts + "
+"model)."
+msgstr ""
+"将来の使用に備えて保存しました。類似度分析では現在、ライブラリ API (テキスト"
+"＋モデル) を使用しています。"
+
+#: includes/Admin/SettingsPage.php:406
+msgid "Minimum cosine similarity required to accept a candidate (0–100%)."
+msgstr "候補を採用する際に必要な、最低コサイン類似度 (0〜100%)。"
+
+#: includes/Domain/pure.php:24 includes/Editor/ClassicMount.php:106
+#: dist/js/s2j-slug-generater-gutenberg.js:1
+msgid "Please enter a post title first."
+msgstr "まず、投稿のタイトルを入力してください。"
+
+#: includes/Editor/ClassicMount.php:60 includes/Editor/ClassicMount.php:108
+#: dist/js/s2j-slug-generater-gutenberg.js:1
+msgid "Generate Candidates"
+msgstr "候補を生成"
+
+#: includes/Editor/ClassicMount.php:61
+#: dist/js/s2j-slug-generater-gutenberg.js:1
+msgid "Slug Candidate:"
+msgstr "スラッグ候補:"
+
+#: includes/Editor/ClassicMount.php:63
+#: dist/js/s2j-slug-generater-gutenberg.js:1
+msgid "Similarity:"
+msgstr "類似度:"
+
+#: includes/Editor/ClassicMount.php:64
+#: dist/js/s2j-slug-generater-gutenberg.js:1
+msgid "Slugify"
+msgstr "スラッグ化"
+
+#: includes/Editor/ClassicMount.php:107
+#: dist/js/s2j-slug-generater-gutenberg.js:1
+msgid "Generating..."
+msgstr "生成中..."
+
+#: includes/Editor/ClassicMount.php:109
+#: dist/js/s2j-slug-generater-gutenberg.js:1
+msgid "Slug candidate generated successfully."
+msgstr "スラッグ候補の生成に成功しました。"
+
+#: includes/Editor/ClassicMount.php:110
+#: dist/js/s2j-slug-generater-gutenberg.js:1
+msgid "Failed to generate slug candidate."
+msgstr "スラッグ候補の生成に失敗しました。"
+
+#: includes/Editor/ClassicMount.php:111
+#: dist/js/s2j-slug-generater-gutenberg.js:1
+msgid "An error occurred while generating the slug candidate."
+msgstr "スラッグ候補の生成中に、エラーが発生しました。"
+
+#: includes/Editor/ClassicMount.php:112
+#: dist/js/s2j-slug-generater-gutenberg.js:1
+msgid "Please generate a candidate first."
+msgstr "まず、候補を生成してください。"
+
+#: includes/Editor/ClassicMount.php:113
+#: dist/js/s2j-slug-generater-gutenberg.js:1
+msgid "Slug applied successfully."
+msgstr "スラッグが正常に適用されました。"
+
+#: includes/Editor/ClassicMount.php:114
+#: dist/js/s2j-slug-generater-gutenberg.js:1
+msgid "Similarity is below the threshold. Slugify is disabled."
+msgstr "類似度が閾値を下回っています。スラッグ化は無効になっています。"
+
+#: includes/Pipeline/generate_candidate.php:47 includes/Providers/deepl.php:395
+#: includes/Providers/google.php:71
+msgid ""
+"Translation API key is not configured. Open Settings → S2J Slug Generater "
+"and enter your translation API key."
+msgstr ""
+"翻訳 API キーが設定されていません。「設定」→「S2J Slug Generater」を開き、翻"
+"訳 API キーを入力してください。"
+
+#: includes/Providers/deepl.php:168
+msgid ""
+"DeepL accepted this API key on api.deepl.com, but Translate is forbidden. "
+"DeepL Individual (translator) is separate from DeepL API Translate. Open "
+"https://www.deepl.com/your-account/keys and create/use an API key that "
+"includes the Translate scope (or a DeepL API plan with Translate)."
+msgstr ""
+"api.deepl.com ではこの API キーが受け入れられましたが、「Translate」は利用で"
+"きません。DeepL Individual（翻訳ツール）は、DeepL API Translate とは別のサー"
+"ビスです。https://www.deepl.com/your-account/keys にアクセスし、「Translate」"
+"スコープを含む API キーを作成・使用してください (または、「Translate」が含ま"
+"れる DeepL API プランをご利用ください)。"
+
+#: includes/Providers/deepl.php:179
+msgid ""
+"DeepL reports this key must use api.deepl.com (not api-free). Set DeepL API "
+"Plan to “Pro”, then ensure the key has Translate permission."
+msgstr ""
+"DeepL によると、このキーでは api.deepl.com (api-free ではない) を使用する必要"
+"があるとのことです。DeepL API プランを「Pro」に設定し、そのキーに"
+"「Translate」の権限が設定されていることを確認してください。"
+
+#: includes/Providers/deepl.php:186
+msgid ""
+"DeepL accepted this API key on api-free.deepl.com, but Translate is "
+"forbidden. Check that the key includes the Translate scope."
+msgstr ""
+"DeepL は api-free.deepl.com でこの API キーを受け付けましたが、「Translate」"
+"は利用できません。キーに「Translate」スコープが含まれているか確認してくださ"
+"い。"
+
+#. translators: %s: host
+#: includes/Providers/deepl.php:195
+#, php-format
+msgid "DeepL rejected Translate on %s."
+msgstr "DeepL は %s の翻訳を拒否しました。"
+
+#: includes/Providers/deepl.php:257
+msgid "Translation request failed: cURL is not available."
+msgstr "翻訳リクエストに失敗しました: cURL が利用できません。"
+
+#: includes/Providers/deepl.php:268
+msgid "Translation request failed: could not encode JSON payload."
+msgstr ""
+"翻訳リクエストに失敗しました: JSON ペイロードをエンコードできませんでした。"
+
+#: includes/Providers/deepl.php:279
+msgid "Translation request failed: could not initialize cURL."
+msgstr "翻訳リクエストに失敗しました: cURL を初期化できませんでした。"
+
+#. translators: %s: error message
+#: includes/Providers/deepl.php:311 includes/Providers/google.php:100
+#, php-format
+msgid "Translation request failed: %s"
+msgstr "翻訳リクエストに失敗しました: %s"
+
+#. translators: 1: HTTP status, 2: optional API message
+#: includes/Providers/deepl.php:368
+#, php-format
+msgid "Translation failed: unexpected DeepL response (HTTP %1$d).%2$s"
+msgstr ""
+"翻訳に失敗しました: DeepL からの予期せぬレスポンスです (HTTP %1$d)。%2$s"
+
+#: includes/Providers/google.php:116
+msgid "Translation failed: invalid API key."
+msgstr "翻訳に失敗しました: 無効な API キーです。"
+
+#: includes/Providers/google.php:126
+msgid "Translation failed: Invalid response from Google Translate API."
+msgstr "翻訳に失敗しました: Google 翻訳 API から無効なレスポンスです。"
+
+#: includes/Providers/registry.php:47
+msgid "Unsupported translation service."
+msgstr "未サポートの翻訳サービスです。"
+
+#. translators: 1: plan URL, 2: free key URL
+#: includes/Providers/registry.php:67
+#, php-format
+msgid ""
+"Go to <a target=\"_blank\" href=\"%1$s\">the API plan selection page</a> and "
+"<a target=\"_blank\" href=\"%2$s\">obtain a free API key</a>."
+msgstr ""
+"<a target=\"_blank\" href=\"%1$s\">API プラン選択ページ</a> にアクセスし、<a "
+"target=\"_blank\" href=\"%2$s\">無料の API キーを取得</a> してください。"
+
+#: includes/RestController.php:59
+msgid "Security check failed."
+msgstr "セキュリティチェックに失敗しました。"
+
+#: includes/RestController.php:67
+msgid "You do not have permission to perform this action."
+msgstr "この操作を実行する権限がありません。"
+
+#: includes/Similarity/openai.php:51
+msgid ""
+"Similarity AI API key is not configured. Open Settings → S2J Slug Generater "
+"and enter your embedding API key. This key is separate from the translation "
+"API key."
+msgstr ""
+"類似度 AI API キーが設定されていません。「設定」→「S2J Slug Generater」を開"
+"き、埋め込み用 API キーを入力してください。このキーは、翻訳 API キーとは別物"
+"です。"
+
+#: includes/Similarity/openai.php:64
+msgid "Similarity service is not available. Run Composer install."
+msgstr ""
+"類似度サービスは利用できません。「Composer インストール」を実行してください。"
+
+#. translators: %s: error message
+#: includes/Similarity/openai.php:94
+#, php-format
+msgid "Similarity comparison failed: %s"
+msgstr "類似度の比較に失敗しました: %s"
+
+#: includes/Similarity/registry.php:45
+msgid "Unsupported similarity AI service."
+msgstr "未サポートの類似度 AI サービスです。"
+
+#. translators: 1: signup URL, 2: billing URL, 3: API keys URL
+#: includes/Similarity/registry.php:65
+#, php-format
+msgid ""
+"Create an account on <a target=\"_blank\" href=\"%1$s\">the signup page</a>, "
+"add credits on <a target=\"_blank\" href=\"%2$s\">the billing page</a>, then "
+"<a target=\"_blank\" href=\"%3$s\">obtain an API key</a>. This key is "
+"separate from the translation API key."
+msgstr ""
+"<a target=\"_blank\" href=\"%1$s\">サインアップページ</a> でアカウントを作成"
+"し、<a target=\"_blank\" href=\"%2$s\">課金ページ</a> でクレジットを追加して"
+"から、<a target=\"_blank\" href=\"%3$s\">API キーを取得</a> してください。こ"
+"のキーは、翻訳 API キーとは別物です。"
+
+#: dist/js/s2j-slug-generater-gutenberg.js:1
+msgid "Current Slug:"
+msgstr "現在のスラッグ:"
+
+#: dist/js/s2j-slug-generater-gutenberg.js:1
+msgid "PluginDocumentSettingPanel is unavailable in this WordPress version."
+msgstr ""
+"このバージョンの WordPress では、PluginDocumentSettingPanel は利用できませ"
+"ん。"
+
+#: src/gutenberg/block.json
+msgctxt "block title"
+msgid "S2J Slug Generater"
+msgstr "S2J Slug Generater"
+
+#: src/gutenberg/block.json
+msgctxt "block description"
+msgid "Generate and manage post slugs with AI-powered suggestions."
+msgstr "AI による提案機能を活用して、投稿のスラッグを生成・管理します。"
+
+#: src/gutenberg/block.json
+msgctxt "block keyword"
+msgid "slug"
+msgstr "スラッグ"
+
+#: src/gutenberg/block.json
+msgctxt "block keyword"
+msgid "seo"
+msgstr "seo"
+
+#: src/gutenberg/block.json
+msgctxt "block keyword"
+msgid "url"
+msgstr "url"
+
+#: src/gutenberg/block.json
+msgctxt "block keyword"
+msgid "permalink"
+msgstr "パーマリンク"

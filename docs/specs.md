@@ -1,8 +1,6 @@
 # S2J Slug Generater — 仕様 (FOP + Clean Coding)
 
-本ディレクトリは、`docs/SPEC.md` / `docs/SPEC_mod.md` を再設計した **採用仕様** です。
-
-機能要件の正は **`SPEC_mod.md` 相当** (S2J Similarity Service / コサイン類似度) です。`SPEC.md` (レーベンシュタイン) との差分は [migration-from-legacy.md](./migration-from-legacy.md) を参照してください。
+本ドキュメントでは、WordPress プラグイン「S2J Slug Generater」の専用仕様を定義します。
 
 共通基盤は、引き続き次に準拠します。
 
@@ -17,15 +15,15 @@
 * **FOP (Functional Object-Oriented Programming) + Clean Coding 土台**  
 * Clean Architecture はフル採用せず、**借用する原則だけ** を取り入れる
 
-### なぜこの組み合わせか
+### 組み合わせの理由
+
+WordPress プラグインでは、貢献者が追いやすい **FOP 寄り** を主とし、Clean Architecture の儀式的レイヤ分けは避けます。
 
 | 手法 | 活かす利点 | 抑えたい欠点 |
 | --- | --- | --- |
 | Clean Coding | 読みやすさ、命名、短い関数 | 原則の盲信による過剰分割 |
 | GoF デザインパターン | 外枠の再利用、意思疎通 | クラス爆発、過剰設計 |
 | 関数型プログラミング | 不変データ、純粋な計算の予測しやすさ | 学習コスト、I/O / 状態の扱いにくさ |
-
-WordPress プラグインでは、貢献者が追いやすい **FOP 寄り** を主とし、Clean Architecture の儀式的レイヤ分けは避けます。
 
 ### 役割分担 (実装時の約束)
 
@@ -63,9 +61,9 @@ flowchart TD
     CleanCoding --> InnerContents
 ```
 
-### Clean Architecture から借用する原則 (これだけ)
+### Clean Architecture から借用する原則
 
-フルの CA (Entity / UseCase / Gateway / Presenter の定型分割) は採用しません。次だけを借用します。
+フルセットの Clean Architecture (Entity / UseCase / Gateway / Presenter の定型分割) は採用しません。Clean Architecture から、次だけを借用します。
 
 | 借用する原則 | 本プラグインでの意味 |
 | --- | --- |
@@ -75,15 +73,15 @@ flowchart TD
 
 「内側を不変・外側をオブジェクト指向」という現代的解釈の精神は、FOP と一致します。フォルダー劇場や層の儀式は作りません。
 
-### 旧 SPEC のパターンからの扱い
+### 旧 SPEC (デザインパターン) からの扱い
 
 | 旧 SPEC | 本アプローチ |
 | --- | --- |
 | Template Method | オーケストレータによる関数合成 (外側) + 純ステップ (内側) |
-| Abstract Factory | プロバイダ **データ + translate 関数** のレジストリ (Factory クラス階層は置かない) |
+| Abstract Factory | プロバイダ **データ + 関数** のレジストリ (翻訳: `translate`、類似度 AI: `compare`)。Factory クラス階層は置かない |
 | Strategy (類似度) | 注入可能な関数 / 薄い Adapter (クラス必須としない) |
 
-詳細は [02-fp-principles.md](./02-fp-principles.md)。
+詳細は [02-fp-principles.md](./02-fp-principles.md) を参照してください。
 
 ## ドキュメント索引
 
@@ -94,7 +92,7 @@ flowchart TD
 | [03-domain-model.md](./03-domain-model.md) | 不変データ (型・設定・結果) |
 | [04-pipeline.md](./04-pipeline.md) | 候補生成 / スラッグ化パイプライン |
 | [05-providers.md](./05-providers.md) | 翻訳プロバイダ (外枠 Adapter + データ) |
-| [06-similarity.md](./06-similarity.md) | 類似度 (Adapter + 純関数) |
+| [06-similarity.md](./06-similarity.md) | 類似度 AI プロバイダ (外枠 Adapter + データ) + 純関数 |
 | [07-admin.md](./07-admin.md) | 管理画面 (設定の境界) |
 | [08-editor.md](./08-editor.md) | 投稿の編集画面 (Gutenberg / Classic) |
 | [09-rest.md](./09-rest.md) | REST API (薄い Facade) |
@@ -111,7 +109,7 @@ flowchart TD
 4. [03-domain-model.md](./03-domain-model.md) → 不変データ (型・設定・結果)
 5. [04-pipeline.md](./04-pipeline.md) → 候補生成 / スラッグ化の計算規則
 6. [05-providers.md](./05-providers.md) → 翻訳プロバイダ (差し替え可能な外枠)
-7. [06-similarity.md](./06-similarity.md) → 類似度 (Adapter + 純関数)
+7. [06-similarity.md](./06-similarity.md) → 類似度 AI プロバイダ (差し替え可能な外枠) + 純関数
 8. [07-admin.md](./07-admin.md) → 管理画面 (設定の境界)
 9. [08-editor.md](./08-editor.md) → 投稿の編集画面 (Gutenberg / Classic)
 10. [09-rest.md](./09-rest.md) → REST API (薄い Facade)
@@ -120,17 +118,27 @@ flowchart TD
 
 ## 一言でいうコア
 
+パイプラインの詳細は、[04-pipeline.md](./04-pipeline.md) を参照してください。
+
+* UI 配置: Gutenberg は `PluginDocumentSettingPanel`、Classic は `edit_form_after_title`
+
 ```text
 Title
   → translate(title, source → en)      // 外枠 effect: Translation Adapter
   → reverseTranslate(en, en → source)  // 外枠 effect: Translation Adapter
   → similarity(title, reversed)         // 外枠 effect: Similarity Adapter
-  → filterByThreshold(score, threshold) // 内側 pure
-  → (candidate text + similarity %)     // UI 表示用 (不変結果)
+  → filterByThreshold(score, threshold) // 内側 pure → accepted
+  → (candidate text + similarity % + accepted)
 
-CandidateText
+CandidateText (accepted 時のみ)
   → normalizeToSlug(text)               // 内側 pure
   → applyToPostSlug(slug)               // 外枠 effect: Editor Adapter
 ```
 
-パイプラインの詳細は [04-pipeline.md](./04-pipeline.md) を参照。
+## 旧仕様からの変遷
+
+本仕様は、旧仕様 (`docs/archive/SPEC.md`、`docs/archive/SPEC_mod.md`) を再設計したものです。
+
+機能要件の正は、**`SPEC_mod.md` 相当** (S2J Similarity Service / コサイン類似度) です。
+
+`SPEC.md` (レーベンシュタイン) との差分は、[migration-from-legacy.md](./migration-from-legacy.md) を参照してください。

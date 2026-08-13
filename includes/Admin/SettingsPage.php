@@ -61,6 +61,11 @@ class S2J_Slug_Generater_Settings_Page {
             'sanitize_callback' => 'sanitize_text_field',
             'default' => S2J_Slug_Generater_Plugin_Config::DEFAULT_SOURCE_LANGUAGE,
         ));
+        register_setting($option_group, S2J_Slug_Generater_Plugin_Config::OPTION_SIMILARITY_AI_PROVIDER_ID, array(
+            'type' => 'string',
+            'sanitize_callback' => array($this, 'sanitize_similarity_ai_provider_id'),
+            'default' => S2J_Slug_Generater_Plugin_Config::DEFAULT_SIMILARITY_AI_PROVIDER_ID,
+        ));
         register_setting($option_group, S2J_Slug_Generater_Plugin_Config::OPTION_SIMILARITY_AI_API_KEY, array(
             'type' => 'string',
             'sanitize_callback' => array($this, 'sanitize_api_key'),
@@ -68,7 +73,7 @@ class S2J_Slug_Generater_Settings_Page {
         ));
         register_setting($option_group, S2J_Slug_Generater_Plugin_Config::OPTION_SIMILARITY_AI_MODEL, array(
             'type' => 'string',
-            'sanitize_callback' => 'sanitize_text_field',
+            'sanitize_callback' => array($this, 'sanitize_similarity_ai_model'),
             'default' => S2J_Slug_Generater_Plugin_Config::DEFAULT_SIMILARITY_AI_MODEL,
         ));
         register_setting($option_group, S2J_Slug_Generater_Plugin_Config::OPTION_LOCALE, array(
@@ -126,6 +131,13 @@ class S2J_Slug_Generater_Settings_Page {
         );
 
         add_settings_field(
+            S2J_Slug_Generater_Plugin_Config::OPTION_SIMILARITY_AI_PROVIDER_ID,
+            __('Similarity AI Service', 's2j-slug-generater'),
+            array($this, 'render_similarity_ai_provider_field'),
+            's2j-slug-generater',
+            's2j_slug_generater_similarity_section'
+        );
+        add_settings_field(
             S2J_Slug_Generater_Plugin_Config::OPTION_SIMILARITY_AI_API_KEY,
             __('Similarity AI API Key', 's2j-slug-generater'),
             array($this, 'render_similarity_ai_key_field'),
@@ -180,6 +192,32 @@ class S2J_Slug_Generater_Settings_Page {
             return S2J_Slug_Generater_Plugin_Config::DEFAULT_DEEPL_API_PLAN;
         }
         return $value;
+    }
+
+    /**
+     * Sanitize similarity AI provider id.
+     *
+     * @param mixed $value Raw value.
+     * @return string
+     */
+    public function sanitize_similarity_ai_provider_id($value) {
+        return S2J_Slug_Generater_Plugin_Config::normalize_similarity_ai_provider_id($value);
+    }
+
+    /**
+     * Sanitize similarity AI model against the selected provider.
+     *
+     * @param mixed $value Raw value.
+     * @return string
+     */
+    public function sanitize_similarity_ai_model($value) {
+        $provider_id = S2J_Slug_Generater_Plugin_Config::DEFAULT_SIMILARITY_AI_PROVIDER_ID;
+        $provider_key = S2J_Slug_Generater_Plugin_Config::OPTION_SIMILARITY_AI_PROVIDER_ID;
+        if (isset($_POST[$provider_key])) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
+            $provider_id = wp_unslash((string) $_POST[$provider_key]);
+        }
+
+        return S2J_Slug_Generater_Plugin_Config::normalize_similarity_ai_model($value, $provider_id);
     }
 
     /**
@@ -283,34 +321,55 @@ class S2J_Slug_Generater_Settings_Page {
     }
 
     /**
+     * Similarity AI provider select + help links.
+     */
+    public function render_similarity_ai_provider_field() {
+        $config = S2J_Slug_Generater_Plugin_Config::load();
+        $providers = s2j_sg_similarity_ai_providers();
+        $current = $config['similarityAiProviderId'];
+
+        echo '<select name="' . esc_attr(S2J_Slug_Generater_Plugin_Config::OPTION_SIMILARITY_AI_PROVIDER_ID) . '" id="s2j_slug_generater_similarity_ai_service">';
+        foreach ($providers as $id => $provider) {
+            $label = $id === 'openai' ? __('OpenAI API', 's2j-slug-generater') : $id;
+            echo '<option value="' . esc_attr($id) . '" ' . selected($current, $id, false) . '>' . esc_html($label) . '</option>';
+        }
+        echo '</select>';
+
+        $lookup = s2j_sg_lookup_similarity_ai_provider($current);
+        if ($lookup['ok']) {
+            echo '<p class="description" id="s2j-similarity-provider-help">' . s2j_sg_format_similarity_api_key_help($lookup['value']) . '</p>';
+        }
+    }
+
+    /**
      * Similarity AI API key field.
      */
     public function render_similarity_ai_key_field() {
         $config = S2J_Slug_Generater_Plugin_Config::load();
         echo '<input type="text" name="' . esc_attr(S2J_Slug_Generater_Plugin_Config::OPTION_SIMILARITY_AI_API_KEY) . '" id="s2j_slug_generater_similarity_ai_api_key" value="' . esc_attr($config['similarityAiApiKey']) . '" class="regular-text" autocomplete="off" spellcheck="false" />';
-        echo '<p class="description">';
-        echo sprintf(
-            /* translators: %s: OpenAI API keys URL */
-            __('Get an embedding API key from <a target="_blank" href="%s">OpenAI API keys</a>. This is separate from the translation API key.', 's2j-slug-generater'),
-            esc_url('https://platform.openai.com/api-keys')
-        );
-        echo '</p>';
     }
 
     /**
-     * Similarity AI model select.
+     * Similarity AI model select (provider-driven).
      */
     public function render_similarity_ai_model_field() {
         $config = S2J_Slug_Generater_Plugin_Config::load();
-        $models = array(
-            'text-embedding-3-small' => 'text-embedding-3-small',
-            'text-embedding-3-large' => 'text-embedding-3-large',
-            'text-embedding-ada-002' => 'text-embedding-ada-002',
-        );
+        $providers = s2j_sg_similarity_ai_providers();
+        $current_provider = $config['similarityAiProviderId'];
+        $current_model = $config['similarityAiModel'];
+        $lookup = s2j_sg_lookup_similarity_ai_provider($current_provider);
+        $models = $lookup['ok'] ? $lookup['value']['models'] : array($current_model);
+
+        $model_maps = array();
+        foreach ($providers as $id => $provider) {
+            $model_maps[$id] = $provider['models'];
+        }
+
+        echo '<script type="text/javascript">var s2jSimilarityProviderModels = ' . wp_json_encode($model_maps) . ';</script>';
 
         echo '<select name="' . esc_attr(S2J_Slug_Generater_Plugin_Config::OPTION_SIMILARITY_AI_MODEL) . '" id="s2j_slug_generater_similarity_ai_model">';
-        foreach ($models as $value => $label) {
-            echo '<option value="' . esc_attr($value) . '"' . selected($config['similarityAiModel'], $value, false) . '>' . esc_html($label) . '</option>';
+        foreach ($models as $value) {
+            echo '<option value="' . esc_attr($value) . '"' . selected($current_model, $value, false) . '>' . esc_html($value) . '</option>';
         }
         echo '</select>';
     }
@@ -361,6 +420,12 @@ class S2J_Slug_Generater_Settings_Page {
             $help_map[$id] = s2j_sg_format_api_key_help($provider);
         }
 
+        $similarity_providers = s2j_sg_similarity_ai_providers();
+        $similarity_help_map = array();
+        foreach ($similarity_providers as $id => $provider) {
+            $similarity_help_map[$id] = s2j_sg_format_similarity_api_key_help($provider);
+        }
+
         echo '<div class="wrap">';
         echo '<h1>' . esc_html(get_admin_page_title()) . '</h1>';
         echo '<form action="options.php" method="post">';
@@ -371,11 +436,15 @@ class S2J_Slug_Generater_Settings_Page {
         echo '</div>';
 
         $help_json = wp_json_encode($help_map);
+        $similarity_help_json = wp_json_encode($similarity_help_map);
         echo '<script>
         jQuery(function($) {
             var helpMap = ' . $help_json . ';
+            var similarityHelpMap = ' . $similarity_help_json . ';
             var $service = $("#s2j_slug_generater_translation_service");
             var $lang = $("#s2j_slug_generater_source_language");
+            var $similarityService = $("#s2j_slug_generater_similarity_ai_service");
+            var $similarityModel = $("#s2j_slug_generater_similarity_ai_model");
             var $threshold = $("#s2j_slug_generater_similarity_threshold");
             var $thresholdLabel = $("#s2j_slug_generater_threshold_value");
 
@@ -406,6 +475,28 @@ class S2J_Slug_Generater_Settings_Page {
                 }
             }
 
+            function updateSimilarityModels() {
+                var id = $similarityService.val();
+                var models = (window.s2jSimilarityProviderModels && window.s2jSimilarityProviderModels[id]) || [];
+                var current = $similarityModel.val();
+                $similarityModel.empty();
+                $.each(models, function(_, name) {
+                    $similarityModel.append($("<option/>").attr("value", name).text(name));
+                });
+                if (models.indexOf(current) !== -1) {
+                    $similarityModel.val(current);
+                } else if (models.length) {
+                    $similarityModel.val(models[0]);
+                }
+            }
+
+            function updateSimilarityHelp() {
+                var id = $similarityService.val();
+                if (similarityHelpMap[id]) {
+                    $("#s2j-similarity-provider-help").html(similarityHelpMap[id]);
+                }
+            }
+
             function updateThresholdLabel() {
                 var ratio = parseFloat($threshold.val(), 10) || 0;
                 $thresholdLabel.text((ratio * 100).toFixed(2) + "%");
@@ -414,6 +505,10 @@ class S2J_Slug_Generater_Settings_Page {
             $service.on("change", function() {
                 updateLanguages();
                 updateHelp();
+            });
+            $similarityService.on("change", function() {
+                updateSimilarityModels();
+                updateSimilarityHelp();
             });
             $threshold.on("input change", updateThresholdLabel);
             updateThresholdLabel();
