@@ -6,7 +6,7 @@
 
 ### Changed
 
-* npm 依存モジュールの更新 (`ncu` / `ncu -u`)。`@wordpress/components` v40、`@wordpress/block-editor` v17、Vite v8.2.2 等
+* npm 依存モジュールの更新 (`ncu` / `ncu -u`)。`@wordpress/components` v40、`@wordpress/block-editor` v17、Vite v8.2.2等
 
 ## 2.0.7 - 2026-08-13
 
