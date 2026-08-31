@@ -10,7 +10,7 @@
  * Plugin Name: S2J Slug Generater
  * Plugin URI: https://github.com/stein2nd/s2j-slug-generater
  * Description: Generate optimal slug candidates using translation service APIs. Supports both Gutenberg block editor and Classic editor.
- * Version: 2.0.7
+ * Version: 2.0.8
  * Author: Koutarou ISHIKAWA
  * Author URI: https://stein2nd.wordpress.com
  * License: GPL v3 or later
@@ -27,7 +27,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('S2J_SLUG_GENERATER_VERSION', '2.0.7');
+define('S2J_SLUG_GENERATER_VERSION', '2.0.8');
 define('S2J_SLUG_GENERATER_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('S2J_SLUG_GENERATER_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('S2J_SLUG_GENERATER_PLUGIN_BASENAME', plugin_basename(__FILE__));
