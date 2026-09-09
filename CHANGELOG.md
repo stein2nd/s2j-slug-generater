@@ -2,6 +2,15 @@
 
 ## unreleased
 
+## 2.0.9 - 2026-09-09
+
+### Changed
+
+* npm 依存モジュールの更新 (`ncu` / `ncu -u`)。`eslint` v10.10、`stylelint` v17.15、`@s2j/docs-linter` v1.0.24等
+* Composer 依存 `s2j/similarity-service` を v2.0.4から v2.0.6に更新 (`composer.lock`)
+* `README.md` を現行実装に同期 (コサイン類似度、Gutenberg 文書設定パネル、Classic タイトル直下、候補1件、類似度 AI、FOP)
+* `README.md` の英語本文の直後に日本語対訳を併記
+
 ## 2.0.8 - 2026-08-31
 
 ### Changed
