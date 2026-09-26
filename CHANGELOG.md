@@ -2,6 +2,14 @@
 
 ## unreleased
 
+## 2.0.10 - 2026-09-26
+
+### Changed
+
+* npm 依存モジュールの更新 (`ncu` / `ncu -u`)。`@wordpress/components` v41、`@wordpress/block-editor` v18、Vite v8.3.1等
+* Composer 依存 `s2j/similarity-service` を v2.0.6から v2.0.7に更新 (`composer.lock`)
+* `README.md` の Vite バージョンバッジを v8.3に更新
+
 ## 2.0.9 - 2026-09-09
 
 ### Changed
