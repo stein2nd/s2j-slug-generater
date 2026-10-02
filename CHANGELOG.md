@@ -2,6 +2,13 @@
 
 ## unreleased
 
+## 2.0.11 - 2026-10-03
+
+### Changed
+
+* npm 依存モジュールの更新 (`ncu` / `ncu -u`)。`stylelint` v17.16、Vite v8.3.2、`@s2j/docs-linter` v1.0.26等
+* Composer 依存 `s2j/similarity-service` を v2.0.7から v2.0.8に更新 (`composer.lock`)
+
 ## 2.0.10 - 2026-09-26
 
 ### Changed
