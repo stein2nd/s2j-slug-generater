@@ -2,6 +2,17 @@
 
 ## unreleased
 
+## 2.0.12 - 2026-10-04
+
+### Changed
+
+* npm 依存モジュールの更新 (`eslint` v10.12、`@s2j/docs-linter` v1.0.27等)
+* Composer 依存モジュールの更新 (`s2j/similarity-service` v2.0.9)
+
+### Fixed
+
+* 管理画面の類似度スライダーを ID セレクタから kebab-case クラスに変更し、`selector-id-pattern` 違反を解消
+
 ## 2.0.11 - 2026-10-03
 
 ### Changed

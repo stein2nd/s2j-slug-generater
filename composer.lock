@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "s2j/similarity-service",
-            "version": "2.0.8",
+            "version": "2.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stein2nd/s2j-similarity-service.git",
-                "reference": "cadc564fd39a03634de4d078ccb7596bb56fb835"
+                "reference": "cba1dac8e6813ddd2d5ab3476838405c4374e322"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stein2nd/s2j-similarity-service/zipball/cadc564fd39a03634de4d078ccb7596bb56fb835",
-                "reference": "cadc564fd39a03634de4d078ccb7596bb56fb835",
+                "url": "https://api.github.com/repos/stein2nd/s2j-similarity-service/zipball/cba1dac8e6813ddd2d5ab3476838405c4374e322",
+                "reference": "cba1dac8e6813ddd2d5ab3476838405c4374e322",
                 "shasum": ""
             },
             "require": {
@@ -51,9 +51,9 @@
             "description": "A pure PHP library for semantic similarity detection.",
             "support": {
                 "issues": "https://github.com/stein2nd/s2j-similarity-service/issues",
-                "source": "https://github.com/stein2nd/s2j-similarity-service/tree/v2.0.8"
+                "source": "https://github.com/stein2nd/s2j-similarity-service/tree/v2.0.9"
             },
-            "time": "2026-10-02T14:30:54+00:00"
+            "time": "2026-10-04T02:39:03+00:00"
         }
     ],
     "packages-dev": [],

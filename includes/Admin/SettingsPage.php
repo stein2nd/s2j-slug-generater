@@ -401,8 +401,8 @@ class S2J_Slug_Generater_Settings_Page {
         $threshold = $config['similarityThreshold'];
         $percent = s2j_sg_format_percent_label(s2j_sg_to_percent($threshold));
 
-        echo '<input type="range" name="' . esc_attr(S2J_Slug_Generater_Plugin_Config::OPTION_SIMILARITY_THRESHOLD) . '" id="s2j_slug_generater_similarity_threshold" min="0" max="1" step="0.1" value="' . esc_attr((string) $threshold) . '" />';
-        echo ' <span id="s2j_slug_generater_threshold_value">' . esc_html($percent) . '%</span>';
+        echo '<input type="range" name="' . esc_attr(S2J_Slug_Generater_Plugin_Config::OPTION_SIMILARITY_THRESHOLD) . '" id="s2j_slug_generater_similarity_threshold" class="s2j-slug-generater-similarity-threshold" min="0" max="1" step="0.1" value="' . esc_attr((string) $threshold) . '" />';
+        echo ' <span id="s2j_slug_generater_threshold_value" class="s2j-slug-generater-threshold-value">' . esc_html($percent) . '%</span>';
         echo '<p class="description">' . esc_html__('Minimum cosine similarity required to accept a candidate (0–100%).', 's2j-slug-generater') . '</p>';
     }
 
