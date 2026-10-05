@@ -2,6 +2,12 @@
 
 ## unreleased
 
+## 2.0.13 - 2026-10-05
+
+### Changed
+
+* アーカイブ仕様 (`docs/archive/SPEC.md`、`SPEC_mod.md`) の「以下」を「下記」に統一
+
 ## 2.0.12 - 2026-10-04
 
 ### Changed

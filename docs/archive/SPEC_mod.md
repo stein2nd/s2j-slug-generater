@@ -3,13 +3,13 @@
 ## 1. はじめに
 
 本ドキュメントでは、WordPress プラグイン「s2j-slug-generater」の専用仕様を定義します。
-本プラグインの設計は、以下の共通 SPEC に準拠します。
+本プラグインの設計は、下記の共通 SPEC に準拠します。
 
 * [WP_PLUGIN_SPEC.md (共通仕様)](https://github.com/stein2nd/wp-plugin-spec/blob/main/WP_PLUGIN_SPEC.md)
 
-以下は、本プラグイン固有の仕様をまとめたものです。
+下記は、本プラグイン固有の仕様をまとめたものです。
 
-本ドキュメントは、`SPEC.md` をもとに、以下の変更を加えたものです。
+本ドキュメントは、`SPEC.md` をもとに、下記の変更を加えたものです。
 
 1. **類似度判定の仕様変更**: レーベンシュタイン距離から、[S2J Similarity Service](https://github.com/stein2nd/s2j-similarity-service) を利用したコサイン類似度判定に変更
 2. **依存関係の更新**: npm モジュールのバージョンを「S2J Alliance Manager」と統一
@@ -125,7 +125,7 @@ s2j-slug-generater/
 
 ### 4.2. `package.json` の依存関係
 
-以下の npm モジュールのバージョンを「S2J Alliance Manager」と統一します。
+下記の npm モジュールのバージョンを「S2J Alliance Manager」と統一します。
 
 ```json
 {
@@ -225,7 +225,7 @@ s2j-slug-generater/
 
 ### 6.2. 管理画面
 
-* 設定ページに以下を用意します:
+* 設定ページに下記を用意します:
   * 翻訳 API 選択ドロップダウン
   * API キー入力欄
     * 選択した「翻訳 API」に対応した、「無料枠 API キーの取得ページ」への案内リンクを添えます。
