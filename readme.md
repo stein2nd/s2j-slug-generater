@@ -187,7 +187,7 @@ Default model: `text-embedding-3-small`. Credits are required; a key with zero b
 
 5. Click **Slugify** to apply via `editPost({ slug })`. The button is disabled when `accepted` is false (below threshold)
 
-   **Slugify** で `editPost({ slug })` により適用します。`accepted` が false (閾値未満) のときはボタンが無効です。
+   **Slugify** で `editPost({ slug })` により適用します。`accepted` が false (閾値未満) の場合はボタンが無効です。
 
 6. **Current Slug** shows the value from the editor store
 
@@ -333,7 +333,7 @@ Text domain: `s2j-slug-generater`. Locale files use `{domain}-{locale}` such as 
 
 Gutenberg also needs Jed JSON via `wp_set_script_translations`. After editing `.po`:
 
-Gutenberg では `wp_set_script_translations` による Jed JSON も必要です。`.po` を編集したあとは次を実行します。
+Gutenberg では `wp_set_script_translations` による Jed JSON も必要です。`.po` を編集したあとは下記を実行します。
 
 ```bash
 npm run makepot

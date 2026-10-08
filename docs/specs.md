@@ -2,7 +2,7 @@
 
 本ドキュメントでは、WordPress プラグイン「S2J Slug Generater」の専用仕様を定義します。
 
-共通基盤は、引き続き次に準拠します。
+共通基盤は、引き続き下記に準拠します。
 
 * [WP_PLUGIN_SPEC.md (共通仕様)](https://github.com/stein2nd/wp-plugin-spec/blob/main/WP_PLUGIN_SPEC.md)
 
@@ -10,7 +10,7 @@
 
 ## 設計・実装の基本アプローチ
 
-本プラグインは、次を **基本アプローチ** とします。
+本プラグインは、下記を **基本アプローチ** とします。
 
 * **FOP (Functional Object-Oriented Programming) + Clean Coding 土台**  
 * Clean Architecture はフル採用せず、**借用する原則だけ** を取り入れる
@@ -63,7 +63,7 @@ flowchart TD
 
 ### Clean Architecture から借用する原則
 
-フルセットの Clean Architecture (Entity / UseCase / Gateway / Presenter の定型分割) は採用しません。Clean Architecture から、次だけを借用します。
+フルセットの Clean Architecture (Entity / UseCase / Gateway / Presenter の定型分割) は採用しません。Clean Architecture から、下記だけを借用します。
 
 | 借用する原則 | 本プラグインでの意味 |
 | --- | --- |
@@ -101,7 +101,7 @@ flowchart TD
 
 ## 読み方 (推奨順)
 
-索引のファイルを、次の順で読むことを勧めます。
+索引のファイルを、下記の順で読むことを勧めます。
 
 1. **本ページ (`specs.md`)** の「設計・実装の基本アプローチ」→ 設計の約束
 2. [01-overview.md](./01-overview.md) → 何をするプラグインか

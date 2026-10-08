@@ -2,6 +2,12 @@
 
 ## unreleased
 
+## 2.0.14 - 2026-10-08
+
+### Changed
+
+* 現行ドキュメント (`README.md`、`docs/specs.md`、`docs/02-fp-principles.md`) の「次」を「下記」に、「とき」を「場合」に統一
+
 ## 2.0.13 - 2026-10-05
 
 ### Changed
@@ -94,7 +100,7 @@
     * REST 認可を `X-WP-Nonce` (`wp_rest`) に一本化 (ボディ `nonce` 廃止)
     * 候補を英訳テキスト1件 (`candidates: [translated]`) に簡素化。スラッグ化はクライアント `normalizeToSlug`
     * 類似度閾値を ratio (0.0–1.0) で保持。既存 percent 値は起動時に自動変換
-    * `accepted: false` のときスラッグ化ボタンを無効化
+    * `accepted: false` の場合スラッグ化ボタンを無効化
     * 生成ロジックとエディター・マウントを分割
 
 ### Fixed
