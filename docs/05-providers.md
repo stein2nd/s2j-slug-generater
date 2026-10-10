@@ -56,7 +56,7 @@ formatApiKeyHelp(provider: TranslationProvider): string
 | --- | --- |
 | `pro` | `https://api.deepl.com/v2/translate` |
 | `free` | `https://api-free.deepl.com/v2/translate` |
-| `auto` (default) | まず `api.deepl.com`。認証失敗時に `api-free` へ1回リトライ |
+| `auto` (default) | まず `api.deepl.com`。認証失敗時に `api-free` に1回リトライ |
 
 #### 実装詳細 (外枠)
 

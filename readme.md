@@ -163,7 +163,7 @@ Default model: `text-embedding-3-small`. Credits are required; a key with zero b
 
 * **Similarity Threshold**: range `0.0`–`1.0` / increment `0.1` / default `0.8` displayed as percent. Legacy percent values (`80`) are converted to ratio (`0.8`) on load
 
-  **類似度閾値**: 範囲 `0.0`–`1.0` / 刻み `0.1` / デフォルト `0.8` で、表示はパーセントです。旧来の percent 値 (`80`) は読み込み時に ratio (`0.8`) へ変換します。
+  **類似度閾値**: 範囲 `0.0`–`1.0` / 刻み `0.1` / デフォルト `0.8` で、表示はパーセントです。旧来の percent 値 (`80`) は読み込み時に ratio (`0.8`) に変換します。
 
 ## Usage
 
@@ -219,11 +219,11 @@ Default model: `text-embedding-3-small`. Credits are required; a key with zero b
 
 1. **Translate**: title `sourceLanguage` → English
 
-   **翻訳**: タイトルを `sourceLanguage` から英語へ訳します。
+   **翻訳**: タイトルを `sourceLanguage` から英語に訳します。
 
 2. **Reverse translate**: English → `sourceLanguage`
 
-   **逆翻訳**: 英語から `sourceLanguage` へ戻します。
+   **逆翻訳**: 英語から `sourceLanguage` に戻します。
 
 3. **Similarity**: cosine similarity of the original title vs reverse translation (OpenAI embeddings via `s2j/similarity-service`)
 
@@ -235,7 +235,7 @@ Default model: `text-embedding-3-small`. Credits are required; a key with zero b
 
 5. **Slugify** (client): `normalizeToSlug` on the candidate text, then apply to the post slug
 
-   **Slugify** (クライアント): 候補テキストを `normalizeToSlug` し、投稿スラッグへ適用します。
+   **Slugify** (クライアント): 候補テキストを `normalizeToSlug` し、投稿スラッグに適用します。
 
 API keys stay in WordPress Options and are never returned in REST responses.
 
@@ -350,7 +350,7 @@ GPL-3.0-or-later
 
 Issues and requests: [github.com/stein2nd/s2j-slug-generater](https://github.com/stein2nd/s2j-slug-generater)
 
-不具合報告と要望は [github.com/stein2nd/s2j-slug-generater](https://github.com/stein2nd/s2j-slug-generater) へお願いします。
+不具合報告と要望は [github.com/stein2nd/s2j-slug-generater](https://github.com/stein2nd/s2j-slug-generater) にお願いします。
 
 ## Changelog
 

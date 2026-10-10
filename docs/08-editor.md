@@ -10,7 +10,7 @@ Gutenberg / Classic は、**同じ内側操作を、異なる Editor Adapter で
 
 | 要素 | 役割 |
 | --- | --- |
-| 「候補生成」 | REST → 結果を UI 状態へ |
+| 「候補生成」 | REST → 結果を UI 状態に |
 | 「スラッグ候補」 | `translated_title` (編集可) |
 | 「類似度」+ ` %` | `formatPercentLabel(similarity)` |
 | 「スラッグ化」 | `accepted` 時のみ。`normalizeToSlug` (pure) → `applySlug` (Adapter) |

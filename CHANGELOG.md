@@ -2,6 +2,13 @@
 
 ## unreleased
 
+## 2.0.15 - 2026-10-10
+
+### Changed
+
+* Composer 依存 `s2j/similarity-service` を v2.0.9から v2.0.12に更新 (`composer.lock`)
+* 現行ドキュメント (`README.md`、`docs/02-fp-principles.md`、`docs/04-pipeline.md`、`docs/05-providers.md`、`docs/08-editor.md`) の助詞表現を統一
+
 ## 2.0.14 - 2026-10-08
 
 ### Changed
