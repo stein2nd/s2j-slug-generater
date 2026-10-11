@@ -2,6 +2,12 @@
 
 ## unreleased
 
+## 2.0.16 - 2026-10-11
+
+### Changed
+
+* npm 依存モジュールの更新 (`ncu` / `ncu -u`)。`@wordpress/components` v42、`@wordpress/element` v9、Vite v8.3.4等
+
 ## 2.0.15 - 2026-10-10
 
 ### Changed
