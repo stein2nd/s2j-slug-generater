@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+    bootstrap="tests/bootstrap.php"
+    backupGlobals="false"
+    colors="true"
+    convertErrorsToExceptions="true"
+    convertWarningsToExceptions="true"
+    convertNoticesToExceptions="true"
+>
+    <testsuites>
+        <testsuite name="S2J Slug Generater">
+            <directory suffix=".php">./tests</directory>
+            <exclude>./tests/bootstrap.php</exclude>
+        </testsuite>
+    </testsuites>
+</phpunit>

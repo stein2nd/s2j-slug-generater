@@ -34,3 +34,5 @@ jobs:
 
       - name: Run PHPUnit in wp-env
         run: npm run phpunit:wp-env
+        env:
+          WP_ENV_CI: 1

@@ -44,6 +44,8 @@
     "dist:build": "composer install --no-dev --optimize-autoloader --no-interaction && npm run build:production",
     "dist:zip": "node tools/dist/make-dist-zip.mjs",
     "dist": "npm run dist:build && npm run dist:zip",
+    "wp-env": "wp-env",
+    "phpunit:wp-env": "wp-env start && wp-env run tests-cli --env-cwd=wp-content/plugins/s2j-slug-generater vendor/bin/phpunit -c phpunit.xml.dist --testdox",
     "version:sync": "node scripts/sync-version.mjs",
     "version:check": "node scripts/sync-version.mjs --check",
     "postversion": "npm run version:sync && git add s2j-slug-generater.php src/gutenberg/block.json"
@@ -71,6 +73,7 @@
     "@wordpress/edit-post": "^8.57.0",
     "@wordpress/editor": "^15.2.0",
     "@wordpress/element": "^9.0.0",
+    "@wordpress/env": "^11.17.0",
     "@wordpress/hooks": "^4.57.0",
     "@wordpress/i18n": "^6.30.0",
     "@wordpress/plugins": "^7.57.0",
@@ -87,6 +90,7 @@
     "vite": "^8.3.4"
   },
   "allowScripts": {
-    "@s2j/docs-linter": true
+    "@s2j/docs-linter": true,
+    "@wordpress/env": true
   }
 }

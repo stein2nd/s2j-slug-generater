@@ -6,6 +6,7 @@ vendor/
 /dist/
 /release/
 .dist-tmp/
+.wp-env/
 
 # Environment files
 .env
