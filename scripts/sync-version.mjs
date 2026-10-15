@@ -24,7 +24,7 @@ const blockPath = join(root, 'src/gutenberg/block.json');
 function phpVersions(content) {
 	const header = content.match(/^\s*\*\s*Version:\s*(.+)$/m)?.[1]?.trim();
 	const constant = content.match(
-		/define\('S2J_SLUG_GENERATER_VERSION',\s*'([^']+)'\)/
+		/define\s*\(\s*'S2J_SLUG_GENERATER_VERSION'\s*,\s*'([^']+)'\s*\)/
 	)?.[1];
 	return { header, constant };
 }
@@ -35,8 +35,8 @@ function applyPhpVersion(content, nextVersion) {
 		`$1${nextVersion}`
 	);
 	updated = updated.replace(
-		/define\('S2J_SLUG_GENERATER_VERSION',\s*'[^']+'\)/,
-		`define('S2J_SLUG_GENERATER_VERSION', '${nextVersion}')`
+		/define\s*\(\s*'S2J_SLUG_GENERATER_VERSION'\s*,\s*'[^']+'\s*\)/,
+		`define( 'S2J_SLUG_GENERATER_VERSION', '${nextVersion}' )`
 	);
 	return updated;
 }
