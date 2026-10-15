@@ -2,12 +2,18 @@
 
 ## unreleased
 
+## 2.0.20 - 2026-10-16
+
+### Fixed
+
+* CHANGELOG の textlint 指摘に合わせ表記を修正 (`v2.0.18` と後続語の間のスペース)
+
 ## 2.0.19 - 2026-10-16
 
 ### Fixed
 
 * `scripts/sync-version.mjs` が WPCS 形式の `define( 'S2J_SLUG_GENERATER_VERSION', … )` を検出・更新できるよう修正 (GitHub Actions「Version sync」失敗の解消)
-* v2.0.18 配布時にずれていた `S2J_SLUG_GENERATER_VERSION` を `package.json` と一致
+* v2.0.18配布時にずれていた `S2J_SLUG_GENERATER_VERSION` を `package.json` と一致
 
 ## 2.0.18 - 2026-10-16
 
