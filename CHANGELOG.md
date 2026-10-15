@@ -2,6 +2,17 @@
 
 ## unreleased
 
+## 2.0.17 - 2026-10-15
+
+### Added
+
+* wp-env 上の PHPUnit 実行 (`phpunit:wp-env`、`@wordpress/env`、`.wp-env.json`、`phpunit.xml.dist`、`tests/`)
+
+### Fixed
+
+* GitHub Actions「PHPUnit」向けに `package.json` の `phpunit:wp-env` スクリプトを追加
+* CI (PHP v8.2) で `composer install` が通るよう `config.platform.php` を設定し、`doctrine/instantiator` を2.0.0に固定
+
 ## 2.0.16 - 2026-10-15
 
 ### Added
