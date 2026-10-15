@@ -14,6 +14,11 @@ if (!existsSync(distDir)) {
 	throw new Error('dist/ not found. Run `npm run dist:build` first.');
 }
 
+const vendorDir = join(repoRoot, 'vendor');
+if (!existsSync(vendorDir)) {
+	throw new Error('vendor/ not found. Run `npm run dist:build` first.');
+}
+
 const outDir = join(repoRoot, 'release');
 const stageRoot = join(repoRoot, '.dist-tmp');
 const stagePluginDir = join(stageRoot, PLUGIN_SLUG);
@@ -62,14 +67,14 @@ const mustExist = (relPath) => {
 	return abs;
 };
 
-const resolveReadmePath = () => {
-	for (const name of ['readme.txt', 'README.txt']) {
+const resolveReadme = () => {
+	for (const name of ['readme.txt', 'README.txt', 'readme.md', 'README.md']) {
 		const abs = join(repoRoot, name);
 		if (existsSync(abs)) {
-			return abs;
+			return { abs, destName: basename(abs).toLowerCase() };
 		}
 	}
-	throw new Error('Missing required file: readme.txt');
+	throw new Error('Missing required file: readme.txt or readme.md');
 };
 
 ensureEmptyDir(outDir);
@@ -77,10 +82,12 @@ ensureEmptyDir(stagePluginDir);
 
 copyTree(mustExist('includes'), join(stagePluginDir, 'includes'));
 copyTree(mustExist('dist'), join(stagePluginDir, 'dist'));
+copyTree(vendorDir, join(stagePluginDir, 'vendor'));
 
 cpSync(mustExist(`${PLUGIN_SLUG}.php`), join(stagePluginDir, `${PLUGIN_SLUG}.php`));
 cpSync(mustExist('uninstall.php'), join(stagePluginDir, 'uninstall.php'));
-cpSync(resolveReadmePath(), join(stagePluginDir, 'readme.txt'));
+const readme = resolveReadme();
+cpSync(readme.abs, join(stagePluginDir, readme.destName));
 cpSync(mustExist('LICENSE'), join(stagePluginDir, 'LICENSE'));
 
 const languagesDir = join(repoRoot, 'languages');

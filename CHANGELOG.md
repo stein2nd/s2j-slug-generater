@@ -2,11 +2,22 @@
 
 ## unreleased
 
-## 2.0.16 - 2026-10-11
+## 2.0.16 - 2026-10-15
+
+### Added
+
+* GitHub Actions ワークフローを追加 (`dist-zip.yml`、tag push / 手動で配布 zip 生成、`phpunit.yml`、wp-env 上の PHPUnit)
+* 配布 zip 組み立てスクリプト `tools/dist/make-dist-zip.mjs` を追加
+* `package.json` に配布用 npm スクリプト `dist:build` / `dist:zip` / `dist` を追加
 
 ### Changed
 
-* npm 依存モジュールの更新 (`ncu` / `ncu -u`)。`@wordpress/components` v42、`@wordpress/element` v9、Vite v8.3.4等
+* npm 依存モジュールの更新 (`ncu` / `ncu -u`)。`@wordpress/components` v42、`@wordpress/element` v9、`@s2j/docs-linter` v1.0.29、React v19.3.1、Vite v8.3.4等
+* Composer 依存 `s2j/similarity-service` を v2.0.12から v2.0.13に更新 (`composer.lock`)
+* `.gitignore` の build 出力パスを整理 (`tools/dist/` を誤 ignore しないよう `/dist/` 等に)
+* textlint の許可パターンに `#status-*` アンカー ID を追加
+* 配布 zip に `vendor/` と `readme.md` を同梱するよう `make-dist-zip.mjs` を拡張
+* `dist-zip.yml` に PHP / Composer setup を追加
 
 ## 2.0.15 - 2026-10-10
 
