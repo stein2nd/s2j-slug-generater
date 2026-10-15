@@ -5,241 +5,244 @@
  * @package S2J_Slug_Generater
  */
 
-if (!defined('ABSPATH')) {
-    exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
 }
 
 /**
  * Option key constants and Config Adapter.
  */
 class S2J_Slug_Generater_Plugin_Config {
-    const OPTION_PROVIDER_ID = 's2j_slug_generater_translation_service';
-    const OPTION_TRANSLATION_API_KEY = 's2j_slug_generater_api_key';
-    const OPTION_SOURCE_LANGUAGE = 's2j_slug_generater_source_language';
-    const OPTION_SIMILARITY_THRESHOLD = 's2j_slug_generater_similarity_threshold';
-    const OPTION_SIMILARITY_AI_PROVIDER_ID = 's2j_slug_generater_similarity_ai_service';
-    const OPTION_SIMILARITY_AI_API_KEY = 's2j_slug_generater_similarity_ai_api_key';
-    const OPTION_SIMILARITY_AI_MODEL = 's2j_slug_generater_similarity_ai_model';
-    const OPTION_LOCALE = 's2j_slug_generater_locale';
-    const OPTION_DEEPL_API_PLAN = 's2j_slug_generater_deepl_api_plan';
-    const OPTION_THRESHOLD_MIGRATED = 's2j_slug_generater_threshold_migrated_v1';
 
-    const DEFAULT_PROVIDER_ID = 'deepl';
-    const DEFAULT_SOURCE_LANGUAGE = 'ja';
-    const DEFAULT_SIMILARITY_THRESHOLD = 0.8;
-    const DEFAULT_SIMILARITY_AI_PROVIDER_ID = 'openai';
-    const DEFAULT_SIMILARITY_AI_MODEL = 'text-embedding-3-small';
-    const DEFAULT_LOCALE = 'ja_JP';
-    const DEFAULT_DEEPL_API_PLAN = 'auto';
+	public const OPTION_PROVIDER_ID               = 's2j_slug_generater_translation_service';
+	public const OPTION_TRANSLATION_API_KEY       = 's2j_slug_generater_api_key';
+	public const OPTION_SOURCE_LANGUAGE           = 's2j_slug_generater_source_language';
+	public const OPTION_SIMILARITY_THRESHOLD      = 's2j_slug_generater_similarity_threshold';
+	public const OPTION_SIMILARITY_AI_PROVIDER_ID = 's2j_slug_generater_similarity_ai_service';
+	public const OPTION_SIMILARITY_AI_API_KEY     = 's2j_slug_generater_similarity_ai_api_key';
+	public const OPTION_SIMILARITY_AI_MODEL       = 's2j_slug_generater_similarity_ai_model';
+	public const OPTION_LOCALE                    = 's2j_slug_generater_locale';
+	public const OPTION_DEEPL_API_PLAN            = 's2j_slug_generater_deepl_api_plan';
+	public const OPTION_THRESHOLD_MIGRATED        = 's2j_slug_generater_threshold_migrated_v1';
 
-    /**
-     * Migrate legacy percent threshold (0–100) to ratio (0.0–1.0) once.
-     */
-    public static function maybe_migrate_threshold() {
-        if (get_option(self::OPTION_THRESHOLD_MIGRATED, false)) {
-            return;
-        }
+	public const DEFAULT_PROVIDER_ID               = 'deepl';
+	public const DEFAULT_SOURCE_LANGUAGE           = 'ja';
+	public const DEFAULT_SIMILARITY_THRESHOLD      = 0.8;
+	public const DEFAULT_SIMILARITY_AI_PROVIDER_ID = 'openai';
+	public const DEFAULT_SIMILARITY_AI_MODEL       = 'text-embedding-3-small';
+	public const DEFAULT_LOCALE                    = 'ja_JP';
+	public const DEFAULT_DEEPL_API_PLAN            = 'auto';
 
-        $raw = get_option(self::OPTION_SIMILARITY_THRESHOLD, null);
+	/**
+	 * Migrate legacy percent threshold (0–100) to ratio (0.0–1.0) once.
+	 */
+	public static function maybe_migrate_threshold() {
+		if ( get_option( self::OPTION_THRESHOLD_MIGRATED, false ) ) {
+			return;
+		}
 
-        if ($raw === null || $raw === false) {
-            // Not registered: leave unset so loadConfig uses float default.
-            update_option(self::OPTION_THRESHOLD_MIGRATED, 1);
-            return;
-        }
+		$raw = get_option( self::OPTION_SIMILARITY_THRESHOLD, null );
 
-        $value = (float) $raw;
+		if ( null === $raw || false === $raw ) {
+			// Not registered: leave unset so loadConfig uses float default.
+			update_option( self::OPTION_THRESHOLD_MIGRATED, 1 );
+			return;
+		}
 
-        // Legacy percent scale (e.g. 80) → ratio (0.8).
-        if ($value > 1.0) {
-            $value = $value / 100.0;
-        }
+		$value = (float) $raw;
 
-        $value = self::clamp_threshold($value);
-        update_option(self::OPTION_SIMILARITY_THRESHOLD, $value);
-        update_option(self::OPTION_THRESHOLD_MIGRATED, 1);
-    }
+		// Legacy percent scale (e.g. 80) → ratio (0.8).
+		if ( $value > 1.0 ) {
+			$value = $value / 100.0;
+		}
 
-    /**
-     * Load immutable PluginConfig from Options.
-     *
-     * @return array{
-     *   providerId: string,
-     *   translationApiKey: string,
-     *   sourceLanguage: string,
-     *   similarityAiProviderId: string,
-     *   similarityAiApiKey: string,
-     *   similarityAiModel: string,
-     *   locale: string,
-     *   similarityThreshold: float,
-     *   deeplApiPlan: string
-     * }
-     */
-    public static function load() {
-        self::maybe_migrate_threshold();
+		$value = self::clamp_threshold( $value );
+		update_option( self::OPTION_SIMILARITY_THRESHOLD, $value );
+		update_option( self::OPTION_THRESHOLD_MIGRATED, 1 );
+	}
 
-        $threshold_raw = get_option(self::OPTION_SIMILARITY_THRESHOLD, null);
-        if ($threshold_raw === null || $threshold_raw === false) {
-            $threshold = self::DEFAULT_SIMILARITY_THRESHOLD;
-        } else {
-            $threshold = self::clamp_threshold((float) $threshold_raw);
-        }
+	/**
+	 * Load immutable PluginConfig from Options.
+	 *
+	 * @return array{
+	 *   providerId: string,
+	 *   translationApiKey: string,
+	 *   sourceLanguage: string,
+	 *   similarityAiProviderId: string,
+	 *   similarityAiApiKey: string,
+	 *   similarityAiModel: string,
+	 *   locale: string,
+	 *   similarityThreshold: float,
+	 *   deeplApiPlan: string
+	 * }
+	 */
+	public static function load() {
+		self::maybe_migrate_threshold();
 
-        $plan = (string) get_option(self::OPTION_DEEPL_API_PLAN, self::DEFAULT_DEEPL_API_PLAN);
-        if (!in_array($plan, array('auto', 'free', 'pro'), true)) {
-            $plan = self::DEFAULT_DEEPL_API_PLAN;
-        }
+		$threshold_raw = get_option( self::OPTION_SIMILARITY_THRESHOLD, null );
+		if ( null === $threshold_raw || false === $threshold_raw ) {
+			$threshold = self::DEFAULT_SIMILARITY_THRESHOLD;
+		} else {
+			$threshold = self::clamp_threshold( (float) $threshold_raw );
+		}
 
-        $similarity_provider_id = self::normalize_similarity_ai_provider_id(
-            (string) get_option(self::OPTION_SIMILARITY_AI_PROVIDER_ID, self::DEFAULT_SIMILARITY_AI_PROVIDER_ID)
-        );
+		$plan = (string) get_option( self::OPTION_DEEPL_API_PLAN, self::DEFAULT_DEEPL_API_PLAN );
+		if ( ! in_array( $plan, array( 'auto', 'free', 'pro' ), true ) ) {
+			$plan = self::DEFAULT_DEEPL_API_PLAN;
+		}
 
-        return array(
-            'providerId' => (string) get_option(self::OPTION_PROVIDER_ID, self::DEFAULT_PROVIDER_ID),
-            'translationApiKey' => trim((string) get_option(self::OPTION_TRANSLATION_API_KEY, '')),
-            'sourceLanguage' => (string) get_option(self::OPTION_SOURCE_LANGUAGE, self::DEFAULT_SOURCE_LANGUAGE),
-            'similarityAiProviderId' => $similarity_provider_id,
-            'similarityAiApiKey' => trim((string) get_option(self::OPTION_SIMILARITY_AI_API_KEY, '')),
-            'similarityAiModel' => self::normalize_similarity_ai_model(
-                (string) get_option(self::OPTION_SIMILARITY_AI_MODEL, self::DEFAULT_SIMILARITY_AI_MODEL),
-                $similarity_provider_id
-            ),
-            'locale' => (string) get_option(self::OPTION_LOCALE, self::DEFAULT_LOCALE),
-            'similarityThreshold' => $threshold,
-            'deeplApiPlan' => $plan,
-        );
-    }
+		$similarity_provider_id = self::normalize_similarity_ai_provider_id(
+			(string) get_option( self::OPTION_SIMILARITY_AI_PROVIDER_ID, self::DEFAULT_SIMILARITY_AI_PROVIDER_ID )
+		);
 
-    /**
-     * Persist PluginConfig fields to Options.
-     *
-     * @param array $config PluginConfig-like array.
-     */
-    public static function save(array $config) {
-        if (isset($config['providerId'])) {
-            update_option(self::OPTION_PROVIDER_ID, sanitize_text_field($config['providerId']));
-        }
-        if (isset($config['translationApiKey'])) {
-            update_option(self::OPTION_TRANSLATION_API_KEY, sanitize_text_field($config['translationApiKey']));
-        }
-        if (isset($config['sourceLanguage'])) {
-            update_option(self::OPTION_SOURCE_LANGUAGE, sanitize_text_field($config['sourceLanguage']));
-        }
-        if (isset($config['similarityAiProviderId'])) {
-            update_option(
-                self::OPTION_SIMILARITY_AI_PROVIDER_ID,
-                self::normalize_similarity_ai_provider_id($config['similarityAiProviderId'])
-            );
-        }
-        if (isset($config['similarityAiApiKey'])) {
-            update_option(self::OPTION_SIMILARITY_AI_API_KEY, sanitize_text_field($config['similarityAiApiKey']));
-        }
-        if (isset($config['similarityAiModel'])) {
-            $provider_id = isset($config['similarityAiProviderId'])
-                ? $config['similarityAiProviderId']
-                : self::DEFAULT_SIMILARITY_AI_PROVIDER_ID;
-            update_option(
-                self::OPTION_SIMILARITY_AI_MODEL,
-                self::normalize_similarity_ai_model($config['similarityAiModel'], $provider_id)
-            );
-        }
-        if (isset($config['locale'])) {
-            update_option(self::OPTION_LOCALE, sanitize_text_field($config['locale']));
-        }
-        if (isset($config['similarityThreshold'])) {
-            update_option(
-                self::OPTION_SIMILARITY_THRESHOLD,
-                self::clamp_threshold((float) $config['similarityThreshold'])
-            );
-        }
-        if (isset($config['deeplApiPlan'])) {
-            $plan = sanitize_text_field($config['deeplApiPlan']);
-            if (!in_array($plan, array('auto', 'free', 'pro'), true)) {
-                $plan = self::DEFAULT_DEEPL_API_PLAN;
-            }
-            update_option(self::OPTION_DEEPL_API_PLAN, $plan);
-        }
-    }
+		return array(
+			'providerId'             => (string) get_option( self::OPTION_PROVIDER_ID, self::DEFAULT_PROVIDER_ID ),
+			'translationApiKey'      => trim( (string) get_option( self::OPTION_TRANSLATION_API_KEY, '' ) ),
+			'sourceLanguage'         => (string) get_option( self::OPTION_SOURCE_LANGUAGE, self::DEFAULT_SOURCE_LANGUAGE ),
+			'similarityAiProviderId' => $similarity_provider_id,
+			'similarityAiApiKey'     => trim( (string) get_option( self::OPTION_SIMILARITY_AI_API_KEY, '' ) ),
+			'similarityAiModel'      => self::normalize_similarity_ai_model(
+				(string) get_option( self::OPTION_SIMILARITY_AI_MODEL, self::DEFAULT_SIMILARITY_AI_MODEL ),
+				$similarity_provider_id
+			),
+			'locale'                 => (string) get_option( self::OPTION_LOCALE, self::DEFAULT_LOCALE ),
+			'similarityThreshold'    => $threshold,
+			'deeplApiPlan'           => $plan,
+		);
+	}
 
-    /**
-     * All option keys owned by this plugin (for uninstall).
-     *
-     * @return string[]
-     */
-    public static function option_keys() {
-        return array(
-            self::OPTION_PROVIDER_ID,
-            self::OPTION_TRANSLATION_API_KEY,
-            self::OPTION_SOURCE_LANGUAGE,
-            self::OPTION_SIMILARITY_THRESHOLD,
-            self::OPTION_SIMILARITY_AI_PROVIDER_ID,
-            self::OPTION_SIMILARITY_AI_API_KEY,
-            self::OPTION_SIMILARITY_AI_MODEL,
-            self::OPTION_LOCALE,
-            self::OPTION_DEEPL_API_PLAN,
-            self::OPTION_THRESHOLD_MIGRATED,
-        );
-    }
+	/**
+	 * Persist PluginConfig fields to Options.
+	 *
+	 * @param array $config PluginConfig-like array.
+	 */
+	public static function save( array $config ) {
+		if ( isset( $config['providerId'] ) ) {
+			update_option( self::OPTION_PROVIDER_ID, sanitize_text_field( $config['providerId'] ) );
+		}
+		if ( isset( $config['translationApiKey'] ) ) {
+			update_option( self::OPTION_TRANSLATION_API_KEY, sanitize_text_field( $config['translationApiKey'] ) );
+		}
+		if ( isset( $config['sourceLanguage'] ) ) {
+			update_option( self::OPTION_SOURCE_LANGUAGE, sanitize_text_field( $config['sourceLanguage'] ) );
+		}
+		if ( isset( $config['similarityAiProviderId'] ) ) {
+			update_option(
+				self::OPTION_SIMILARITY_AI_PROVIDER_ID,
+				self::normalize_similarity_ai_provider_id( $config['similarityAiProviderId'] )
+			);
+		}
+		if ( isset( $config['similarityAiApiKey'] ) ) {
+			update_option( self::OPTION_SIMILARITY_AI_API_KEY, sanitize_text_field( $config['similarityAiApiKey'] ) );
+		}
+		if ( isset( $config['similarityAiModel'] ) ) {
+			$provider_id = isset( $config['similarityAiProviderId'] )
+				? $config['similarityAiProviderId']
+				: self::DEFAULT_SIMILARITY_AI_PROVIDER_ID;
+			update_option(
+				self::OPTION_SIMILARITY_AI_MODEL,
+				self::normalize_similarity_ai_model( $config['similarityAiModel'], $provider_id )
+			);
+		}
+		if ( isset( $config['locale'] ) ) {
+			update_option( self::OPTION_LOCALE, sanitize_text_field( $config['locale'] ) );
+		}
+		if ( isset( $config['similarityThreshold'] ) ) {
+			update_option(
+				self::OPTION_SIMILARITY_THRESHOLD,
+				self::clamp_threshold( (float) $config['similarityThreshold'] )
+			);
+		}
+		if ( isset( $config['deeplApiPlan'] ) ) {
+			$plan = sanitize_text_field( $config['deeplApiPlan'] );
+			if ( ! in_array( $plan, array( 'auto', 'free', 'pro' ), true ) ) {
+				$plan = self::DEFAULT_DEEPL_API_PLAN;
+			}
+			update_option( self::OPTION_DEEPL_API_PLAN, $plan );
+		}
+	}
 
-    /**
-     * Unknown ids fall back to the built-in default.
-     *
-     * @param string $id Raw provider id.
-     * @return string
-     */
-    public static function normalize_similarity_ai_provider_id($id) {
-        $id = sanitize_text_field((string) $id);
-        if (!function_exists('s2j_sg_lookup_similarity_ai_provider')) {
-            return $id !== '' ? $id : self::DEFAULT_SIMILARITY_AI_PROVIDER_ID;
-        }
+	/**
+	 * All option keys owned by this plugin (for uninstall).
+	 *
+	 * @return string[]
+	 */
+	public static function option_keys() {
+		return array(
+			self::OPTION_PROVIDER_ID,
+			self::OPTION_TRANSLATION_API_KEY,
+			self::OPTION_SOURCE_LANGUAGE,
+			self::OPTION_SIMILARITY_THRESHOLD,
+			self::OPTION_SIMILARITY_AI_PROVIDER_ID,
+			self::OPTION_SIMILARITY_AI_API_KEY,
+			self::OPTION_SIMILARITY_AI_MODEL,
+			self::OPTION_LOCALE,
+			self::OPTION_DEEPL_API_PLAN,
+			self::OPTION_THRESHOLD_MIGRATED,
+		);
+	}
 
-        $lookup = s2j_sg_lookup_similarity_ai_provider($id);
-        if (!$lookup['ok']) {
-            return self::DEFAULT_SIMILARITY_AI_PROVIDER_ID;
-        }
+	/**
+	 * Unknown ids fall back to the built-in default.
+	 *
+	 * @param string $id Raw provider id.
+	 * @return string
+	 */
+	public static function normalize_similarity_ai_provider_id( $id ) {
+		$id = sanitize_text_field( (string) $id );
+		if ( ! function_exists( 's2j_sg_lookup_similarity_ai_provider' ) ) {
+			return '' !== $id ? $id : self::DEFAULT_SIMILARITY_AI_PROVIDER_ID;
+		}
 
-        return $id;
-    }
+		$lookup = s2j_sg_lookup_similarity_ai_provider( $id );
+		if ( ! $lookup['ok'] ) {
+			return self::DEFAULT_SIMILARITY_AI_PROVIDER_ID;
+		}
 
-    /**
-     * Keep the model only when it belongs to the selected provider.
-     *
-     * @param string $model       Raw model id.
-     * @param string $provider_id Similarity AI provider id.
-     * @return string
-     */
-    public static function normalize_similarity_ai_model($model, $provider_id) {
-        $model = sanitize_text_field((string) $model);
-        $provider_id = self::normalize_similarity_ai_provider_id($provider_id);
+		return $id;
+	}
 
-        if (!function_exists('s2j_sg_lookup_similarity_ai_provider')) {
-            return $model !== '' ? $model : self::DEFAULT_SIMILARITY_AI_MODEL;
-        }
+	/**
+	 * Keep the model only when it belongs to the selected provider.
+	 *
+	 * @param string $model       Raw model id.
+	 * @param string $provider_id Similarity AI provider id.
+	 * @return string
+	 */
+	public static function normalize_similarity_ai_model( $model, $provider_id ) {
+		$model       = sanitize_text_field( (string) $model );
+		$provider_id = self::normalize_similarity_ai_provider_id( $provider_id );
 
-        $lookup = s2j_sg_lookup_similarity_ai_provider($provider_id);
-        if (!$lookup['ok'] || empty($lookup['value']['models'])) {
-            return $model !== '' ? $model : self::DEFAULT_SIMILARITY_AI_MODEL;
-        }
+		if ( ! function_exists( 's2j_sg_lookup_similarity_ai_provider' ) ) {
+			return '' !== $model ? $model : self::DEFAULT_SIMILARITY_AI_MODEL;
+		}
 
-        $models = $lookup['value']['models'];
-        if (in_array($model, $models, true)) {
-            return $model;
-        }
+		$lookup = s2j_sg_lookup_similarity_ai_provider( $provider_id );
+		if ( ! $lookup['ok'] || empty( $lookup['value']['models'] ) ) {
+			return '' !== $model ? $model : self::DEFAULT_SIMILARITY_AI_MODEL;
+		}
 
-        return (string) $models[0];
-    }
+		$models = $lookup['value']['models'];
+		if ( in_array( $model, $models, true ) ) {
+			return $model;
+		}
 
-    /**
-     * @param float $value Raw threshold.
-     * @return float Clamped to [0.0, 1.0].
-     */
-    public static function clamp_threshold($value) {
-        if ($value < 0.0) {
-            return 0.0;
-        }
-        if ($value > 1.0) {
-            return 1.0;
-        }
-        return round($value, 1);
-    }
+		return (string) $models[0];
+	}
+
+	/**
+	 * Clamp similarity threshold to the valid ratio range.
+	 *
+	 * @param float $value Raw threshold.
+	 * @return float Clamped to [0.0, 1.0].
+	 */
+	public static function clamp_threshold( $value ) {
+		if ( $value < 0.0 ) {
+			return 0.0;
+		}
+		if ( $value > 1.0 ) {
+			return 1.0;
+		}
+		return round( $value, 1 );
+	}
 }

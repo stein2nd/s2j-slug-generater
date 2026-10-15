@@ -2,6 +2,24 @@
 
 ## unreleased
 
+## 2.0.18 - 2026-10-16
+
+### Added
+
+* PHP 静的解析・コーディング規約チェック用設定 (`phpstan.neon.dist`、`phpstan-bootstrap.php`、`phpcs.xml.dist`、`phpcs.wpcs.xml.dist`)
+* Composer 開発依存とスクリプト (`phpstan`、`phpcs`、`phpcs:wpcs`、`phpcbf`、`lint:php`)。`package.json` から `npm run lint:php` 等で実行可能
+
+### Changed
+
+* `includes/` およびプラグインルート PHP を WordPress Coding Standards に合わせて整形 (Yoda 条件、ファイル先頭コメント、設定画面のエスケープ等)
+* PSR-12チェック (`phpcs.xml.dist`) は WPCS と矛盾するルールを除外し、タブインデントの WordPress スタイルと両立
+* `S2J_Slug_Generater_Plugin_Config` の定数に `public` 可視性を付与
+
+### Fixed
+
+* PHPStan がプラグイン定数 (`S2J_SLUG_GENERATER_*`) を解決できるよう bootstrap を追加
+* DeepL プロバイダで非推奨の `curl_close()` を `unset( $ch )` に置き換え
+
 ## 2.0.17 - 2026-10-15
 
 ### Added

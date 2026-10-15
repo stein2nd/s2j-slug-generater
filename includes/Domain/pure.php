@@ -5,8 +5,8 @@
  * @package S2J_Slug_Generater
  */
 
-if (!defined('ABSPATH')) {
-    exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
 }
 
 /**
@@ -15,21 +15,21 @@ if (!defined('ABSPATH')) {
  * @param mixed $title Raw title.
  * @return array{ok:true,value:string}|array{ok:false,error:array{code:string,message:string}}
  */
-function s2j_sg_validate_title($title) {
-    if (!is_string($title) || trim($title) === '') {
-        return array(
-            'ok' => false,
-            'error' => array(
-                'code' => 'empty_title',
-                'message' => __('Please enter a post title first.', 's2j-slug-generater'),
-            ),
-        );
-    }
+function s2j_sg_validate_title( $title ) {
+	if ( ! is_string( $title ) || '' === trim( $title ) ) {
+		return array(
+			'ok'    => false,
+			'error' => array(
+				'code'    => 'empty_title',
+				'message' => __( 'Please enter a post title first.', 's2j-slug-generater' ),
+			),
+		);
+	}
 
-    return array(
-        'ok' => true,
-        'value' => $title,
-    );
+	return array(
+		'ok'    => true,
+		'value' => $title,
+	);
 }
 
 /**
@@ -38,8 +38,8 @@ function s2j_sg_validate_title($title) {
  * @param float $ratio Similarity ratio.
  * @return float
  */
-function s2j_sg_to_percent($ratio) {
-    return (float) $ratio * 100.0;
+function s2j_sg_to_percent( $ratio ) {
+	return (float) $ratio * 100.0;
 }
 
 /**
@@ -48,8 +48,8 @@ function s2j_sg_to_percent($ratio) {
  * @param float $percent Similarity percent.
  * @return string
  */
-function s2j_sg_format_percent_label($percent) {
-    return number_format((float) $percent, 2, '.', '');
+function s2j_sg_format_percent_label( $percent ) {
+	return number_format( (float) $percent, 2, '.', '' );
 }
 
 /**
@@ -59,8 +59,8 @@ function s2j_sg_format_percent_label($percent) {
  * @param float $threshold Threshold ratio (0.0–1.0).
  * @return bool
  */
-function s2j_sg_passes_threshold($ratio, $threshold) {
-    return (float) $ratio >= (float) $threshold;
+function s2j_sg_passes_threshold( $ratio, $threshold ) {
+	return (float) $ratio >= (float) $threshold;
 }
 
 /**
@@ -69,10 +69,10 @@ function s2j_sg_passes_threshold($ratio, $threshold) {
  * @param string $text Candidate text.
  * @return string
  */
-function s2j_sg_normalize_to_slug($text) {
-    $slug = strtolower(trim((string) $text));
-    $slug = preg_replace('/[^a-z0-9\s-]/', '', $slug);
-    $slug = preg_replace('/\s+/', '-', $slug);
-    $slug = preg_replace('/-+/', '-', $slug);
-    return trim((string) $slug, '-');
+function s2j_sg_normalize_to_slug( $text ) {
+	$slug = strtolower( trim( (string) $text ) );
+	$slug = preg_replace( '/[^a-z0-9\s-]/', '', $slug );
+	$slug = preg_replace( '/\s+/', '-', $slug );
+	$slug = preg_replace( '/-+/', '-', $slug );
+	return trim( (string) $slug, '-' );
 }
