@@ -26,7 +26,13 @@
 		}
 	},
 	"scripts": {
-		"test": "phpunit -c phpunit.xml.dist",
+		"test:unit": "@php vendor/bin/phpunit -c phpunit.unit.xml.dist",
+		"test:integration": "@php vendor/bin/phpunit -c phpunit.xml.dist",
+		"test:all": [
+			"@test:unit",
+			"@test:integration"
+		],
+		"test": "@test:all",
 		"phpstan": "@php vendor/bin/phpstan analyse -c phpstan.neon.dist --memory-limit=512M",
 		"phpcs": "@php vendor/bin/phpcs -p",
 		"phpcs:wpcs": "@php vendor/bin/phpcs -p --standard=phpcs.wpcs.xml.dist",

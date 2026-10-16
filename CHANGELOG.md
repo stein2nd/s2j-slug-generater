@@ -2,6 +2,26 @@
 
 ## unreleased
 
+## 2.0.21 - 2026-10-16
+
+### Added
+
+* ローカル PHPUnit (wp-env / Docker なし): `tests/smoke-local.sh`、`bin/install-wp-tests.sh`、`bin/phpunit-ci.sh`、`.env.tests.example`
+* ユニット / 統合の PHPUnit 設定 (`phpunit.unit.xml.dist`、`tests/phpunit/Unit/`、`tests/phpunit/Integration/`)
+* `docs/phpunit_local.md` (5件: ユニット4 + REST 統合1)
+* Composer スクリプト `test:unit` / `test:integration` / `test:all`
+* npm スクリプト `test:unit:php:unit-only`、`test:unit:php:local`、`test:unit:php` (CI)
+
+### Changed
+
+* GitHub Actions「PHPUnit」を MySQL サービス + Subversion + `install-wp-tests.sh` に変更 (wp-env 依存を廃止)
+* `package.json` から `phpunit:wp-env` を削除
+
+### Fixed
+
+* `composer.json` の dev 依存バージョンを `composer.lock` / WPCS v3.x と整合 (`^9.6` / PHPCS `^3.10` 等)
+* 統合テスト用 bootstrap / テストクラス向け IDE スタブ (`tests/stubs/wordpress-test-functions.php`、`wordpress-test-stubs.php`) で `tests_add_filter` / `WP_UnitTestCase` の未定義警告を解消
+
 ## 2.0.20 - 2026-10-16
 
 ### Fixed
