@@ -2,7 +2,7 @@
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
 [![Vite](https://img.shields.io/badge/vite-8.3-blue.svg)](https://vite.dev)
-[![PHP](https://img.shields.io/badge/PHP-8.2-blue.svg)](https://www.php.net/)
+[![PHP](https://img.shields.io/badge/PHP-8.3-blue.svg)](https://www.php.net/)
 [![WordPress](https://img.shields.io/badge/WordPress-6.3+-blue.svg)](https://wordpress.org/)
 
 A WordPress plugin that generates a slug candidate from a post title via translation APIs and embedding cosine similarity. Supports Gutenberg and Classic editor.
@@ -41,9 +41,9 @@ A WordPress plugin that generates a slug candidate from a post title via transla
 
   WordPress v6.3以上です (v6.8まで検証済み)。
 
-* PHP v8.2+
+* PHP v8.3+
 
-  PHP v8.2以上です。
+  PHP v8.3以上です。
 
 * Composer (runtime: `vendor/` from `composer install`)
 

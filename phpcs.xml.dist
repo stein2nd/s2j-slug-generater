@@ -20,7 +20,7 @@
 		<exclude name="Squiz.Functions.MultiLineFunctionDeclaration.BraceOnSameLine"/>
 		<exclude name="Generic.Files.LineLength.TooLong"/>
 	</rule>
-	<config name="php_version" value="80100"/>
+	<config name="php_version" value="80300"/>
 	<file>includes</file>
 	<exclude-pattern>*/vendor/*</exclude-pattern>
 	<exclude-pattern>*/node_modules/*</exclude-pattern>

@@ -72,7 +72,7 @@ npm 依存バージョンは、「[S2J Alliance Manager](https://github.com/stei
 ```json
 {
   "require": {
-    "php": ">=8.0",
+    "php": ">=8.3",
     "s2j/similarity-service": "^2.0"
   }
 }

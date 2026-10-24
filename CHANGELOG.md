@@ -2,6 +2,18 @@
 
 ## unreleased
 
+## 2.0.22 - 2026-10-24
+
+### Added
+
+* 翻訳ビルド用 npm スクリプト `makemo` / `makei18n`、Gutenberg 本番ビルド後の `makejson` (`postbuild:production:gutenberg`)
+
+### Changed
+
+* 対応 PHP の下限を v8.3に引き上げ (WordPress.org 推奨要件に合わせ、プラグインヘッダー / Composer / CI / `README.md`・`readme.md` / ドキュメントを統一)
+* npm 依存モジュールの更新: `@wordpress/*` v8〜 v19系、`@wordpress/env` v12、Vite v8.3.5、`@s2j/docs-linter` v1.0.30等
+* `makejson` を `wp i18n make-json languages --no-purge` に整理 (Gutenberg 用 JED はビルド後に生成)
+
 ## 2.0.21 - 2026-10-16
 
 ### Added
