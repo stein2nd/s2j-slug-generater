@@ -2,6 +2,12 @@
 
 ## unreleased
 
+## 2.0.23 - 2026-10-24
+
+### Fixed
+
+* GitHub Actions「dist」で `postbuild:production:gutenberg` が `wp` 未インストールで失敗する問題 (CI に WP-CLI を追加、`makejson` を wp 有無でスキップ可能に)
+
 ## 2.0.22 - 2026-10-24
 
 ### Added
