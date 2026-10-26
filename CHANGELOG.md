@@ -2,6 +2,19 @@
 
 ## unreleased
 
+## 2.0.24 - 2026-10-26
+
+### Fixed
+
+* `npm run lint:php` 等で PHPStan が見つからない問題 (`pretest:lint:php` を `prelint:php` に修正し、`prephpstan` / `prephpcs` / `prephpcs:wpcs` で dev 依存の Composer install を実行)
+
+### Changed
+
+* 設定画面用 Vite ビルド成果物を `s2j-slug-generater-admin.*` から `s2j-slug-generater-settings.*` に改名 (`vite.config.ts` のターゲット判定を `:admin` 末尾に限定)
+* `makejson` を WP-CLI デフォルトの purge 付きに変更し、孤児 JED を残す場合は `makejson:keep` (`--no-purge`) を使用
+* 日本語翻訳 (`languages/s2j-slug-generater-ja.po` / `.mo` / Gutenberg JED) を再生成 (不要になった Gutenberg 文言を削除、PO ヘッダー等を整理)
+* `.gitignore` に JED (`languages/*-{32hex}.json`) の扱いに関するコメントを追記
+
 ## 2.0.23 - 2026-10-24
 
 ### Fixed

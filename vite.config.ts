@@ -16,7 +16,7 @@ if (process.env.FLUSH_DIST === 'true') {
 // ビルド対象の設定を取得（npmスクリプト名から推測）
 const getBuildTarget = () => {
   const npmScript = process.env.npm_lifecycle_event;
-  if (npmScript?.includes('admin')) return 'admin';
+  if (npmScript?.endsWith(':admin')) return 'settings';
   if (npmScript?.includes('gutenberg')) return 'gutenberg';
   if (npmScript?.includes('classic')) return 'classic';
   return 'gutenberg'; // デフォルト
@@ -27,7 +27,7 @@ const buildTarget = getBuildTarget();
 // エントリーポイントとライブラリ名、SCSSファイルを設定
 const getBuildConfig = (target: string) => {
     switch (target) {
-        case 'admin':
+        case 'settings':
             return {
                 entry: resolve(import.meta.dirname, 'src/admin/index.tsx'),
                 name: 'S2JSlugGeneraterAdmin',

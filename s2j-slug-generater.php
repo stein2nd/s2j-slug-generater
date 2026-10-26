@@ -10,7 +10,7 @@
  * Plugin Name: S2J Slug Generater
  * Plugin URI: https://github.com/stein2nd/s2j-slug-generater
  * Description: Generate optimal slug candidates using translation service APIs. Supports both Gutenberg block editor and Classic editor.
- * Version: 2.0.23
+ * Version: 2.0.24
  * Author: Koutarou ISHIKAWA
  * Author URI: https://stein2nd.wordpress.com
  * License: GPL v3 or later
@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'S2J_SLUG_GENERATER_VERSION', '2.0.23' );
+define( 'S2J_SLUG_GENERATER_VERSION', '2.0.24' );
 define( 'S2J_SLUG_GENERATER_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'S2J_SLUG_GENERATER_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'S2J_SLUG_GENERATER_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
@@ -88,13 +88,13 @@ function s2j_slug_generater_enqueue_admin_scripts( $hook ) {
 		return;
 	}
 
-	$admin_js  = S2J_SLUG_GENERATER_PLUGIN_DIR . 'dist/js/s2j-slug-generater-admin.js';
-	$admin_css = S2J_SLUG_GENERATER_PLUGIN_DIR . 'dist/css/s2j-slug-generater-admin.css';
+	$admin_js  = S2J_SLUG_GENERATER_PLUGIN_DIR . 'dist/js/s2j-slug-generater-settings.js';
+	$admin_css = S2J_SLUG_GENERATER_PLUGIN_DIR . 'dist/css/s2j-slug-generater-settings.css';
 
 	if ( file_exists( $admin_css ) ) {
 		wp_enqueue_style(
 			's2j-slug-generater-admin',
-			S2J_SLUG_GENERATER_PLUGIN_URL . 'dist/css/s2j-slug-generater-admin.css',
+			S2J_SLUG_GENERATER_PLUGIN_URL . 'dist/css/s2j-slug-generater-settings.css',
 			array(),
 			S2J_SLUG_GENERATER_VERSION
 		);
@@ -104,7 +104,7 @@ function s2j_slug_generater_enqueue_admin_scripts( $hook ) {
 	if ( file_exists( $admin_js ) ) {
 		wp_enqueue_script(
 			's2j-slug-generater-admin',
-			S2J_SLUG_GENERATER_PLUGIN_URL . 'dist/js/s2j-slug-generater-admin.js',
+			S2J_SLUG_GENERATER_PLUGIN_URL . 'dist/js/s2j-slug-generater-settings.js',
 			array( 'jquery' ),
 			S2J_SLUG_GENERATER_VERSION,
 			true
