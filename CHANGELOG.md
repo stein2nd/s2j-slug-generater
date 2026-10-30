@@ -1,6 +1,29 @@
 # S2J Slug Generater - CHANGELOG
 
+## 脆弱性の継続ウォッチ
+
+* **対象:** `npm audit` の devDependencies のみ。配布 zip (`npm run dist`) に npm ツールチェーンは含めない。
+* **見直し:** `npm install` / `ncu` / `@wordpress/*`・`@wordpress/env` 更新のたびに再確認し、解消した行は削除する。
+* **最終確認:** 2026-10-30: moderate: 0 / low: 30 (`npm audit`)
+
+| パッケージ | 深刻度 | 主な経路 | 状態 |
+| --- | --- | --- | --- |
+| `deepmerge` | low | Vite 用 `@wordpress/components` / `@wordpress/data` 等 ([GHSA-gcqx-w48m-w2h4](https://github.com/advisories/GHSA-gcqx-w48m-w2h4)) | **待ち** — npm 上は v4.3.1までしかなく修正版未リリース |
+| `qs` | moderate (解消済) | CI のみ `@wordpress/env` → `@wp-playground/cli` → `express` | **`overrides` で `6.17.1` 固定** — Playground / env 側の依存更新もウォッチ |
+| `@wordpress/env` 系 transitive | low 他 | 上記 + Gutenberg パッケージ木 | **`npm audit fix --force` は不可** ( `@wordpress/data` 等が巻き戻る) |
+
+Composer 本番依存 (`s2j/similarity-service` 等) に既知 advisory が出た場合も、ここに追記する。
+
 ## unreleased
+
+## 2.0.25 - 2026-10-30
+
+### Changed
+
+* PHPUnit CI を **wp-env のみ** に統一 (`.github/workflows/phpunit.yml` 内の `npx wp-env` のみ。ローカル正本は `test:unit:php:local` / MySQL。`package.json` scripts から wp-env 系を除去)
+* npm 開発依存の更新: `@s2j/docs-linter` ^1.0.31、`@types/node` ^26.6.6、`@typescript-eslint/*` ^8.72.1、`sass` ^1.107.0。CI 用に `@wordpress/env` を devDependencies に残す (配布 zip には npm ツールチェーンは含めない)
+* Composer 依存 `s2j/similarity-service` を v2.0.16に更新 (`composer.lock`)
+* npm `overrides` で `qs@6.17.1` を指定 (経緯・残件は [脆弱性の継続ウォッチ](#脆弱性の継続ウォッチ))
 
 ## 2.0.24 - 2026-10-26
 

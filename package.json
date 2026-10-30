@@ -1,6 +1,6 @@
 {
     "name": "s2j-slug-generater",
-    "version": "2.0.24",
+    "version": "2.0.25",
     "description": "WordPress plugin for generating slugs using translation APIs",
     "type": "module",
     "author": "Koutarou ISHIKAWA",
@@ -55,13 +55,10 @@
         "dev": "vite build --mode development --watch",
         "postbuild:production:gutenberg": "node scripts/postbuild-gutenberg-i18n.mjs",
         "pretest:unit:php:local": "composer install --no-interaction --prefer-dist",
-        "pretest:unit:php": "composer install --no-interaction --prefer-dist",
-        "test:unit:php": "bash bin/phpunit-ci.sh",
         "prelint:php": "composer install --no-interaction --prefer-dist",
         "prephpstan": "composer install --no-interaction --prefer-dist",
         "prephpcs": "composer install --no-interaction --prefer-dist",
         "prephpcs:wpcs": "composer install --no-interaction --prefer-dist",
-        "wp-env": "wp-env",
         "version:sync": "node scripts/sync-version.mjs",
         "version:check": "node scripts/sync-version.mjs --check",
         "postversion": "npm run version:sync && git add s2j-slug-generater.php src/gutenberg/block.json"
@@ -72,13 +69,13 @@
     },
     "devDependencies": {
         "@eslint/js": "^10.0.1",
-        "@s2j/docs-linter": "^1.0.30",
+        "@s2j/docs-linter": "^1.0.31",
         "@types/jquery": "^4.0.1",
-        "@types/node": "^26.6.5",
+        "@types/node": "^26.6.6",
         "@types/react": "^19.3.0",
         "@types/react-dom": "^19.3.0",
-        "@typescript-eslint/eslint-plugin": "^8.72.0",
-        "@typescript-eslint/parser": "^8.72.0",
+        "@typescript-eslint/eslint-plugin": "^8.72.1",
+        "@typescript-eslint/parser": "^8.72.1",
         "@typescript/native": "npm:typescript@^7.0.2",
         "@wordpress/api-fetch": "^8.0.0",
         "@wordpress/block-editor": "^19.0.0",
@@ -99,7 +96,7 @@
         "eslint-plugin-react": "7.37.5",
         "eslint-plugin-react-hooks": "^7.1.1",
         "patch-package": "^8.0.1",
-        "sass": "^1.106.1",
+        "sass": "^1.107.0",
         "stylelint": "^17.16.0",
         "stylelint-config-standard-scss": "^17.0.0",
         "typescript": "npm:@typescript/typescript6@^6.0.2",
@@ -108,5 +105,8 @@
     "allowScripts": {
         "@s2j/docs-linter": true,
         "@wordpress/env": true
+    },
+    "overrides": {
+        "qs": "6.17.1"
     }
 }
