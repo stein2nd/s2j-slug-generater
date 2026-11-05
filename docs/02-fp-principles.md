@@ -48,14 +48,14 @@ Clean Architecture から下記だけを借用します。レイヤ名の儀式�
 * 内側 (ビジネスロジック) は、フレームワークを知らない
 * 外側 (Adapter / Facade) は、詳細で置換可能
 
-## 旧 SPEC (デザインパターン) → FOP 写像
+## 旧 SPEC (デザインパターン) → FOP マッピング
 
 | 旧 SPEC | FOP での置き方 |
 | --- | --- |
 | Template Method | 外側オーケストレータが順序を決める。各ステップは純関数 or 注入された Adapter |
 | Abstract Factory | `TranslationProvider` / `SimilarityAiProvider` レジストリ (データ + 関数)。Factory クラス階層は置かない |
 | Strategy (類似度) | 記述子の `compare` を注入。必要なら薄い Similarity Adapter |
-| 手続き的 UI 手順 | イベント → (純な状態写像 or effect) → 表示更新 |
+| 手続き的 UI 手順 | イベント → (純な状態マッピング or effect) → 表示更新 |
 | 神クラス | 純関数群 + 薄い Facade / Orchestrator + Adapter |
 
 ## レイヤ分け (読みやすさ優先の薄い分割)
@@ -68,7 +68,7 @@ Clean Architecture から下記だけを借用します。レイヤ名の儀式�
 flowchart TB
   F["1<br/>WP 境界 Facade<br/>REST / Settings / UI<br/>← オブジェクト指向・短い入口"]
   O["2<br/>Orchestrator<br/>順序の合成のみ<br/>← 薄く保つ"]
-  P["3<br/>Pure domain<br/>正規化・閾値・整形・写像<br/>← 関数型プログラミング"]
+  P["3<br/>Pure domain<br/>正規化・閾値・整形・マッピング<br/>← 関数型プログラミング"]
   A["4<br/>Effect adapters<br/>翻訳 / Similarity / WP<br/>← オブジェクト指向 Adapter"]
 
   F --> O

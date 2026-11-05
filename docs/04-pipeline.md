@@ -92,7 +92,7 @@ generateCandidate(title, config, deps) =
        }))
 ```
 
-### UI への写像
+### UI へのマッピング
 
 `ReversedText` は、UI に出しません。
 
@@ -136,5 +136,5 @@ API キーは、サーバー Option にとどめ、ブラウザにさらしま�
 | 入口 | 外枠 | 中身 |
 | --- | --- | --- |
 | REST `POST .../generate` | Facade が認可・パース | `generateCandidate` |
-| Gutenberg / Classic「候補生成」 | REST 呼び出し Adapter | 返却を UI 状態に純写像 |
+| Gutenberg / Classic「候補生成」 | REST 呼び出し Adapter | 返却を UI 状態に純マッピング |
 | 「スラッグ化」 | `applySlug` Adapter | `normalizeToSlug` (accepted 時のみ) |

@@ -29,7 +29,7 @@ EditorPanelState = {
   accepted: bool                   // REST data.accepted
 }
 
-// REST 成功 data (snake_case) を写像する
+// REST 成功 data (snake_case) をマッピングする
 onGenerateSuccess(state, success) = {
   ...state,
   candidate: success.translated_title || success.candidates[0] || "",
@@ -71,6 +71,6 @@ Command はクラスにせず、ハンドラ関数で十分です (振る舞い�
 
 | 操作 | コマンド | 内側 | 外枠 |
 | --- | --- | --- | --- |
-| 候補生成 | `GenerateCandidate` | レスポンス → state 写像 | REST |
+| 候補生成 | `GenerateCandidate` | レスポンス → state マッピング | REST |
 | 候補手編集 | `EditCandidate` | state.candidate 更新 | — |
 | スラッグ化 | `ApplySlug` | `normalizeToSlug` (`accepted` 必須) | `applySlug` |

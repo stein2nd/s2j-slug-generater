@@ -16,6 +16,14 @@ Composer 本番依存 (`s2j/similarity-service` 等) に既知 advisory が出�
 
 ## unreleased
 
+## 2.0.26 - 2026-11-05
+
+### Changed
+
+* ドキュメント (`docs/specs.md`、`02-fp-principles`、`04-pipeline`、`08-editor`、`09-rest`、`10-build-and-i18n`) の用語・表現を整理 (docs-lint 向け)
+* npm 開発依存の更新: `@wordpress/*` パッチ〜 minor (例: `@wordpress/block-editor` ^20、`@wordpress/components` ^44、`@wordpress/env` ^12.1.0)、`stylelint` ^18、`vite` ^8.3.6、`eslint` ^10.14、`sass` ^1.107.1、`@s2j/docs-linter` ^1.0.32 (`package.json` / `package-lock.json`)
+* Composer 依存 `s2j/similarity-service` を v2.0.17に更新、dev の `phpstan/phpstan` 2.3.5 (`composer.lock`)
+
 ## 2.0.25 - 2026-10-30
 
 ### Changed

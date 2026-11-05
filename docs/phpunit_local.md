@@ -1,6 +1,6 @@
 # S2J Slug Generater — PHPUnit (wp-env なし / Local 開発)
 
-**方針:** ローカル開発は wp-env 不要（下表の `test:unit:php:local`）。**GitHub Actions だけ** [`.github/workflows/phpunit.yml`](../.github/workflows/phpunit.yml) 内で `npx wp-env` を使う（`package.json` の scripts には wp-env を載せない）。
+**方針:** ローカル開発は wp-env 不要 (下表の `test:unit:php:local`)。**GitHub Actions だけ** [`.github/workflows/phpunit.yml`](../.github/workflows/phpunit.yml) 内で `npx wp-env` を使う (`package.json` の scripts には wp-env を載せない)。
 
 ## 正本
 
@@ -18,9 +18,9 @@ MySQL / `svn` / `.env.tests`、開発 DB `local` を使わない方針などの�
 | コマンド | 件数 | 備考 |
 | --- | --- | --- |
 | `npm run test:unit:php:unit-only` | 4 | PHP + Composer のみ |
-| `npm run test:unit:php:local` | 5 | `tests/smoke-local.sh`（初回 MySQL + svn で test lib 取得） |
+| `npm run test:unit:php:local` | 5 | `tests/smoke-local.sh` (初回 MySQL + svn で test lib 取得) |
 | `composer test:unit` / `composer test:all` | 4 / 5 | Node 不要 |
-| （CI） | 5 | `phpunit.yml`: `npx wp-env start` → コンテナ内 `bin/phpunit-ci.sh` |
+| (CI) | 5 | `phpunit.yml`: `npx wp-env start` → コンテナ内 `bin/phpunit-ci.sh` |
 
 ```bash
 composer install
@@ -36,6 +36,6 @@ npm run test:unit:php:local
 | `tests/bootstrap-unit.php` / `tests/bootstrap.php` | bootstrap |
 | `tests/smoke-local.sh` | ローカル5件 |
 | `bin/install-wp-tests.sh` | テスト lib + `wordpress_test` |
-| `bin/phpunit-ci.sh` | CI（wp-env コンテナ内）用5件 |
+| `bin/phpunit-ci.sh` | CI (wp-env コンテナ内) 用5件 |
 | `.github/workflows/phpunit.yml` | CI のみ `npx wp-env` |
 | `tests/.wordpress` / `tests/.wordpress-tests-lib` | 初回 install 成果物 (gitignore) |

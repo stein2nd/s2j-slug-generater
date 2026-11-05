@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "s2j/similarity-service",
-            "version": "v2.0.16",
+            "version": "v2.0.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stein2nd/s2j-similarity-service.git",
-                "reference": "3e0bf2108c9d144bb5319e464c043d9f44188171"
+                "reference": "350ba75c55ad017cd3f8d4b087af3bae3dc5d38d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stein2nd/s2j-similarity-service/zipball/3e0bf2108c9d144bb5319e464c043d9f44188171",
-                "reference": "3e0bf2108c9d144bb5319e464c043d9f44188171",
+                "url": "https://api.github.com/repos/stein2nd/s2j-similarity-service/zipball/350ba75c55ad017cd3f8d4b087af3bae3dc5d38d",
+                "reference": "350ba75c55ad017cd3f8d4b087af3bae3dc5d38d",
                 "shasum": ""
             },
             "require": {
@@ -51,10 +51,10 @@
             "description": "A pure PHP library for semantic similarity detection.",
             "support": {
                 "issues": "https://github.com/stein2nd/s2j-similarity-service/issues",
-                "source": "https://github.com/stein2nd/s2j-similarity-service/tree/v2.0.16"
+                "source": "https://github.com/stein2nd/s2j-similarity-service/tree/v2.0.17"
             },
-            "time": "2026-10-29T10:12:27+00:00",
-            "published-time": "2026-10-29T10:12:37+00:00"
+            "time": "2026-11-05T10:12:38+00:00",
+            "published-time": "2026-11-05T10:12:44+00:00"
         }
     ],
     "packages-dev": [
@@ -697,11 +697,11 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.3.4",
+            "version": "2.3.5",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/f20ce6f3c82556cfcfc086b152445a12d1d64fff",
-                "reference": "f20ce6f3c82556cfcfc086b152445a12d1d64fff",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/645a1bd6bead15fc1b8474137467961d0fa30a79",
+                "reference": "645a1bd6bead15fc1b8474137467961d0fa30a79",
                 "shasum": ""
             },
             "require": {
@@ -757,8 +757,8 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-10-28T22:38:53+00:00",
-            "published-time": "2026-10-28T22:39:06+00:00"
+            "time": "2026-11-03T12:14:22+00:00",
+            "published-time": "2026-11-03T12:14:36+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",

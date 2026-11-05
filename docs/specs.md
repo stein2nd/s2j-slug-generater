@@ -34,7 +34,7 @@ WordPress プラグインでは、貢献者が追いやすい **FOP 寄り** を
    * 依存の接続、外部 API、WP hooks / REST / DOM / Gutenberg store など **副作用と境界** をオブジェクト (または明確なアダプタモジュール) で包む。
    * 振る舞いに関するパターン (Strategy / Command 等) は、**クラス階層ではなく、高階関数・クロージャ** で足りるなら後者を選ぶ (GoF デザインパターンの堅牢性 + 関数型プログラミングの簡素さ)。
 3. データの中身を関数型プログラミングに担当させる
-   * スラッグ正規化、類似度のパーセント変換、閾値判定、UI 状態の更新写像など **ビジネスロジック** は、純粋関数と不変データに閉じる。
+   * スラッグ正規化、類似度のパーセント変換、閾値判定、UI 状態の更新マッピングなど **ビジネスロジック** は、純粋関数と不変データに閉じる。
 
 ```mermaid
 flowchart TD
@@ -53,7 +53,7 @@ flowchart TD
     subgraph InnerContents ["中身 = 関数型プログラミング (ビジネスロジック)"]
         direction TB
         r1["不変の PluginConfig / 結果レコード"]
-        r2["純粋関数 (正規化、閾値、整形、状態の写像)"]
+        r2["純粋関数 (正規化、閾値、整形、状態のマッピング)"]
         r3["パイプライン合成 (継承テンプレートの代わり)"]
     end
 
@@ -88,7 +88,7 @@ flowchart TD
 | 文書 | 内容 |
 | --- | --- |
 | [01-overview.md](./01-overview.md) | プラグイン概要、メタ情報 |
-| [02-fp-principles.md](./02-fp-principles.md) | FOP + Clean Coding の詳細・写像 |
+| [02-fp-principles.md](./02-fp-principles.md) | FOP + Clean Coding の詳細・マッピング |
 | [03-domain-model.md](./03-domain-model.md) | 不変データ (型・設定・結果) |
 | [04-pipeline.md](./04-pipeline.md) | 候補生成 / スラッグ化パイプライン |
 | [05-providers.md](./05-providers.md) | 翻訳プロバイダ (外枠 Adapter + データ) |

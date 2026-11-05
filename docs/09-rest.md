@@ -45,7 +45,7 @@ POST /wp-json/s2j-slug-generater/v1/generate
 
 ### 出力 (失敗) — ドメインエラーは `HTTP 400`
 
-`GenerateFailure` → HTTP JSON の写像は、Facade / 応答 Adapter の責務です。
+`GenerateFailure` → HTTP JSON のマッピングは、Facade / 応答 Adapter の責務です。
 
 ```json
 {

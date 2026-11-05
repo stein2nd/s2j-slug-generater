@@ -27,7 +27,7 @@ s2j-slug-generater/
 │├─ vite-env.d.ts
 │├─ admin/                  # 設定画面用アセット (スタイル中心)
 │├─ classic/                # Title 直下パネル UI
-│├─ domain/panel.ts         # エディター共有の純写像 / normalizeToSlug
+│├─ domain/panel.ts         # エディター共有の純マッピング / normalizeToSlug
 │├─ gutenberg/              # PluginDocumentSettingPanel UI
 │├─ styles/
 │└─ types/                  # WP モジュール shim 等
@@ -82,7 +82,7 @@ npm 依存バージョンは、「[S2J Alliance Manager](https://github.com/stei
 
 * `__()` / `_e()`、JS は `@wordpress/i18n`
 * `languages/`、`.pot` は `makepot`、Text Domain `s2j-slug-generater`
-* WordPress のロケールファイル名は `{domain}-{locale}` (ハイフン)。Poedit 既定の `{domain}.{locale}` では読み込まれない
+* WordPress のロケールファイル名は `{domain}-{locale}` (ハイフン)。Poedit デフォルトの `{domain}.{locale}` では読み込まれない
   * 例: `s2j-slug-generater-ja.po` / `.mo` (日本語サイトの locale は `ja`)
 * Gutenberg は `wp_set_script_translations` + Jed JSON が必要。`.mo` だけでは編集画面は変わらない
   * `npm run makejson` で `s2j-slug-generater-ja-s2j-slug-generater-gutenberg.json` を生成する
@@ -95,6 +95,6 @@ npm 依存バージョンは、「[S2J Alliance Manager](https://github.com/stei
 | --- | --- |
 | 翻訳 API 追加 | レジストリに記述子 + `translate` を1件 |
 | 類似度 AI 追加 | レジストリに記述子 + `compare` を1件。案内 URL とモデル一覧は記述子から |
-| 類似度戦略の変更 | 選択中記述子の `compare` / Adapter の差し替え |
+| 類似度戦略の変更 | 選択中の記述子の `compare` / Adapter の差し替え |
 | 候補ランキング | `GenerateSuccess` を純関数で enrich |
 | wp-cli | 同じ `generateCandidate` を CLI Facade から呼ぶ |

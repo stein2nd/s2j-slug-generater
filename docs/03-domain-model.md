@@ -22,7 +22,7 @@ SimilarityRatio  = float in [0.0, 1.0]       // コサイン類似度
 SimilarityPercent = float in [0.0, 100.0]    // 表示・REST 用
 Threshold        = SimilarityRatio           // 設定値
 ProviderId       = "deepl" | "google" | ...
-SimilarityAiProviderId = "openai" | ...      // 埋め込み（類似度）用 AI
+SimilarityAiProviderId = "openai" | ...      // 埋め込み (類似度) 用 AI
 DeeplApiPlan     = "auto" | "free" | "pro"   // DeepL ホスト解決用
 ```
 
@@ -36,8 +36,8 @@ PluginConfig = {
   translationApiKey: string
   sourceLanguage: LanguageCode          // default: "ja"
   similarityAiProviderId: SimilarityAiProviderId  // default: "openai"
-  similarityAiApiKey: string            // 類似度（埋め込み）用 AI サービスの API キー
-  similarityAiModel: string             // 類似度（埋め込み）用 AI モデル。選択中プロバイダの default に従う
+  similarityAiApiKey: string            // 類似度 (埋め込み) 用 AI サービスの API キー
+  similarityAiModel: string             // 類似度 (埋め込み) 用 AI モデル。選択中プロバイダの default に従う
   locale: Locale                        // default: "ja_JP" (設定保持。現行 Similarity 呼び出しには未使用)
   similarityThreshold: Threshold        // default: 0.8
   deeplApiPlan: DeeplApiPlan            // default: "auto" (DeepL 以外では無視)
