@@ -16,6 +16,14 @@ Composer 本番依存 (`s2j/similarity-service` 等) に既知 advisory が出�
 
 ## unreleased
 
+## 2.0.27 - 2026-11-20
+
+### Changed
+
+* GitHub Actions: `runs-on` を `ubuntu-24.04`、`node-version` **24**、`actions/checkout@v5` / `setup-node@v5` / `upload-artifact@v6` に更新 (Node v20非推奨・`ubuntu-latest` → v26予告の Annotations 対応。`version-check` に `setup-node` を追加)
+* npm 開発依存の更新: `@wordpress/*` パッチ (例: `@wordpress/components` ^45、`@wordpress/env` ^12.2.0)、`@typescript-eslint/*` ^8.73、`vite` ^8.3.8、`stylelint` ^18.1 / `stylelint-config-standard-scss` ^18、`sass` ^1.108.2、`eslint` ^10.15、`@s2j/docs-linter` ^1.0.34
+* Composer: `s2j/similarity-service` **v2.0.19**、dev `phpstan/phpstan` 2.3.7 (`composer.lock`)
+
 ## 2.0.26 - 2026-11-05
 
 ### Changed
